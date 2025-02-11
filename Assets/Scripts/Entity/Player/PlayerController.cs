@@ -58,7 +58,12 @@ namespace Entity.Player {
             if (_isGrounded) {
                 _rb2D.velocity = new Vector2(input * _speed, _rb2D.velocity.y);
             } else {
-                _rb2D.velocity = new Vector2(input * _speed * 0.5f, _rb2D.velocity.y);
+                _rb2D.velocity = new Vector2(input * _speed, _rb2D.velocity.y);
+            }
+            if (_rb2D.velocity.y < 0 && !_isGrounded) {
+                _rb2D.gravityScale = 2f;
+            } else {
+                _rb2D.gravityScale = 1f;
             }
         }
 
