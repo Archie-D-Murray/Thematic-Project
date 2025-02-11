@@ -8,12 +8,11 @@ public class MovingPlatform : MonoBehaviour
 {
     Rigidbody2D platform;
     Transform pos1, pos2, currTarget;
-    float speed;
+    [SerializeField] private float speed;
 
     // Start is called before the first frame update
     void Start()
     {
-        speed = 3.0f;
         platform = GetComponentInChildren<Rigidbody2D>();
         pos1 = transform.Find("Pos1");
         pos2 = transform.Find("Pos2");
