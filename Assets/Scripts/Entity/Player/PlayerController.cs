@@ -49,7 +49,7 @@ namespace Entity.Player {
             }
             _canJump = _isGrounded || _coyoteTimer.IsRunning;
             float input = Input.GetAxisRaw("Horizontal");
-            if (Input.GetKey(KeyCode.Space) && _canJump && !_isJumping) {
+            if (Input.GetKeyDown(KeyCode.Space) && _canJump && !_isJumping) {
                 _rb2D.velocity += Vector2.up * _jumpForce;
                 _canJump = false;
                 _isJumping = true;
