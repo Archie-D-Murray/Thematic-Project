@@ -5,19 +5,9 @@ using UnityEditor.Rendering;
 
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+public class Projectile : MovingPlatform 
 {
-
-    [SerializeField] private float speed;
-
-    void Start()
-    {
+    private void OnCollisionEnter2D(Collision2D collision) {
         
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-       // transform.position.y = transform.position.y+speed*Time.deltaTime;
     }
 }
