@@ -1,22 +1,12 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 using Utilities;
 
 namespace UI {
     public class UIManager : Singleton<UIManager> {
-        [SerializeField] private UIMouseDetector[] _uiDetectors;
-
-        private void Start() {
-            _uiDetectors = FindObjectsOfType<UIMouseDetector>();
-        }
-
         public bool IsHovered() {
-            foreach (UIMouseDetector detector in _uiDetectors) {
-                if (detector.IsHovered()) {
-                    return true;
-                }
-            }
-            return false;
+            return EventSystem.current.IsPointerOverGameObject(); // GameObject in question is canvas...
         }
     }
 }
