@@ -127,9 +127,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5
-  _jumpForce: 12.5
+  _jumpForce: 7.5
   _dashForce: 10
-  _dashTime: 1
+  _dashTime: 0.5
   _isGrounded: 0
   _canJump: 0
   _canDash: 1

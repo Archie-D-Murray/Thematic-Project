@@ -9,9 +9,9 @@ namespace Entity.Player {
 
     public class PlayerController : MonoBehaviour {
         [SerializeField] private float _speed = 5f;
-        [SerializeField] private float _jumpForce = 10f;
+        [SerializeField] private float _jumpForce = 7.5f;
         [SerializeField] private float _dashForce = 10f;
-        [SerializeField] private float _dashTime = 1f;
+        [SerializeField] private float _dashTime = 0.5f;
         [SerializeField] private bool _isGrounded = false;
         [SerializeField] private bool _canJump = false;
         [SerializeField] private bool _canDash = true;
