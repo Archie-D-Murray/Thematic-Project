@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2474167098541458933}
   - component: {fileID: 6592681512043151013}
   m_Layer: 0
-  m_Name: Square
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -128,15 +128,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 5
   _jumpForce: 12.5
+  _dashForce: 10
+  _dashTime: 1
   _isGrounded: 0
   _canJump: 0
+  _canDash: 1
   _ground:
     serializedVersion: 2
     m_Bits: 8
   _isJumping: 0
+  _isDashing: 0
   _coyoteTimeTrigger: 0
   _coyoteTimer:
     _initialTime: 0.25
+    _time: 0
+  _dashTimer:
+    _initialTime: 0
     _time: 0
 --- !u!58 &6592681512043151013
 CircleCollider2D:

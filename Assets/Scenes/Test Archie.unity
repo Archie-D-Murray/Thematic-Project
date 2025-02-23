@@ -243,7 +243,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e224ef8658f482667b9c1acaaa228a59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _uiDetectors: []
 --- !u!4 &946801964
 Transform:
   m_ObjectHideFlags: 0
@@ -1028,7 +1027,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cba253ec68bb13deb93c8ba786f48e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 0}
 --- !u!1 &2010487162
 GameObject:
   m_ObjectHideFlags: 0
@@ -1141,7 +1139,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1805969746859448537, guid: 20680e3256c00894fb24c7460f448a7d, type: 3}
       propertyPath: m_Name
-      value: Square
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 2474167098541458933, guid: 20680e3256c00894fb24c7460f448a7d, type: 3}
+      propertyPath: _dashTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2474167098541458933, guid: 20680e3256c00894fb24c7460f448a7d, type: 3}
+      propertyPath: _dashForce
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2474167098541458933, guid: 20680e3256c00894fb24c7460f448a7d, type: 3}
+      propertyPath: _jumpForce
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 2537927423782179725, guid: 20680e3256c00894fb24c7460f448a7d, type: 3}
       propertyPath: m_LocalPosition.x
