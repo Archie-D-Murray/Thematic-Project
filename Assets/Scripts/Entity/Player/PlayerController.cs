@@ -8,6 +8,14 @@ using Utilities;
 namespace Entity.Player {
 
     public class PlayerController : MonoBehaviour {
+
+        static class PlayerAnimations {
+            public static int Idle = Animator.StringToHash("Player_Idle");
+            public static int Walk = Animator.StringToHash("Player_Walk");
+            public static int Fall = Animator.StringToHash("Player_Fall");
+            public static int Jump = Animator.StringToHash("Player_Jump");
+        }
+
         [SerializeField] private float _speed = 5f;
         [SerializeField] private float _jumpForce = 7.5f;
         [SerializeField] private float _dashForce = 10f;
@@ -21,16 +29,20 @@ namespace Entity.Player {
         [SerializeField] private bool _isDashing = false;
 
         [SerializeField] private bool _coyoteTimeTrigger = false;
+        float input;
+        private int currentAnimation;
 
         [SerializeField] private CountDownTimer _coyoteTimer = new CountDownTimer(0.25f);
         [SerializeField] private CountDownTimer _dashTimer = new CountDownTimer(0f);
 
         private Rigidbody2D _rb2D;
         private SpriteRenderer _renderer;
+        private Animator _animator;
 
         void Start() {
             _rb2D = GetComponent<Rigidbody2D>();
             _renderer = GetComponent<SpriteRenderer>();
+            _animator = GetComponent<Animator>();
             _coyoteTimer.OnTimerStart += () => _canJump = true;
             _coyoteTimer.OnTimerStop += () => _canJump = false;
             _dashTimer.OnTimerStart += () => { _canDash = false; _isDashing = true; };
@@ -54,7 +66,7 @@ namespace Entity.Player {
             _coyoteTimer.Update(Time.fixedDeltaTime);
             _dashTimer.Update(Time.fixedDeltaTime);
             _canJump = _isGrounded || _coyoteTimer.IsRunning;
-            float input = Input.GetAxisRaw("Horizontal");
+            input = Input.GetAxisRaw("Horizontal");
             if (Input.GetKey(KeyCode.Space) && _canJump && !_isJumping) {
                 _rb2D.velocity += Vector2.up * _jumpForce;
                 _canJump = false;
@@ -80,6 +92,9 @@ namespace Entity.Player {
                 _rb2D.velocity = new Vector2(_rb2D.velocity.x, _rb2D.velocity.y);
                 _rb2D.gravityScale = 0.25f;
             }
+
+
+            UpdateAnimations();
         }
 
         private bool GetGrounded() {
@@ -89,6 +104,32 @@ namespace Entity.Player {
             } else {
                 return false;
             }
+        }
+
+
+        private void UpdateAnimations() {
+            if (input < 0f) {
+                _renderer.flipX = false;
+            } else if (input > 0f) {
+                _renderer.flipX = true;
+            }
+
+            if (_rb2D.velocity.y > 0.1f) {
+
+                PlayAnimation(PlayerAnimations.Jump);
+            } else if (_rb2D.velocity.y < -0.1f) {
+                PlayAnimation(PlayerAnimations.Fall);
+            } else if (_rb2D.velocity.x > 0.1f || _rb2D.velocity.x < -0.1f) {
+                PlayAnimation(PlayerAnimations.Walk);
+            } else {
+                PlayAnimation(PlayerAnimations.Idle);
+            }
+        }
+
+        private void PlayAnimation(int animation) {
+            if (currentAnimation == animation) { return; }
+            currentAnimation = animation;
+            _animator.Play(animation);
         }
     }
 }
