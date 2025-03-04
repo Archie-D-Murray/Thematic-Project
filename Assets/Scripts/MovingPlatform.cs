@@ -9,6 +9,7 @@ public class MovingPlatform : MonoBehaviour
     Rigidbody2D platform;
     Transform pos1, pos2, currTarget;
     [SerializeField] private float speed;
+    [SerializeField] private bool reset;
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +29,11 @@ public class MovingPlatform : MonoBehaviour
             currTarget = pos2;
         }
         else if(Vector2.Distance(pos2.position, platform.transform.position) <= 0.1) {
-            currTarget = pos1;
+            if (reset) {
+                platform.transform.position = pos1.position;
+            } else {
+                currTarget = pos1;
+            }
         }
     }
 }
