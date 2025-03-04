@@ -8,11 +8,11 @@ public class SaveManagerEditor : Editor {
         DrawDefaultInspector();
         SaveManager manager = target as SaveManager;
         if (GUILayout.Button("Save")) {
-            manager.Save();
+            manager.Save("Level");
         }
 
         if (GUILayout.Button("Load")) {
-            manager.Load();
+            manager.Load("Level");
         }
     }
 }
