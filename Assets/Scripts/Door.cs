@@ -1,20 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
+
+using Data;
+
 using UnityEngine;
 
-public class Door : MonoBehaviour
-{
+public class Door : MonoBehaviour {
     [SerializeField] bool open;
     SpriteRenderer doorSprite;
     BoxCollider2D doorCollider;
+    private DoorButton _button;
 
-    private void Start() {
+    public DoorButton Button {
+        get {
+            if (!_button) {
+                _button = GetComponentInChildren<DoorButton>();
+            }
+            return _button;
+        }
+    }
+
+    private void Awake() {
         open = false;
+        _button = GetComponentInChildren<DoorButton>();
         doorSprite = GetComponentInChildren<SpriteRenderer>();
         doorCollider = GetComponentInChildren<BoxCollider2D>();
     }
 
-    public void toggle() {
+    public void Toggle() {
         open = !open;
     }
 
@@ -25,6 +38,18 @@ public class Door : MonoBehaviour
         } else {
             doorSprite.enabled = true;
             doorCollider.enabled = true;
+        }
+    }
+
+    public DoorData ToSaveData() {
+        return new DoorData(transform.position, _button.transform.position, open);
+    }
+
+    public void LoadSaveData(DoorData data) {
+        transform.position = data.DoorPosition;
+        _button.transform.position = data.ButtonPosition;
+        if (data.Open != open) {
+            Toggle();
         }
     }
 

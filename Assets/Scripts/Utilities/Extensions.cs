@@ -35,7 +35,7 @@ public static class Extensions {
     /// <typeparam name="T">Component Type</typeparam>
     /// <param name="gameObject">GameObject to check for component on</param>
     /// <returns>If the component is present</returns>
-    public static bool Has<T>(this GameObject gameObject) where T : Component {
+    public static bool HasComponent<T>(this GameObject gameObject) where T : Component {
         return gameObject.GetComponent<T>() != null;
     }
 
