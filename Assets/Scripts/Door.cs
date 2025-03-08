@@ -3,9 +3,11 @@ using System.Collections.Generic;
 
 using Data;
 
+using LevelEditor;
+
 using UnityEngine;
 
-public class Door : MonoBehaviour {
+public class Door : Placeable {
     [SerializeField] bool open;
     SpriteRenderer doorSprite;
     BoxCollider2D doorCollider;
@@ -20,11 +22,16 @@ public class Door : MonoBehaviour {
         }
     }
 
+    protected override Transform[] GetMoveables() {
+        return new Transform[] { transform, Button.transform };
+    }
+
     private void Awake() {
         open = false;
         _button = GetComponentInChildren<DoorButton>();
         doorSprite = GetComponentInChildren<SpriteRenderer>();
         doorCollider = GetComponentInChildren<BoxCollider2D>();
+        _moveables = GetMoveables();
     }
 
     public void Toggle() {
