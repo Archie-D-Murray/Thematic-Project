@@ -11,40 +11,54 @@ using UnityEngine.UI;
 
 using Utilities;
 
+using Tags.UI;
+using TMPro;
+
 namespace LevelEditor {
     public class ObstacleEditor : MonoBehaviour, ISerialize {
-        [SerializeField] private List<Door> _doors = new List<Door>();
-        [SerializeField] private GameObject _doorPrefab;
+        [SerializeField] private List<Placeable> _placeables = new List<Placeable>();
+        [SerializeField] private ObstacleData[] _obstacleData;
         [SerializeField] private LayerMask _obstacleMask;
+        [SerializeField] private GameObject _obstaclePanelPrefab;
 
         [SerializeField] private Transform _move;
         [SerializeField] private Placeable _selected = null;
 
-        [SerializeField] private Button _spawnButton;
-
         [SerializeField] private int _index = 0;
 
+        private Dictionary<ObstacleType, ObstacleData> _obstacleLookup = new Dictionary<ObstacleType, ObstacleData>();
+
         private void Start() {
-            foreach (Door door in FindObjectsOfType<Door>()) {
-                _doors.Add(door);
+            foreach (ObstacleData data in _obstacleData) {
+                _obstacleLookup.Add(data.Obstacle, data);
+                GameObject panel = Instantiate(_obstaclePanelPrefab, transform);
+                panel.GetComponentsInChildren<Image>().First(image => image.gameObject.HasComponent<IconTag>()).sprite = data.Sprite;
+                panel.GetComponentsInChildren<TMP_Text>().First(text => text.gameObject.HasComponent<ReadoutTag>()).text = $"[{data.Key}]";
             }
-            _spawnButton = GetComponent<Button>();
-            _spawnButton.onClick.AddListener(OnSpawnDoor);
-            _spawnButton.GetComponentsInChildren<Image>().First(image => image.transform != transform).sprite =
-                _doorPrefab.GetComponent<SpriteRenderer>().sprite; // Auto update sprite for button when we make asset
-            _obstacleMask = 1 << LayerMask.NameToLayer("Door");
+            foreach (Placeable placeable in FindObjectsOfType<Placeable>()) {
+                _placeables.Add(placeable);
+            }
+            _obstacleMask = 1 << LayerMask.NameToLayer("Obstacle");
         }
 
-        private void OnSpawnDoor() {
-            _doors.Add(Instantiate(_doorPrefab, Helpers.Instance.TileMapMousePosition, Quaternion.identity).GetComponent<Door>());
-            _selected = _doors.Last();
+        private void OnSpawn(ObstacleData data) {
+            _placeables.Add(Instantiate(data.Prefab, Helpers.Instance.TileMapMousePosition, Quaternion.identity).GetComponent<Placeable>());
+            _selected = _placeables.Last();
+            _selected.StartPlacement();
             _selected.InitReferences();
             _move = _selected.GetInitial();
             _index = 0;
         }
 
         private void Update() {
+            foreach (ObstacleData data in _obstacleData) {
+                if (Input.GetKeyDown(data.Key)) {
+                    OnSpawn(data);
+                    return;
+                }
+            }
             if (Input.GetKeyDown(KeyCode.Escape) || (!UIManager.Instance.IsHovered() && Input.GetMouseButtonDown(0))) {
+                _selected.FinishPlacement();
                 _selected = null;
                 _move = null;
                 EventSystem.current.SetSelectedGameObject(null); // Space can press button ffs
@@ -55,6 +69,7 @@ namespace LevelEditor {
                 RaycastHit2D hit = Physics2D.Raycast(Helpers.Instance.TileMapMousePosition, Vector2.down, 2.0f, _obstacleMask);
                 if (hit && hit.transform.TryGetComponent(out Placeable placeable)) {
                     _selected = placeable;
+                    _selected.StartPlacement();
                     _move = placeable.GetInitial();
                     _index = 0;
                 }
@@ -62,9 +77,9 @@ namespace LevelEditor {
 
             if (!_selected && (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.X))) {
                 RaycastHit2D hit = Physics2D.Raycast(Helpers.Instance.TileMapMousePosition, Vector2.down, 2.0f, _obstacleMask);
-                if (hit && hit.transform.TryGetComponent(out Door door)) {
-                    _doors.Remove(door);
-                    Destroy(door.gameObject);
+                if (hit && hit.transform.TryGetComponent(out Placeable placeable)) {
+                    _placeables.Remove(placeable);
+                    Destroy(placeable.gameObject);
                 }
             }
 
@@ -80,19 +95,33 @@ namespace LevelEditor {
         }
 
         public void OnLoad(LevelData data) {
-            Door[] doors = FindObjectsOfType<Door>();
-            foreach (Door door in _doors) {
-                Destroy(door);
+            Placeable[] placeables = FindObjectsOfType<Placeable>();
+            foreach (Placeable placeable in placeables) {
+                Destroy(placeable.gameObject);
             }
-            _doors.Clear();
+            _placeables.Clear();
             foreach (DoorData doorData in data.DoorData) {
-                Instantiate(_doorPrefab).GetComponent<Door>().LoadSaveData(doorData);
+                Door door = Instantiate(_obstacleLookup[ObstacleType.Door].Prefab).GetComponent<Door>();
+                _placeables.Add(door);
+                door.LoadSaveData(doorData);
             }
+            foreach (PlatformData platformData in data.PlatformData) {
+                MovingPlatform platform = Instantiate(_obstacleLookup[ObstacleType.Platform].Prefab).GetComponent<MovingPlatform>();
+                platform.LoadSaveData(platformData);
+            }
+            // TODO: Handle other obstacle types
         }
 
         public void OnSave(ref LevelData data) {
-            foreach (Door door in _doors) {
-                data.DoorData.Add(door.ToSaveData());
+            foreach (Placeable placeable in _placeables) {
+                if (placeable is Door) {
+                    Door door = placeable as Door;
+                    data.DoorData.Add(door.ToSaveData());
+                } else if (placeable is MovingPlatform) {
+                    MovingPlatform platform = placeable as MovingPlatform;
+                    data.PlatformData.Add(platform.ToSaveData());
+                }
+                // TODO: Handle other obstacle types
             }
         }
     }

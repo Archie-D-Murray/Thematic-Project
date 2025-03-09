@@ -64,7 +64,7 @@ namespace LevelEditor {
         }
 
         private void Update() {
-            if (Input.GetKeyDown(KeyCode.F1)) {
+            if (Input.GetKeyDown(KeyCode.F5)) {
                 if (_tilemapSelection.alpha > 0.0f) {
                     Disable();
                 } else {

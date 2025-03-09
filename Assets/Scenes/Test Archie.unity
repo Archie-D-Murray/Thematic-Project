@@ -258,6 +258,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1167246411 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6918606355768426791, guid: f32730dce0e30a046aee91a8d1add729, type: 3}
+  m_PrefabInstance: {fileID: 2950098464429634161}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1316905715
 GameObject:
   m_ObjectHideFlags: 0
@@ -995,6 +1000,32 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3377660670582186155, guid: f32730dce0e30a046aee91a8d1add729, type: 3}
   m_PrefabInstance: {fileID: 2950098464429634161}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2050655302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1167246411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 5
+    m_Right: 5
+    m_Top: 5
+    m_Bottom: 5
+  m_ChildAlignment: 0
+  m_Spacing: 10
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1001 &223571480494944782
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1169,22 +1200,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2010487166}
     m_Modifications:
-    - target: {fileID: 1358385128399127874, guid: f32730dce0e30a046aee91a8d1add729, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1358385128399127874, guid: f32730dce0e30a046aee91a8d1add729, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1358385128399127874, guid: f32730dce0e30a046aee91a8d1add729, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1358385128399127874, guid: f32730dce0e30a046aee91a8d1add729, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3377660670582186155, guid: f32730dce0e30a046aee91a8d1add729, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1269,10 +1284,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Obstacle Spawners
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3808995444374767404, guid: f32730dce0e30a046aee91a8d1add729, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6918606355768426791, guid: f32730dce0e30a046aee91a8d1add729, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2050655302}
   m_SourcePrefab: {fileID: 100100000, guid: f32730dce0e30a046aee91a8d1add729, type: 3}
 --- !u!1001 &3082349282824849470
 PrefabInstance:

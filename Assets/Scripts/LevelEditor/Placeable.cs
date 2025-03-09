@@ -3,14 +3,23 @@ using UnityEngine;
 namespace LevelEditor {
     public abstract class Placeable : MonoBehaviour {
         [SerializeField] protected Transform[] _moveables;
+        [SerializeField] protected bool _placing = false;
 
         protected abstract Transform[] GetMoveables();
 
         public void InitReferences() {
-            if (_moveables == null) {
+            if (_moveables == null || _moveables.Length < 1) {
                 Debug.Log("Manually inited Moveables");
                 _moveables = GetMoveables();
             }
+        }
+
+        public void StartPlacement() {
+            _placing = true;
+        }
+
+        public void FinishPlacement() {
+            _placing = false;
         }
 
         public Transform GetInitial() {
