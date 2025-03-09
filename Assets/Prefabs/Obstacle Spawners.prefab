@@ -136,6 +136,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   _obstaclePanelPrefab: {fileID: 4177552229862426420, guid: 47659bd70c8773e45bc240fed9c25817, type: 3}
+  _indicatorPrefab: {fileID: 1001116864399209700, guid: 1eb0541bcdf784047953ac07b35f196f, type: 3}
   _move: {fileID: 0}
   _selected: {fileID: 0}
   _index: 0

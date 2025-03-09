@@ -31,6 +31,7 @@ public class MovingPlatform : Placeable {
         GetPositions();
         InitReferences();
         currTarget = pos1.position;
+        OnPlaceFinish += () => currTarget = pos1.position;
     }
 
     void GetPositions() {

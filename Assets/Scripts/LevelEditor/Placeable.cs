@@ -1,9 +1,14 @@
+using System;
+
 using UnityEngine;
 
 namespace LevelEditor {
     public abstract class Placeable : MonoBehaviour {
         [SerializeField] protected Transform[] _moveables;
         [SerializeField] protected bool _placing = false;
+
+        protected Action OnPlaceStart = delegate { };
+        protected Action OnPlaceFinish = delegate { };
 
         protected abstract Transform[] GetMoveables();
 
@@ -16,10 +21,12 @@ namespace LevelEditor {
 
         public void StartPlacement() {
             _placing = true;
+            OnPlaceStart?.Invoke();
         }
 
         public void FinishPlacement() {
             _placing = false;
+            OnPlaceFinish?.Invoke();
         }
 
         public Transform GetInitial() {
