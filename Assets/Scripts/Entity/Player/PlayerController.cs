@@ -51,11 +51,13 @@ namespace Entity.Player {
         private Rigidbody2D _rb2D;
         private SpriteRenderer _renderer;
         private Animator _animator;
+        private BoxCollider2D _collider;
 
         void Start() {
             _rb2D = GetComponent<Rigidbody2D>();
             _renderer = GetComponent<SpriteRenderer>();
             _animator = GetComponent<Animator>();
+            _collider = GetComponent<BoxCollider2D>();
             //_coyoteTimer.OnTimerStart += () => _canJump = true;
             //_coyoteTimer.OnTimerStop += () => _canJump = false;
             _dashTimer.OnTimerStart += () => { _canDash = false; _isDashing = true; };
@@ -115,18 +117,19 @@ namespace Entity.Player {
                 } else {
                     _rb2D.velocity = new Vector2(input * _speed, _rb2D.velocity.y);
                 }
-                if (_rb2D.velocity.y < 0 && !_isGrounded) {
-                    _rb2D.gravityScale = 2f;
-                } else {
-                    _rb2D.gravityScale = 1f;
-                }
+                //if (_rb2D.velocity.y < 0 && !_isGrounded) {
+                //    _rb2D.gravityScale = 2f;
+                //} else {
+                //    _rb2D.gravityScale = 1f;
+                //}
+                UpdateGravity();
             } else {
                 _rb2D.velocity = new Vector2(_rb2D.velocity.x, _rb2D.velocity.y);
                 _rb2D.gravityScale = 0.25f;
             }
 
             UpdateCoyoteTime();
-            UpdateGravity();
+ 
             UpdateAnimations();
         }
 
@@ -144,13 +147,17 @@ namespace Entity.Player {
                 _coyoteTimeTrigger = false;
             }
         }
+        //private bool GetGrounded() {
+        //    RaycastHit2D hit = Physics2D.BoxCast(_rb2D.position, _renderer.size, 0f, Vector2.down, 0.04f, _ground);
+        //    if (hit) {
+        //        return hit.normal.y >= 0.75f;
+        //    } else {
+        //        return false;
+        //    }
+        //}
+
         private bool GetGrounded() {
-            RaycastHit2D hit = Physics2D.BoxCast(_rb2D.position, _renderer.size, 0f, Vector2.down, 0.04f, _ground);
-            if (hit) {
-                return hit.normal.y >= 0.75f;
-            } else {
-                return false;
-            }
+            return Physics2D.BoxCast(_collider.bounds.center, _collider.bounds.size, 0f, Vector2.down, .4f, _ground);
         }
 
         private void UpdateGravity() {
