@@ -48,22 +48,20 @@ public class SaveUI : MonoBehaviour
             }
             levelButtonList.Clear();
         }
-        int padding = 0;
         foreach (string file in Directory.GetFiles(Path.Combine(Application.dataPath, _saveDirectory))) {
             if (File.Exists(file) && file.EndsWith("json")) {
-                string[] fileLine = file.Split('\\');
-                Button newLevel = Instantiate(levelButtonPrefab, this.gameObject.transform);
-                newLevel.transform.position = new Vector2(selectionArea.position.x, selectionArea.position.y + padding);
-                padding += 100;
+                string fileLine = Path.GetFileNameWithoutExtension(file);
+                Button newLevel = Instantiate(levelButtonPrefab, selectionArea);
                 TMP_Text levelText = newLevel.GetComponentInChildren<TMP_Text>();
-                levelText.text = fileLine[fileLine.Length - 1].Replace(".json", "");
-                newLevel.onClick.AddListener(() => LoadLevel(levelText.text));
+                levelText.text = fileLine;
+                newLevel.onClick.AddListener(() => LoadLevel(fileLine));
                 levelButtonList.Add(newLevel);
             }
         }
     }
 
-    private void LoadLevel(string levelName) { 
+    private void LoadLevel(string levelName) {
+        Debug.Log($"Loading level: {levelName}");
         SaveManager.Instance.Load(levelName);
     }
 }

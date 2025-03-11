@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
+using Unity.VisualScripting;
+
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -40,6 +42,10 @@ namespace Entity.Player {
         [SerializeField] private bool _isDashing = false;
 
         [SerializeField] private bool _coyoteTimeTrigger = false;
+
+        private bool jumpPressed = false;
+        private bool jumpReleased = false;
+
         float input;
         private int currentAnimation;
 
@@ -67,8 +73,21 @@ namespace Entity.Player {
             fallGravity = _rb2D.gravityScale * 2f;
         }
 
+        void Update() {
+            if (_canJump && !_isJumping) {
+                if (Input.GetButtonDown("Jump")) {
+                    jumpPressed = true;
+                }
+                if (Input.GetButtonUp("Jump")) {
+                    jumpReleased = true;
+                }
+            }
+        }
+
         void FixedUpdate() {
             _isGrounded = GetGrounded();
+
+
             if (_isGrounded) {
                 //_coyoteTimeTrigger = true;
                 _isJumping = false;
@@ -89,16 +108,17 @@ namespace Entity.Player {
             //Jump Changes (Lucas)
             _canJump = _isGrounded || _coyoteTimeTrigger;
             if (_canJump && !_isJumping) {
-                if (Input.GetButtonDown("Jump")) {
+                if (jumpPressed) {
                     _rb2D.velocity = new Vector2(_rb2D.velocity.x, _jumpForce);
+                    jumpPressed = false;
                 }
-                if (Input.GetButtonUp("Jump") && _rb2D.velocity.y > 0) {
+                if (jumpReleased && _rb2D.velocity.y > 0) {
                     _rb2D.velocity = new Vector2(_rb2D.velocity.x, _rb2D.velocity.y / 2);
                     _isJumping = true;
+                    jumpReleased = false;
                 }
             }
             //END Jump Changes
-
 
             //if (Input.GetKey(KeyCode.Space) && _canJump && !_isJumping) {
             //    _rb2D.velocity += Vector2.up * _jumpForce;
