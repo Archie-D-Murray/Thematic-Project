@@ -48,9 +48,30 @@ namespace LevelEditor {
             }
             _selection.rectTransform.position = new Vector2(Screen.width * 2, Screen.height * 2);
             AddExistingTiles();
+            Disable();
+        }
+
+        private void Disable() {
+            _indicator.gameObject.SetActive(false);
+            _selection.gameObject.SetActive(false);
+            _tilemapSelection.FadeCanvas(0.5f, true, this);
+        }
+
+        private void Enable() {
+            _indicator.gameObject.SetActive(true);
+            _selection.gameObject.SetActive(true);
+            _tilemapSelection.FadeCanvas(0.5f, false, this);
         }
 
         private void Update() {
+            if (Input.GetKeyDown(KeyCode.F5)) {
+                if (_tilemapSelection.alpha > 0.0f) {
+                    Disable();
+                } else {
+                    Enable();
+                }
+            }
+            if (_tilemapSelection.alpha != 1.0f) { return; }
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mousePosition.z = 0;
             _indicator.transform.position = Vector3Int.FloorToInt(mousePosition) + new Vector3(0.5f, 0.5f, 0);
