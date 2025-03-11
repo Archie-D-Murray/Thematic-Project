@@ -20,7 +20,6 @@ namespace LevelEditor {
         [SerializeField] private ObstacleData[] _obstacleData;
         [SerializeField] private LayerMask _obstacleMask;
         [SerializeField] private GameObject _obstaclePanelPrefab;
-        [SerializeField] private GameObject _indicatorPrefab;
 
         [SerializeField] private Transform _move;
         [SerializeField] private Placeable _selected = null;
@@ -28,7 +27,6 @@ namespace LevelEditor {
         [SerializeField] private int _index = 0;
 
         private Dictionary<ObstacleType, ObstacleData> _obstacleLookup = new Dictionary<ObstacleType, ObstacleData>();
-        private SpriteRenderer _indicator;
 
         private void Start() {
             foreach (ObstacleData data in _obstacleData) {
@@ -41,8 +39,6 @@ namespace LevelEditor {
                 _placeables.Add(placeable);
             }
             _obstacleMask = 1 << LayerMask.NameToLayer("Obstacle");
-            _indicator = Instantiate(_indicatorPrefab).GetComponent<SpriteRenderer>();
-            _indicator.gameObject.SetActive(false);
         }
 
         private void OnSpawn(ObstacleData data) {
@@ -52,7 +48,6 @@ namespace LevelEditor {
             _selected.InitReferences();
             _move = _selected.GetInitial();
             _index = 0;
-            _indicator.gameObject.SetActive(true);
         }
 
         private void Update() {
@@ -67,7 +62,6 @@ namespace LevelEditor {
                 _selected = null;
                 _move = null;
                 EventSystem.current.SetSelectedGameObject(null); // Space can press button ffs
-                _indicator.gameObject.SetActive(false);
                 return;
             }
 
@@ -77,7 +71,6 @@ namespace LevelEditor {
                     _selected = placeable;
                     _selected.StartPlacement();
                     _move = placeable.GetInitial();
-                    _indicator.gameObject.SetActive(true);
                     _index = 0;
                 }
             }
@@ -98,7 +91,6 @@ namespace LevelEditor {
             }
             if (_selected && _move) {
                 _move.position = Helpers.Instance.TileMapMousePosition;
-                _indicator.transform.position = Helpers.Instance.TileMapMousePosition;
             }
         }
 

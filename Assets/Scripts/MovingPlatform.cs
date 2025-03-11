@@ -12,15 +12,19 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 public class MovingPlatform : Placeable {
-    Rigidbody2D platform;
-    [SerializeField] Transform pos1, pos2;
-    Vector3 currTarget;
+    private Rigidbody2D platform;
+    [SerializeField] private Transform pos1, pos2;
+    private SpriteRenderer[] _pointRenderers;
+    private Vector3 currTarget;
     [SerializeField] private float speed;
     [SerializeField] private bool reset;
 
     protected override Transform[] GetMoveables() {
         if (!pos1 || !pos2) {
             GetPositions();
+        }
+        if (_pointRenderers == null || _pointRenderers.Length < 1) {
+            _pointRenderers = new SpriteRenderer[2] { pos1.GetComponent<SpriteRenderer>(), pos2.GetComponent<SpriteRenderer>() };
         }
         return new Transform[] { transform, pos1, pos2 };
     }
@@ -29,9 +33,23 @@ public class MovingPlatform : Placeable {
     void Start() {
         platform = GetComponentInChildren<Rigidbody2D>();
         GetPositions();
-        InitReferences();
+        _moveables = GetMoveables();
         currTarget = pos1.position;
-        OnPlaceFinish += () => currTarget = pos1.position;
+        OnPlaceStart += PlacementStart;
+        OnPlaceFinish += PlacementFinish;
+    }
+
+    private void PlacementStart() {
+        foreach (SpriteRenderer renderer in _pointRenderers) {
+            renderer.Fade(Color.clear, Color.white, 0.5f, this);
+        }
+    }
+
+    private void PlacementFinish() {
+        currTarget = pos1.position;
+        foreach (SpriteRenderer renderer in _pointRenderers) {
+            renderer.Fade(Color.white, Color.clear, 0.5f, this);
+        }
     }
 
     void GetPositions() {
