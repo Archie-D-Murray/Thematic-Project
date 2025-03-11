@@ -35,7 +35,7 @@ public static class Extensions {
     /// <typeparam name="T">Component Type</typeparam>
     /// <param name="gameObject">GameObject to check for component on</param>
     /// <returns>If the component is present</returns>
-    public static bool Has<T>(this GameObject gameObject) where T : Component {
+    public static bool HasComponent<T>(this GameObject gameObject) where T : Component {
         return gameObject.GetComponent<T>() != null;
     }
 
@@ -62,6 +62,20 @@ public static class Extensions {
         spriteRenderer.material = flashMaterial;
         yield return Yielders.WaitForSeconds(duration);
         spriteRenderer.material = originalMaterial;
+    }
+
+    public static void Fade(this SpriteRenderer spriteRenderer, Color original, Color target, float duration, MonoBehaviour monoBehaviour) {
+        monoBehaviour.StartCoroutine(Fade(spriteRenderer, original, target, duration));
+    }
+
+    private static IEnumerator Fade(this SpriteRenderer spriteRenderer, Color original, Color target, float duration) {
+        float timer = 0.0f;
+        while (timer < duration) {
+            timer += Time.fixedDeltaTime;
+            spriteRenderer.color = Color.Lerp(original, target, timer / duration);
+            yield return Yielders.WaitForFixedUpdate;
+        }
+        spriteRenderer.color = target;
     }
 
     public static void FadeCanvas(this CanvasGroup canvasGroup, float duration, bool fadeToTransparent, MonoBehaviour monoBehaviour) {

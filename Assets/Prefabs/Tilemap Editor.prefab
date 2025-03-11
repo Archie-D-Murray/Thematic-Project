@@ -168,6 +168,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bba0291246db42541b3f61230f9140cc, type: 2}
   - {fileID: 11400000, guid: 9995842991a3c574999869be0d77c57a, type: 2}
   - {fileID: 11400000, guid: 04d5dde6f8e097246b1529f3c85626a3, type: 2}
+  _errorTile: {fileID: 11400000, guid: 0b650797ba6de2643980b4f1b722ad10, type: 2}
   _tilemapSelection: {fileID: 0}
   _tilePrefab: {fileID: 3263478713407253458, guid: f90cab27b11d16ec9bc29c8049da82dd, type: 3}
   _indicatorPrefab: {fileID: 2864736297556863169, guid: befa2d5a2b2dfa80199fa4e191ece794, type: 3}

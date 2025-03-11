@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scripts/SaveData/DoorSD.cs.meta
+guid: 90c94c6106a5d6e448705a510fc4dc81
+========
+guid: a4625af047354824ba937de15a70c59c
+>>>>>>>> d0d7811dfd549febc030bae22196864ab18b7e7a:Assets/Scripts/LevelEditor/ObstacleData.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

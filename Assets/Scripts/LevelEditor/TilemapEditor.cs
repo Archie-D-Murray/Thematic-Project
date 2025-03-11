@@ -16,6 +16,7 @@ namespace LevelEditor {
         [SerializeField] private int _selected = 0;
         [SerializeField] private TileBase[] _tileAssets;
         [SerializeField] private Tile[] _tiles;
+        [SerializeField] private TileBase _errorTile;
         [SerializeField] private CanvasGroup _tilemapSelection;
         [SerializeField] private GameObject _tilePrefab;
         [SerializeField] private GameObject _indicatorPrefab;
@@ -28,6 +29,12 @@ namespace LevelEditor {
         private Dictionary<Vector3Int, int> _levelTiles = new Dictionary<Vector3Int, int>();
 
         private void Start() {
+            if (!_errorTile) {
+                // We cannot safely parse tiledata
+                Debug.LogError("Error tile not assigned", this);
+                enabled = false;
+                return;
+            }
             _tilemapSelection = GetComponent<CanvasGroup>();
             _indicator = Instantiate(_indicatorPrefab, Vector3.zero, Quaternion.identity).GetComponent<SpriteRenderer>();
             _selection = Instantiate(_selectionPrefab, transform.parent).GetComponent<Image>();
@@ -48,9 +55,30 @@ namespace LevelEditor {
             }
             _selection.rectTransform.position = new Vector2(Screen.width * 2, Screen.height * 2);
             AddExistingTiles();
+            Disable();
+        }
+
+        private void Disable() {
+            _indicator.gameObject.SetActive(false);
+            _selection.gameObject.SetActive(false);
+            _tilemapSelection.FadeCanvas(0.5f, true, this);
+        }
+
+        private void Enable() {
+            _indicator.gameObject.SetActive(true);
+            _selection.gameObject.SetActive(true);
+            _tilemapSelection.FadeCanvas(0.5f, false, this);
         }
 
         private void Update() {
+            if (Input.GetKeyDown(KeyCode.F5)) {
+                if (_tilemapSelection.alpha > 0.0f) {
+                    Disable();
+                } else {
+                    Enable();
+                }
+            }
+            if (_tilemapSelection.alpha != 1.0f) { return; }
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mousePosition.z = 0;
             _indicator.transform.position = Vector3Int.FloorToInt(mousePosition) + new Vector3(0.5f, 0.5f, 0);
@@ -77,8 +105,13 @@ namespace LevelEditor {
             _tilemap.ClearAllTiles();
             _levelTiles.Clear();
             foreach (TileData tile in data.TilemapData) {
-                _tilemap.SetTile(tile.Position, _tileAssets[tile.ID]);
-                _levelTiles[tile.Position] = tile.ID;
+                if (tile.ID >= _tileAssets.Length) {
+                    Debug.LogWarning($"Tile of ID: {tile.ID} could not be parsed as it is not present in known tiles", this);
+                    _tilemap.SetTile(tile.Position, _errorTile);
+                } else {
+                    _tilemap.SetTile(tile.Position, _tileAssets[tile.ID]);
+                    _levelTiles[tile.Position] = tile.ID;
+                }
             }
         }
 
