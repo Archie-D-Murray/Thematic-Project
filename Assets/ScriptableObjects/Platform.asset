@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4625af047354824ba937de15a70c59c, type: 3}
+  m_Script: {fileID: 11500000, guid: 90c94c6106a5d6e448705a510fc4dc81, type: 3}
   m_Name: Platform
   m_EditorClassIdentifier: 
   Prefab: {fileID: 3098314455688318652, guid: 20715de16e09d2e449ac5bf784a8ed7d, type: 3}
