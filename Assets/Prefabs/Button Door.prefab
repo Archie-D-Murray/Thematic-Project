@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 994367819871899674}
   - component: {fileID: 8944912899059480856}
   - component: {fileID: 2460975887131661002}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Button Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,8 +180,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dd74f6c42ad9854796fb2ef515c4fbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _moveables: []
+  _placing: 0
   open: 0
-  Button: {fileID: 0}
 --- !u!212 &8944912899059480856
 SpriteRenderer:
   m_ObjectHideFlags: 0
