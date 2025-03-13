@@ -1,17 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+
 using Entity.Player;
+
+using LevelEditor;
 
 using UnityEngine;
 using UnityEngine.Windows;
 
 using Utilities;
 
-public abstract class Enemy : MonoBehaviour
-{
+public abstract class Enemy : Placeable {
     protected class EnemyAnimations {
         public EnemyAnimations(string name) {
-         Walk = Animator.StringToHash($"{name}_Walk");
+            Walk = Animator.StringToHash($"{name}_Walk");
         }
         public int Walk;
     }
@@ -53,4 +55,3 @@ public abstract class Enemy : MonoBehaviour
         animator.Play(animation);
     }
 }
-

@@ -38,7 +38,7 @@ namespace LevelEditor {
             foreach (Placeable placeable in FindObjectsOfType<Placeable>()) {
                 _placeables.Add(placeable);
             }
-            _obstacleMask = 1 << LayerMask.NameToLayer("Obstacle");
+            _obstacleMask = 1 << LayerMask.NameToLayer("Obstacle") | 1 << LayerMask.NameToLayer("Enemy");
         }
 
         private void OnSpawn(ObstacleData data) {

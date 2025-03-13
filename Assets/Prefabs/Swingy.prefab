@@ -143,6 +143,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc687cc73c0ed5e409af65d2147926e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _moveables: []
+  _placing: 0
 --- !u!1 &7386264264167539676
 GameObject:
   m_ObjectHideFlags: 0
@@ -154,7 +156,7 @@ GameObject:
   - component: {fileID: 3229515765448320254}
   - component: {fileID: 3512270812941808346}
   - component: {fileID: 3527622464547604164}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Swingy
   m_TagString: Untagged
   m_Icon: {fileID: 0}

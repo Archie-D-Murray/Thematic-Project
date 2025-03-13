@@ -9,6 +9,7 @@ using UI;
 
 using Data;
 using TileData = Data.TileData;
+using Utilities;
 
 namespace LevelEditor {
     public class TilemapEditor : MonoBehaviour, ISerialize {
@@ -79,9 +80,8 @@ namespace LevelEditor {
                 }
             }
             if (_tilemapSelection.alpha != 1.0f) { return; }
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePosition.z = 0;
-            _indicator.transform.position = Vector3Int.FloorToInt(mousePosition) + new Vector3(0.5f, 0.5f, 0);
+            Vector2 mousePosition = Helpers.Instance.TileMapMousePosition;
+            _indicator.transform.position = mousePosition;
             if (Input.GetMouseButton(0) && !UIManager.Instance.IsHovered()) {
                 Vector3Int position = Vector3Int.FloorToInt(mousePosition);
                 _tilemap.SetTile(position, _tileAssets[_selected]);

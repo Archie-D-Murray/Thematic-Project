@@ -204,7 +204,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3440503979428682229}
   - component: {fileID: 6332147287731903814}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: Moving Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
