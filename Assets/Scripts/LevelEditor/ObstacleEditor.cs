@@ -12,6 +12,7 @@ using UnityEngine.UI;
 using Utilities;
 
 using Tags.UI;
+using Tags;
 using TMPro;
 
 namespace LevelEditor {
@@ -107,6 +108,12 @@ namespace LevelEditor {
             }
             foreach (PlatformData platformData in data.PlatformData) {
                 MovingPlatform platform = Instantiate(_obstacleLookup[ObstacleType.Platform].Prefab).GetComponent<MovingPlatform>();
+                _placeables.Add(platform);
+                platform.LoadSaveData(platformData);
+            }
+            foreach (PlatformData platformData in data.DeathPlatformData) {
+                MovingPlatform platform = Instantiate(_obstacleLookup[ObstacleType.DeathPlatform].Prefab).GetComponent<MovingPlatform>();
+                _placeables.Add(platform);
                 platform.LoadSaveData(platformData);
             }
             // TODO: Handle other obstacle types
@@ -119,7 +126,11 @@ namespace LevelEditor {
                     data.DoorData.Add(door.ToSaveData());
                 } else if (placeable is MovingPlatform) {
                     MovingPlatform platform = placeable as MovingPlatform;
-                    data.PlatformData.Add(platform.ToSaveData());
+                    if (placeable.gameObject.HasComponent<KillZone>()) {
+                        data.DeathPlatformData.Add(platform.ToSaveData());
+                    } else {
+                        data.PlatformData.Add(platform.ToSaveData());
+                    }
                 }
                 // TODO: Handle other obstacle types
             }

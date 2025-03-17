@@ -3,7 +3,7 @@ using System;
 
 namespace LevelEditor {
 
-    public enum ObstacleType { Door, Laser, Platform }
+    public enum ObstacleType { Door, Laser, Platform, DeathPlatform }
 
     [CreateAssetMenu(menuName = "Obstacle")]
     public class ObstacleData : ScriptableObject {
