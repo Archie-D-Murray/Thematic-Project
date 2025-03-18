@@ -10,16 +10,20 @@ public class PatrolEnemy : Enemy {
     [SerializeField] private float speed = 2;
     [SerializeField] private Transform[] patrolPoints = new Transform[2];
     [SerializeField] private int patrolIndex;
+    private SpriteRenderer[] _pointRenderers;
 
     protected override Transform[] GetMoveables() {
         if (!patrolPoints[0] || !patrolPoints[1]) {
             GetPositions();
         }
-        return new Transform[] { transform };
+        if (_pointRenderers == null || _pointRenderers.Length < 1) {
+            _pointRenderers = new SpriteRenderer[2] { patrolPoints[0].GetComponent<SpriteRenderer>(), patrolPoints[1].GetComponent<SpriteRenderer>() };
+        }
+        return new Transform[] { transform, patrolPoints[0], patrolPoints[1] };
     }
 
     private void GetPositions() {
-        foreach (Transform child in transform) {
+        foreach (Transform child in transform.parent) {
             if (child.gameObject.GetComponent<FirstPosition>()) {
                 patrolPoints[0] = child;
             } else if (child.gameObject.GetComponent<SecondPosition>()) {
@@ -31,6 +35,8 @@ public class PatrolEnemy : Enemy {
     // Start is called before the first frame update
     protected override void Start() {
         base.Start();
+        OnPlaceStart += PlacementStart;
+        OnPlaceFinish += PlacementFinish;
     }
 
     private void FixedUpdate() {
@@ -39,6 +45,7 @@ public class PatrolEnemy : Enemy {
     }
 
     protected override void Patrol() {
+        if (_placing) {  return; }
         Vector2 targetPosition = Vector2.MoveTowards(rb2D.position, patrolPoints[patrolIndex].position, speed * Time.fixedDeltaTime);
         rb2D.MovePosition(targetPosition);
 
@@ -64,5 +71,17 @@ public class PatrolEnemy : Enemy {
 
     public PatrolEnemyData ToPatrolEnemyData() {
         return new PatrolEnemyData(transform.position, patrolPoints[0].position, patrolPoints[1].position);
+    }
+    private void PlacementStart() {
+        foreach (SpriteRenderer renderer in _pointRenderers) {
+            renderer.Fade(Color.clear, Color.white, 0.5f, this);
+        }
+    }
+
+    private void PlacementFinish() {
+        rb2D.MovePosition(patrolPoints[0].position);
+        foreach (SpriteRenderer renderer in _pointRenderers) {
+            renderer.Fade(Color.white, Color.clear, 0.5f, this);
+        }
     }
 }

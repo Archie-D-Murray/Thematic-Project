@@ -79,6 +79,7 @@ namespace LevelEditor {
                     }
                     if (placeable) {
                         _selected = placeable;
+                        _selected.InitReferences();
                         _selected.StartPlacement();
                         _move = placeable.GetInitial();
                         _index = 0;

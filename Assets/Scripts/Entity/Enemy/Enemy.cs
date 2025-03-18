@@ -35,7 +35,7 @@ public abstract class Enemy : Placeable {
         player = FindFirstObjectByType<PlayerController>().transform;
 
         InitAnimations();
-
+        InitReferences();
     }
 
     protected abstract void InitAnimations();
