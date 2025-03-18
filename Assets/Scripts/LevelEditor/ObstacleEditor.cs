@@ -68,7 +68,7 @@ namespace LevelEditor {
                     return;
                 }
             }
-            if (_selected && (Input.GetKeyDown(KeyCode.Escape) || (!UIManager.Instance.IsHovered() && Input.GetMouseButtonDown(0)))) {
+            if (_selected && (Input.GetKeyDown(KeyCode.Escape) || Input.GetMouseButtonDown(0))) {
                 _selected.FinishPlacement();
                 _selected = null;
                 _move = null;
