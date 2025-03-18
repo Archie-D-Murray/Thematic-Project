@@ -7,23 +7,25 @@ using Data;
 
 using TMPro;
 
+using Unity.VisualScripting;
+
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SaveUI : MonoBehaviour
-{
+public class SaveUI : MonoBehaviour {
     [SerializeField] private Button saveButton;
     [SerializeField] private Button levelButtonPrefab;
     [SerializeField] private TMP_InputField levelNameInput;
     [SerializeField] private Transform selectionArea;
     [SerializeField] private string _saveDirectory = "Levels";
     [SerializeField] private List<Button> levelButtonList = new List<Button>();
+    [SerializeField] private CanvasGroup canvas;
     // Start is called before the first frame update
-    private void Start()
-    {
-        ShowLevels();
+    private void Start() {
+        canvas = GetComponent<CanvasGroup>();
         levelNameInput.characterValidation = TMP_InputField.CharacterValidation.Alphanumeric;
         saveButton.onClick.AddListener(() => SaveLevel());
+        UpdateLevelUI();
     }
 
     private void SaveLevel() {
@@ -37,14 +39,14 @@ public class SaveUI : MonoBehaviour
 
         if (!fileList.Contains(levelNameInput.text)) {
             SaveManager.Instance.Save(levelNameInput.text);
-            ShowLevels();
+            UpdateLevelUI();
         }
     }
 
-    private void ShowLevels() {
-        if(levelButtonList.Count > 0) {
-            foreach(Button button in  levelButtonList) {
-                Destroy(button);
+    private void UpdateLevelUI() {
+        if (levelButtonList.Count > 0) {
+            foreach (Button button in levelButtonList) {
+                Destroy(button.gameObject);
             }
             levelButtonList.Clear();
         }
@@ -57,6 +59,24 @@ public class SaveUI : MonoBehaviour
                 newLevel.onClick.AddListener(() => LoadLevel(fileLine));
                 levelButtonList.Add(newLevel);
             }
+        }
+    }
+
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.F7)) {
+            Toggle();
+        }
+    }
+
+    private void Toggle() {
+        if (canvas.alpha == 0) {
+            canvas.FadeCanvas(0.5f, false, this);
+            UpdateLevelUI();
+            return;
+        }
+        if (canvas.alpha == 1) {
+            canvas.FadeCanvas(0.5f, true, this);
+            return;
         }
     }
 
