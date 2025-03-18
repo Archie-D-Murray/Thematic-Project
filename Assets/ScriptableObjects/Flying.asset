@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90c94c6106a5d6e448705a510fc4dc81, type: 3}
+  m_Name: Flying
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 2682290860696052760, guid: 9d3e6ee739e675a4a978af66e1a1cc45, type: 3}
+  Key: 286
+  Sprite: {fileID: -2095446829, guid: da19f8d03b6fb5247ae94d8d614daa1e, type: 3}
+  Obstacle: 5

@@ -20,6 +20,7 @@ public class SaveUI : MonoBehaviour {
     [SerializeField] private string _saveDirectory = "Levels";
     [SerializeField] private List<Button> levelButtonList = new List<Button>();
     [SerializeField] private CanvasGroup canvas;
+    [SerializeField] private KeyCode _hotkey = KeyCode.F12;
     // Start is called before the first frame update
     private void Start() {
         canvas = GetComponent<CanvasGroup>();
@@ -63,7 +64,7 @@ public class SaveUI : MonoBehaviour {
     }
 
     private void Update() {
-        if (Input.GetKeyDown(KeyCode.F7)) {
+        if (Input.GetKeyDown(_hotkey)) {
             Toggle();
         }
     }

@@ -22,6 +22,7 @@ namespace LevelEditor {
         [SerializeField] private GameObject _tilePrefab;
         [SerializeField] private GameObject _indicatorPrefab;
         [SerializeField] private GameObject _selectionPrefab;
+        [SerializeField] private KeyCode _hotkey = KeyCode.F10;
 
         private SpriteRenderer _indicator;
         private Image _selection;
@@ -72,7 +73,7 @@ namespace LevelEditor {
         }
 
         private void Update() {
-            if (Input.GetKeyDown(KeyCode.F5)) {
+            if (Input.GetKeyDown(_hotkey)) {
                 if (_tilemapSelection.alpha > 0.0f) {
                     Disable();
                 } else {

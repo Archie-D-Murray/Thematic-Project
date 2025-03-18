@@ -28,6 +28,8 @@ namespace LevelEditor {
         [SerializeField] private Placeable _selected = null;
 
         [SerializeField] private int _index = 0;
+        [SerializeField] private KeyCode _hotkey = KeyCode.F11;
+        [SerializeField] private CanvasGroup _canvas;
 
         private Dictionary<ObstacleType, ObstacleData> _obstacleLookup = new Dictionary<ObstacleType, ObstacleData>();
 
@@ -42,6 +44,8 @@ namespace LevelEditor {
                 _placeables.Add(placeable);
             }
             _obstacleMask = 1 << LayerMask.NameToLayer("Obstacle") | 1 << LayerMask.NameToLayer("Enemy");
+            _canvas = GetComponent<CanvasGroup>();
+            _canvas.FadeCanvas(0.01f, true, this);
         }
 
         private void OnSpawn(ObstacleData data) {
@@ -54,6 +58,10 @@ namespace LevelEditor {
         }
 
         private void Update() {
+            if (Input.GetKeyDown(_hotkey)) {
+                Toggle();
+            }
+            if (_canvas.alpha != 1.0f) { return; }
             foreach (ObstacleData data in _obstacleData) {
                 if (Input.GetKeyDown(data.Key)) {
                     OnSpawn(data);
@@ -135,10 +143,15 @@ namespace LevelEditor {
                 _placeables.Add(platform);
                 platform.LoadSaveData(platformData);
             }
-            foreach (PatrolEnemyData patrolEnemy in data.PatroLEnemies) {
+            foreach (PatrolEnemyData patrolEnemy in data.PatrolEnemies) {
                 PatrolEnemy patrol = Instantiate(_obstacleLookup[ObstacleType.PatrolEnemy].Prefab).GetComponentInChildren<PatrolEnemy>();
                 _placeables.Add(patrol);
                 patrol.LoadPatrolEnemyData(patrolEnemy);
+            }
+            foreach (FlyingEnemyData flyingEnemy in data.FlyingEnemies) {
+                FlyingEnemy flying = Instantiate(_obstacleLookup[ObstacleType.FlyingEnemy].Prefab).GetComponent<FlyingEnemy>();
+                _placeables.Add(flying);
+                flying.LoadFlyingEnemyData(flyingEnemy);
             }
             // TODO: Handle other obstacle types
         }
@@ -157,9 +170,24 @@ namespace LevelEditor {
                     }
                 } else if (placeable is PatrolEnemy) {
                     PatrolEnemy patrolEnemy = placeable as PatrolEnemy;
-                    data.PatroLEnemies.Add(patrolEnemy.ToPatrolEnemyData());
+                    data.PatrolEnemies.Add(patrolEnemy.ToPatrolEnemyData());
+                } else if (placeable is FlyingEnemy) {
+                    FlyingEnemy flyingEnemy = placeable as FlyingEnemy;
+                    data.FlyingEnemies.Add(flyingEnemy.ToFlyingEnemyData());
                 }
                 // TODO: Handle other obstacle types
+            }
+        }
+
+
+        private void Toggle() {
+            if (_canvas.alpha == 0) {
+                _canvas.FadeCanvas(0.5f, false, this);
+                return;
+            }
+            if (_canvas.alpha == 1) {
+                _canvas.FadeCanvas(0.5f, true, this);
+                return;
             }
         }
     }

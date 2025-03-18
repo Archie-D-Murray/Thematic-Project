@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
+using Data;
+
 using UnityEngine;
 
 public class FlyingEnemy : Enemy {
@@ -29,5 +31,13 @@ public class FlyingEnemy : Enemy {
 
     protected override void InitAnimations() {
         animations = new EnemyAnimations("Skull");
+    }
+
+    public void LoadFlyingEnemyData(FlyingEnemyData data) {
+        transform.position = data.CurrentPosition;
+    }
+
+    public FlyingEnemyData ToFlyingEnemyData() {
+        return new FlyingEnemyData(transform.position);
     }
 }

@@ -5,14 +5,16 @@ namespace Data {
         public List<DoorData> DoorData;
         public List<PlatformData> PlatformData;
         public List<PlatformData> DeathPlatformData;
-        public List<PatrolEnemyData> PatroLEnemies;
+        public List<PatrolEnemyData> PatrolEnemies;
+        public List<FlyingEnemyData> FlyingEnemies;
 
         public LevelData() {
             TilemapData = new List<TileData>();
             DoorData = new List<DoorData>();
             PlatformData = new List<PlatformData>();
             DeathPlatformData = new List<PlatformData>();
-            PatroLEnemies = new List<PatrolEnemyData>();
+            PatrolEnemies = new List<PatrolEnemyData>();
+            FlyingEnemies = new List<FlyingEnemyData>();
         }
     }
 }
