@@ -14,6 +14,8 @@ using Utilities;
 using Tags.UI;
 using Tags;
 using TMPro;
+using Tags.Obstacle;
+using UnityEngineInternal;
 
 namespace LevelEditor {
     public class ObstacleEditor : MonoBehaviour, ISerialize {
@@ -68,19 +70,35 @@ namespace LevelEditor {
 
             if (!_selected && (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Q))) { // For laptop people :)
                 RaycastHit2D hit = Physics2D.Raycast(Helpers.Instance.TileMapMousePosition, Vector2.down, 2.0f, _obstacleMask);
-                if (hit && hit.transform.TryGetComponent(out Placeable placeable)) {
-                    _selected = placeable;
-                    _selected.StartPlacement();
-                    _move = placeable.GetInitial();
-                    _index = 0;
+                if (hit) {
+                    Placeable placeable = null;
+                    if (hit.collider.gameObject.HasComponent<ColliderOnChild>()) {
+                        hit.transform.parent.TryGetComponent(out placeable);
+                    } else {
+                        hit.transform.TryGetComponent(out placeable);
+                    }
+                    if (placeable) {
+                        _selected = placeable;
+                        _selected.StartPlacement();
+                        _move = placeable.GetInitial();
+                        _index = 0;
+                    }
                 }
             }
 
             if (!_selected && (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.X))) {
                 RaycastHit2D hit = Physics2D.Raycast(Helpers.Instance.TileMapMousePosition, Vector2.down, 2.0f, _obstacleMask);
-                if (hit && hit.transform.TryGetComponent(out Placeable placeable)) {
-                    _placeables.Remove(placeable);
-                    Destroy(placeable.gameObject);
+                if (hit) {
+                    Placeable placeable = null;
+                    if (hit.collider.gameObject.HasComponent<ColliderOnChild>()) {
+                        hit.transform.parent.TryGetComponent(out placeable);
+                    } else {
+                        hit.transform.TryGetComponent(out placeable);
+                    }
+                    if (placeable) {
+                        _placeables.Remove(placeable);
+                        Destroy(placeable.gameObject);
+                    }
                 }
             }
 
