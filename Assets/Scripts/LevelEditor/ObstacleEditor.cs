@@ -134,6 +134,11 @@ namespace LevelEditor {
                 _placeables.Add(platform);
                 platform.LoadSaveData(platformData);
             }
+            foreach (PatrolEnemyData patrolEnemy in data.PatroLEnemies) {
+                PatrolEnemy patrol = Instantiate(_obstacleLookup[ObstacleType.PatrolEnemy].Prefab).GetComponentInChildren<PatrolEnemy>();
+                _placeables.Add(patrol);
+                patrol.LoadPatrolEnemyData(patrolEnemy);
+            }
             // TODO: Handle other obstacle types
         }
 
@@ -149,6 +154,9 @@ namespace LevelEditor {
                     } else {
                         data.PlatformData.Add(platform.ToSaveData());
                     }
+                } else if (placeable is PatrolEnemy) {
+                    PatrolEnemy patrolEnemy = placeable as PatrolEnemy;
+                    data.PatroLEnemies.Add(patrolEnemy.ToPatrolEnemyData());
                 }
                 // TODO: Handle other obstacle types
             }

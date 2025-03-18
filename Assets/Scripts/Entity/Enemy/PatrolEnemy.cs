@@ -1,3 +1,5 @@
+using Data;
+
 using LevelEditor;
 
 using Tags.Obstacle;
@@ -52,5 +54,15 @@ public class PatrolEnemy : Enemy {
 
     protected override void InitAnimations() {
         animations = new EnemyAnimations("Goblin");
+    }
+
+    public void LoadPatrolEnemyData(PatrolEnemyData data) {
+        transform.position = data.CurrentPosition;
+        patrolPoints[0].position = data.Patrol1;
+        patrolPoints[1].position = data.Patrol2;
+    }
+
+    public PatrolEnemyData ToPatrolEnemyData() {
+        return new PatrolEnemyData(transform.position, patrolPoints[0].position, patrolPoints[1].position);
     }
 }
