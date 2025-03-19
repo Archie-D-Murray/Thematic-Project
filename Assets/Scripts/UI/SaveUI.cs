@@ -33,8 +33,7 @@ public class SaveUI : MonoBehaviour {
         List<string> fileList = new List<string>();
         foreach (string file in Directory.GetFiles(Path.Combine(Application.dataPath, _saveDirectory))) {
             if (File.Exists(file) && file.EndsWith("json")) {
-                string[] fileLine = file.Split('\\');
-                fileList.Add(fileLine[fileLine.Length - 1].Replace(".json", ""));
+                fileList.Add(Path.GetFileNameWithoutExtension(file));
             }
         }
 
