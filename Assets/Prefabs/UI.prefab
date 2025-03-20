@@ -111,6 +111,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 259865499889492311}
     m_Modifications:
+    - target: {fileID: 556239671358984097, guid: f32730dce0e30a046aee91a8d1add729, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 556239671358984097, guid: f32730dce0e30a046aee91a8d1add729, type: 3}
+      propertyPath: m_BlocksRaycasts
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3377660670582186155, guid: f32730dce0e30a046aee91a8d1add729, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -233,7 +241,7 @@ MonoBehaviour:
     m_Bottom: 5
   m_ChildAlignment: 0
   m_Spacing: 10
-  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
