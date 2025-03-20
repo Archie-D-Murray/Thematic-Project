@@ -62,18 +62,15 @@ public class SaveUI : MonoBehaviour {
         }
     }
 
-    private void Update() {
-        if (Input.GetKeyDown(_hotkey)) {
-            Toggle();
-        }
-    }
-
-    private void Toggle() {
+    public void Open() {
         if (canvas.alpha == 0) {
             canvas.FadeCanvas(0.5f, false, this);
             UpdateLevelUI();
             return;
         }
+    }
+
+    public void Close() {
         if (canvas.alpha == 1) {
             canvas.FadeCanvas(0.5f, true, this);
             return;

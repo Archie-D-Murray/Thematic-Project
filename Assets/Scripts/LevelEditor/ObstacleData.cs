@@ -10,6 +10,7 @@ namespace LevelEditor {
         public GameObject Prefab;
         public KeyCode Key;
         public Sprite Sprite;
+        public Sprite KeySprite;
         public ObstacleType Obstacle;
 
         public Type Type() {

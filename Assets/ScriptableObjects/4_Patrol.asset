@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90c94c6106a5d6e448705a510fc4dc81, type: 3}
-  m_Name: Door
+  m_Name: 4_Patrol
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 7679538867322452056, guid: d80583d2fa778154392fc88094dfa2a0, type: 3}
-  Key: 282
-  Sprite: {fileID: 2000539099, guid: dbb5577829d79c44f9221e976abab672, type: 3}
-  Obstacle: 0
+  Prefab: {fileID: 9081066727831311949, guid: e2c34501cf519e2438ef3ad9d4e440a0, type: 3}
+  Key: 52
+  Sprite: {fileID: 9721024, guid: 3dc35bea883c81f4a8520367477d8b1d, type: 3}
+  KeySprite: {fileID: 1401903923, guid: ed6eeed1f8849704fb6054fa947370ab, type: 3}
+  Obstacle: 4

@@ -13,7 +13,6 @@ using Utilities;
 
 using Tags.UI;
 using Tags;
-using TMPro;
 using Tags.Obstacle;
 using UnityEngineInternal;
 
@@ -37,8 +36,15 @@ namespace LevelEditor {
             foreach (ObstacleData data in _obstacleData) {
                 _obstacleLookup.Add(data.Obstacle, data);
                 GameObject panel = Instantiate(_obstaclePanelPrefab, transform);
-                panel.GetComponentsInChildren<Image>().First(image => image.gameObject.HasComponent<IconTag>()).sprite = data.Sprite;
-                panel.GetComponentsInChildren<TMP_Text>().First(text => text.gameObject.HasComponent<ReadoutTag>()).text = $"[{data.Key}]";
+                foreach (Image image in panel.GetComponentsInChildren<Image>()) {
+                    if (image.transform == panel.transform) { continue; }
+                    // TODO: This is not very robust - may need to be changed later
+                    if (image.gameObject.HasComponent<IconTag>()) {
+                        image.sprite = data.Sprite;
+                    } else {
+                        image.sprite = data.KeySprite;
+                    }
+                }
             }
             foreach (Placeable placeable in FindObjectsOfType<Placeable>()) {
                 _placeables.Add(placeable);
@@ -46,6 +52,7 @@ namespace LevelEditor {
             _obstacleMask = 1 << LayerMask.NameToLayer("Obstacle") | 1 << LayerMask.NameToLayer("Enemy");
             _canvas = GetComponent<CanvasGroup>();
             _canvas.FadeCanvas(0.01f, true, this);
+
         }
 
         private void OnSpawn(ObstacleData data) {
@@ -58,9 +65,6 @@ namespace LevelEditor {
         }
 
         private void Update() {
-            if (Input.GetKeyDown(_hotkey)) {
-                Toggle();
-            }
             if (_canvas.alpha != 1.0f) { return; }
             foreach (ObstacleData data in _obstacleData) {
                 if (Input.GetKeyDown(data.Key)) {
@@ -179,12 +183,14 @@ namespace LevelEditor {
             }
         }
 
-
-        private void Toggle() {
+        public void Open() {
             if (_canvas.alpha == 0) {
                 _canvas.FadeCanvas(0.5f, false, this);
                 return;
             }
+        }
+
+        public void Close() {
             if (_canvas.alpha == 1) {
                 _canvas.FadeCanvas(0.5f, true, this);
                 return;
