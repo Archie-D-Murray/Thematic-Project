@@ -30,6 +30,8 @@ namespace LevelEditor {
         private Dictionary<Button, int> _lookup = new Dictionary<Button, int>();
         private Dictionary<Vector3Int, int> _levelTiles = new Dictionary<Vector3Int, int>();
 
+        public float Alpha => _tilemapSelection.alpha;
+
         private void Start() {
             if (!_errorTile) {
                 // We cannot safely parse tiledata
@@ -73,13 +75,13 @@ namespace LevelEditor {
         public void Close() {
             _indicator.gameObject.SetActive(false);
             _selection.gameObject.SetActive(false);
-            _tilemapSelection.FadeCanvas(0.5f, true, this);
+            _tilemapSelection.FadeCanvas(2.0f, true, this);
         }
 
         public void Open() {
             _indicator.gameObject.SetActive(true);
             _selection.gameObject.SetActive(true);
-            _tilemapSelection.FadeCanvas(0.5f, false, this);
+            _tilemapSelection.FadeCanvas(2.0f, false, this);
         }
 
         private void Update() {

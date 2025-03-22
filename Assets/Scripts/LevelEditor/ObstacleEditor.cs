@@ -31,6 +31,7 @@ namespace LevelEditor {
         [SerializeField] private CanvasGroup _canvas;
 
         private Dictionary<ObstacleType, ObstacleData> _obstacleLookup = new Dictionary<ObstacleType, ObstacleData>();
+        public float Alpha => _canvas.alpha;
 
         private void Start() {
             foreach (ObstacleData data in _obstacleData) {
@@ -51,7 +52,7 @@ namespace LevelEditor {
             }
             _obstacleMask = 1 << LayerMask.NameToLayer("Obstacle") | 1 << LayerMask.NameToLayer("Enemy");
             _canvas = GetComponent<CanvasGroup>();
-            _canvas.FadeCanvas(0.01f, true, this);
+            _canvas.FadeCanvas(100.0f, true, this);
 
         }
 
@@ -185,14 +186,14 @@ namespace LevelEditor {
 
         public void Open() {
             if (_canvas.alpha == 0) {
-                _canvas.FadeCanvas(0.5f, false, this);
+                _canvas.FadeCanvas(2.0f, false, this);
                 return;
             }
         }
 
         public void Close() {
             if (_canvas.alpha == 1) {
-                _canvas.FadeCanvas(0.5f, true, this);
+                _canvas.FadeCanvas(2.0f, true, this);
                 return;
             }
         }
