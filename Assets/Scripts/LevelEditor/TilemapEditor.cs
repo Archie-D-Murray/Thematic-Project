@@ -45,6 +45,19 @@ namespace LevelEditor {
                 enabled = false;
                 return;
             }
+            PopulateUI();
+            _selection.rectTransform.position = new Vector2(Screen.width * 2, Screen.height * 2);
+            AddExistingTiles();
+            Close();
+        }
+
+        public void PopulateUI() {
+            if (transform.childCount != 0) {
+                foreach (Transform child in transform) {
+                    Destroy(child.gameObject);
+                }
+                _lookup.Clear();
+            }
             for (int i = 0; i < _tileAssets.Length; i++) {
                 Button button = Instantiate(_tilePrefab, transform).GetComponent<Button>();
                 _lookup.Add(button, i);
@@ -55,9 +68,6 @@ namespace LevelEditor {
                 });
                 button.GetComponent<Image>().sprite = _tiles[i].sprite;
             }
-            _selection.rectTransform.position = new Vector2(Screen.width * 2, Screen.height * 2);
-            AddExistingTiles();
-            Close();
         }
 
         public void Close() {
