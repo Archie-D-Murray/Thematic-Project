@@ -136,7 +136,7 @@ MonoBehaviour:
   _canDash: 1
   _ground:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 264
   _isJumping: 0
   originalGravity: 0
   maxFallGravity: 0
