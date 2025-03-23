@@ -21,6 +21,7 @@ public class SaveUI : MonoBehaviour {
     [SerializeField] private List<Button> levelButtonList = new List<Button>();
     [SerializeField] private CanvasGroup canvas;
     [SerializeField] private KeyCode _hotkey = KeyCode.F12;
+    public float Alpha => canvas.alpha;
     // Start is called before the first frame update
     private void Start() {
         canvas = GetComponent<CanvasGroup>();
@@ -64,7 +65,7 @@ public class SaveUI : MonoBehaviour {
 
     public void Open() {
         if (canvas.alpha == 0) {
-            canvas.FadeCanvas(0.5f, false, this);
+            canvas.FadeCanvas(2.0f, false, this);
             UpdateLevelUI();
             return;
         }
@@ -72,7 +73,7 @@ public class SaveUI : MonoBehaviour {
 
     public void Close() {
         if (canvas.alpha == 1) {
-            canvas.FadeCanvas(0.5f, true, this);
+            canvas.FadeCanvas(2.0f, true, this);
             return;
         }
     }

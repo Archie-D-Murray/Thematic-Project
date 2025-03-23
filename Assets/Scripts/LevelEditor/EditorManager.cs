@@ -21,19 +21,31 @@ namespace LevelEditor {
         }
 
         private void EnableTilemap() {
-            _tilemapEditor.Open();
+            if (_tilemapEditor.Alpha != 0.0f) {
+                _tilemapEditor.Close();
+            } else if (_tilemapEditor.Alpha != 1.0f) {
+                _tilemapEditor.Open();
+            }
             _saveUI.Close();
             _obstacleEditor.Close();
         }
 
         private void EnableObstacle() {
-            _obstacleEditor.Open();
+            if (_obstacleEditor.Alpha != 0.0f) {
+                _obstacleEditor.Close();
+            } else if (_obstacleEditor.Alpha != 1.0f) {
+                _obstacleEditor.Open();
+            }
             _tilemapEditor.Close();
             _saveUI.Close();
         }
 
         private void EnableSave() {
-            _saveUI.Open();
+            if (_saveUI.Alpha != 0.0f) {
+                _saveUI.Close();
+            } else if (_saveUI.Alpha != 1.0f) {
+                _saveUI.Open();
+            }
             _tilemapEditor.Close();
             _obstacleEditor.Close();
         }

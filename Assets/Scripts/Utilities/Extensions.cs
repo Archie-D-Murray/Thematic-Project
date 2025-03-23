@@ -78,24 +78,20 @@ public static class Extensions {
         spriteRenderer.color = target;
     }
 
-    public static void FadeCanvas(this CanvasGroup canvasGroup, float duration, bool fadeToTransparent, MonoBehaviour monoBehaviour) {
-        monoBehaviour.StartCoroutine(CanvasFade(canvasGroup, duration, fadeToTransparent));
+    public static void FadeCanvas(this CanvasGroup canvasGroup, float fadeSpeed, bool fadeToTransparent, MonoBehaviour monoBehaviour) {
+        monoBehaviour.StartCoroutine(CanvasFade(canvasGroup, fadeSpeed, fadeToTransparent));
     }
 
-    private static IEnumerator CanvasFade(CanvasGroup canvasGroup, float duration, bool fadeToTransparent) {
-        CountDownTimer timer = new CountDownTimer(duration);
-        timer.Start();
-        while (timer.IsRunning) {
-            canvasGroup.alpha = !fadeToTransparent ? timer.Progress() : 1f - timer.Progress();
-            timer.Update(Time.fixedDeltaTime);
+    private static IEnumerator CanvasFade(CanvasGroup canvasGroup, float fadeSpeed, bool fadeToTransparent) {
+        float target = fadeToTransparent ? 0.0f : 1.0f;
+        while (canvasGroup.alpha != target) {
+            canvasGroup.alpha = Mathf.MoveTowards(canvasGroup.alpha, target, fadeSpeed * Time.fixedDeltaTime);
             yield return Yielders.WaitForFixedUpdate;
         }
         if (fadeToTransparent) {
             canvasGroup.interactable = false;
-            canvasGroup.alpha = 0f;
         } else {
             canvasGroup.interactable = true;
-            canvasGroup.alpha = 1f;
         }
     }
 
