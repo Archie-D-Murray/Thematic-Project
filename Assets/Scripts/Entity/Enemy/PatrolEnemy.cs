@@ -43,6 +43,12 @@ public class PatrolEnemy : Enemy {
         Patrol();
     }
 
+    public override void RemovePlaceable() {
+        foreach (Transform patrolPoint in patrolPoints) {
+            Destroy(patrolPoint.gameObject);
+        }
+    }
+
     protected override void Patrol() {
         if (_placing) { return; }
         Vector2 targetPosition = Vector2.MoveTowards(rb2D.position, patrolPoints[patrolIndex].position, speed * Time.fixedDeltaTime);

@@ -110,6 +110,7 @@ namespace LevelEditor {
                         hit.transform.TryGetComponent(out placeable);
                     }
                     if (placeable) {
+                        placeable.RemovePlaceable();
                         _placeables.Remove(placeable);
                         Destroy(placeable.gameObject);
                     }
