@@ -12,6 +12,8 @@ public class Door : Placeable {
     SpriteRenderer doorSprite;
     BoxCollider2D doorCollider;
     private DoorButton _button;
+    [SerializeField] private Sprite openDoorSprite;
+    [SerializeField] private Sprite closedDoorSprite;
 
     public DoorButton Button {
         get {
@@ -40,10 +42,10 @@ public class Door : Placeable {
 
     private void Update() {
         if (open) {
-            doorSprite.enabled = false;
+            doorSprite.sprite = closedDoorSprite;
             doorCollider.enabled = false;
         } else {
-            doorSprite.enabled = true;
+            doorSprite.sprite = openDoorSprite;
             doorCollider.enabled = true;
         }
     }
