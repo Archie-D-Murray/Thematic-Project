@@ -7,6 +7,7 @@ namespace Data {
         public List<PlatformData> DeathPlatformData;
         public List<PatrolEnemyData> PatrolEnemies;
         public List<FlyingEnemyData> FlyingEnemies;
+        public List<LaserData> Lasers;
 
         public LevelData() {
             TilemapData = new List<TileData>();
@@ -15,6 +16,7 @@ namespace Data {
             DeathPlatformData = new List<PlatformData>();
             PatrolEnemies = new List<PatrolEnemyData>();
             FlyingEnemies = new List<FlyingEnemyData>();
+            Lasers = new List<LaserData>();
         }
     }
 }

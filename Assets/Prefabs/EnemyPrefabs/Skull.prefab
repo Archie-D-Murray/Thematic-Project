@@ -193,10 +193,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 625e105895d84cc4bb8ef5bf5c6bd08c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _moveables: []
+  _placing: 0
   player: {fileID: 0}
   animator: {fileID: 0}
   currentAnimation: 0
-  attackRange: 5
+  attackRange: 2
   rb2D: {fileID: 0}
   spriteRenderer: {fileID: 0}
   speed: 1

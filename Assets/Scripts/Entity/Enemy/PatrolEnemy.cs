@@ -33,8 +33,7 @@ public class PatrolEnemy : Enemy {
     }
 
     // Start is called before the first frame update
-    protected override void Start() {
-        base.Start();
+    protected void Awake() {
         OnPlaceStart += PlacementStart;
         OnPlaceFinish += PlacementFinish;
     }
@@ -63,13 +62,13 @@ public class PatrolEnemy : Enemy {
         animations = new EnemyAnimations("Goblin");
     }
 
-    public void LoadPatrolEnemyData(PatrolEnemyData data) {
+    public void LoadSaveData(PatrolEnemyData data) {
         transform.position = data.CurrentPosition;
         patrolPoints[0].position = data.Patrol1;
         patrolPoints[1].position = data.Patrol2;
     }
 
-    public PatrolEnemyData ToPatrolEnemyData() {
+    public PatrolEnemyData ToSaveData() {
         return new PatrolEnemyData(transform.position, patrolPoints[0].position, patrolPoints[1].position);
     }
     private void PlacementStart() {

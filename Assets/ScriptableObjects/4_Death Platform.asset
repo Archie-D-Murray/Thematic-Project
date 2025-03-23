@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90c94c6106a5d6e448705a510fc4dc81, type: 3}
+  m_Name: 4_Death Platform
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 1452588072474824480, guid: 99b1ba526057ee64687261a173023404, type: 3}
+  Key: 52
+  Sprite: {fileID: 374103603, guid: 103121d74352ebb44972966dd8f1b4c7, type: 3}
+  KeySprite: {fileID: 1401903923, guid: ed6eeed1f8849704fb6054fa947370ab, type: 3}
+  Obstacle: 3

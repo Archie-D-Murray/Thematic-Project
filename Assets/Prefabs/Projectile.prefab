@@ -109,6 +109,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1ece297936f7064d923428c525f6675, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _moveables: []
+  _placing: 0
+  pos1: {fileID: 5070135598443271270}
+  pos2: {fileID: 5959000501003175030}
   speed: 10
   reset: 0
 --- !u!1 &6121436345285725521
@@ -141,7 +145,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 8, y: -0.13, z: -0.02240039}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 460730570464904662}
@@ -187,8 +191,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 294144625, guid: dbb5577829d79c44f9221e976abab672, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 374103603, guid: 103121d74352ebb44972966dd8f1b4c7, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -255,6 +259,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc687cc73c0ed5e409af65d2147926e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _moveables: []
+  _placing: 0
 --- !u!50 &7499575489898439146
 Rigidbody2D:
   serializedVersion: 4

@@ -57,10 +57,10 @@ namespace LevelEditor {
         }
 
         private void OnSpawn(ObstacleData data) {
-            _placeables.Add(Instantiate(data.Prefab, Helpers.Instance.TileMapMousePosition, Quaternion.identity).GetComponent<Placeable>());
+            _placeables.Add(Instantiate(data.Prefab, Helpers.Instance.TileMapMousePosition, Quaternion.identity).GetComponentInChildren<Placeable>());
             _selected = _placeables.Last();
-            _selected.StartPlacement();
             _selected.InitReferences();
+            _selected.StartPlacement();
             _move = _selected.GetInitial();
             _index = 0;
         }
@@ -151,12 +151,17 @@ namespace LevelEditor {
             foreach (PatrolEnemyData patrolEnemy in data.PatrolEnemies) {
                 PatrolEnemy patrol = Instantiate(_obstacleLookup[ObstacleType.PatrolEnemy].Prefab).GetComponentInChildren<PatrolEnemy>();
                 _placeables.Add(patrol);
-                patrol.LoadPatrolEnemyData(patrolEnemy);
+                patrol.LoadSaveData(patrolEnemy);
             }
             foreach (FlyingEnemyData flyingEnemy in data.FlyingEnemies) {
                 FlyingEnemy flying = Instantiate(_obstacleLookup[ObstacleType.FlyingEnemy].Prefab).GetComponent<FlyingEnemy>();
                 _placeables.Add(flying);
-                flying.LoadFlyingEnemyData(flyingEnemy);
+                flying.LoadSaveData(flyingEnemy);
+            }
+            foreach (LaserData laserData in data.Lasers) {
+                Laser laser = Instantiate(_obstacleLookup[ObstacleType.Laser].Prefab).GetComponent<Laser>();
+                _placeables.Add(laser);
+                laser.LoadSaveData(laserData);
             }
             // TODO: Handle other obstacle types
         }
@@ -175,10 +180,13 @@ namespace LevelEditor {
                     }
                 } else if (placeable is PatrolEnemy) {
                     PatrolEnemy patrolEnemy = placeable as PatrolEnemy;
-                    data.PatrolEnemies.Add(patrolEnemy.ToPatrolEnemyData());
+                    data.PatrolEnemies.Add(patrolEnemy.ToSaveData());
                 } else if (placeable is FlyingEnemy) {
                     FlyingEnemy flyingEnemy = placeable as FlyingEnemy;
-                    data.FlyingEnemies.Add(flyingEnemy.ToFlyingEnemyData());
+                    data.FlyingEnemies.Add(flyingEnemy.ToSaveData());
+                } else if (placeable is Laser) {
+                    Laser laser = placeable as Laser;
+                    data.Lasers.Add(laser.ToSaveData());
                 }
                 // TODO: Handle other obstacle types
             }
