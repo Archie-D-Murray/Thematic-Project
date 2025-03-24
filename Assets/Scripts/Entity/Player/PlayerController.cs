@@ -149,7 +149,6 @@ namespace Entity.Player {
             }
 
             UpdateCoyoteTime();
- 
             UpdateAnimations();
         }
 
