@@ -5,6 +5,8 @@ using System.Linq;
 
 using Data;
 
+using LevelEditor;
+
 using TMPro;
 
 using Unity.VisualScripting;
@@ -21,13 +23,17 @@ public class SaveUI : MonoBehaviour {
     [SerializeField] private List<Button> levelButtonList = new List<Button>();
     [SerializeField] private CanvasGroup canvas;
     [SerializeField] private KeyCode _hotkey = KeyCode.F12;
+    [SerializeField] private ObstacleEditor _obstacleEditor;
     public float Alpha => canvas.alpha;
     // Start is called before the first frame update
-    private void Start() {
+    private void Awake() {
         canvas = GetComponent<CanvasGroup>();
+        _obstacleEditor = FindFirstObjectByType<ObstacleEditor>();
+        _obstacleEditor.UpdateSpawnPoint += CanSave;
         levelNameInput.characterValidation = TMP_InputField.CharacterValidation.Alphanumeric;
         saveButton.onClick.AddListener(() => SaveLevel());
         UpdateLevelUI();
+        CanSave(_obstacleEditor.HasSpawnPoint);
     }
 
     private void SaveLevel() {
@@ -38,10 +44,16 @@ public class SaveUI : MonoBehaviour {
             }
         }
 
-        if (!fileList.Contains(levelNameInput.text)) {
+        if (!fileList.Contains(levelNameInput.text) && _obstacleEditor.HasSpawnPoint) {
             SaveManager.Instance.Save(levelNameInput.text);
             UpdateLevelUI();
+        } else if (!_obstacleEditor.HasSpawnPoint) {
+            // TODO: Show error message
         }
+    }
+
+    private void CanSave(bool hasSpawnPoint) {
+        saveButton.interactable = hasSpawnPoint;
     }
 
     private void UpdateLevelUI() {

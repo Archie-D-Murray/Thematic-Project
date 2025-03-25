@@ -10,8 +10,8 @@ using UnityEngine;
 public class LaserDamageTrigger : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.gameObject.HasComponent<PlayerController>()) {
-            Destroy(collision.gameObject);
+        if (collision.TryGetComponent(out PlayerController playerController)) {
+            playerController.OnDeath();
         }
     }
 }

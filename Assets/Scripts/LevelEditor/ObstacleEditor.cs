@@ -15,6 +15,7 @@ using Tags.UI;
 using Tags;
 using Tags.Obstacle;
 using UnityEngineInternal;
+using System;
 
 namespace LevelEditor {
     public class ObstacleEditor : MonoBehaviour, ISerialize {
@@ -34,6 +35,7 @@ namespace LevelEditor {
         private Dictionary<ObstacleType, ObstacleData> _obstacleLookup = new Dictionary<ObstacleType, ObstacleData>();
         public float Alpha => _canvas.alpha;
         public bool HasSpawnPoint => _hasSpawnPoint;
+        public Action<bool> UpdateSpawnPoint;
 
         private void Start() {
             foreach (ObstacleData data in _obstacleData) {
@@ -52,6 +54,7 @@ namespace LevelEditor {
             foreach (Placeable placeable in FindObjectsOfType<Placeable>()) {
                 _placeables.Add(placeable);
                 if (placeable is SpawnPoint) {
+                    UpdateSpawnPoint?.Invoke(_hasSpawnPoint);
                     _hasSpawnPoint = true;
                 }
             }
@@ -65,6 +68,7 @@ namespace LevelEditor {
             _placeables.Add(Instantiate(data.Prefab, Helpers.Instance.TileMapMousePosition, Quaternion.identity).GetComponentInChildren<Placeable>());
             if (data.Obstacle == ObstacleType.SpawnPoint) {
                 _hasSpawnPoint = true;
+                UpdateSpawnPoint?.Invoke(_hasSpawnPoint);
             }
             _selected = _placeables.Last();
             _selected.InitReferences();
@@ -119,6 +123,7 @@ namespace LevelEditor {
                     }
                     if (placeable) {
                         if (placeable is SpawnPoint) {
+                            UpdateSpawnPoint?.Invoke(_hasSpawnPoint);
                             _hasSpawnPoint = false;
                         }
                         _placeables.Remove(placeable);
@@ -178,6 +183,7 @@ namespace LevelEditor {
                 SpawnPoint spawnPoint = Instantiate(_obstacleLookup[ObstacleType.SpawnPoint].Prefab).GetComponent<SpawnPoint>();
                 _placeables.Add(spawnPoint);
                 spawnPoint.LoadSaveData(data.SpawnPoint);
+                UpdateSpawnPoint?.Invoke(_hasSpawnPoint);
                 _hasSpawnPoint = true;
             }
             // TODO: Handle other obstacle types
