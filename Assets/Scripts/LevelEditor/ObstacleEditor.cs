@@ -191,7 +191,7 @@ namespace LevelEditor {
                     data.DoorData.Add(door.ToSaveData());
                 } else if (placeable is MovingPlatform) {
                     MovingPlatform platform = placeable as MovingPlatform;
-                    if (placeable.gameObject.HasComponent<KillZone>()) {
+                    if (placeable.GetComponentInChildren<KillZone>()) {
                         data.DeathPlatformData.Add(platform.ToSaveData());
                     } else {
                         data.PlatformData.Add(platform.ToSaveData());
