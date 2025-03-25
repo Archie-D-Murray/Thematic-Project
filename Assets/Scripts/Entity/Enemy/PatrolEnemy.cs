@@ -44,9 +44,7 @@ public class PatrolEnemy : Enemy {
     }
 
     public override void RemovePlaceable() {
-        foreach (Transform patrolPoint in patrolPoints) {
-            Destroy(patrolPoint.gameObject);
-        }
+        Destroy(transform.parent.gameObject);
     }
 
     protected override void Patrol() {

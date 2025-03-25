@@ -121,9 +121,8 @@ namespace LevelEditor {
                         if (placeable is SpawnPoint) {
                             _hasSpawnPoint = false;
                         }
-                        placeable.RemovePlaceable();
                         _placeables.Remove(placeable);
-                        Destroy(placeable.gameObject);
+                        placeable.RemovePlaceable();
                     }
                 }
             }

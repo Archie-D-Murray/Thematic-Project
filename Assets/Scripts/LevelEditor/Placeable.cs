@@ -46,6 +46,8 @@ namespace LevelEditor {
             return _moveables[index];
         }
 
-        public virtual void RemovePlaceable() { }
+        public virtual void RemovePlaceable() { 
+            Destroy(gameObject); 
+        }
     }
 }
