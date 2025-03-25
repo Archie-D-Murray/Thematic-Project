@@ -1,0 +1,34 @@
+using Entity.Player;
+
+using LevelEditor;
+
+using UnityEngine;
+
+public class CameraController : MonoBehaviour {
+    [SerializeField] private PlayerController _player;
+    [SerializeField] private Transform _target;
+
+    [SerializeField] private EditorManager _editorManager;
+    [SerializeField] private float _cameraSpeed = 5.0f;
+
+    private void Start() {
+        _player = FindObjectOfType<PlayerController>();
+        _editorManager = FindObjectOfType<EditorManager>();
+        _editorManager.OnStateChange += OnStateChange;
+        _target = transform.GetChild(0);
+        _target.position = _player.transform.position;
+    }
+
+    public void LateUpdate() {
+        if (_editorManager.State != EditorState.None) {
+            Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            _target.position += _cameraSpeed * Time.deltaTime * (Vector3)input.normalized;
+        } else {
+            _target.position = _player.transform.position;
+        }
+    }
+
+    public void OnStateChange(EditorState state) {
+        _player.ToggleMovement(state == EditorState.None);
+    }
+}

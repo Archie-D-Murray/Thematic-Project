@@ -273,7 +273,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -281,6 +281,69 @@ TextureImporter:
       bones: []
       spriteID: f20ab9b1c89be5d45aa79d470721d7e9
       internalID: -1240763202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Icons_9
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 043179041a2dae04da685fd26d914dcf
+      internalID: 950314134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Icons_10
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72cbfe489d1a5104ebeaefd21aabc87f
+      internalID: -334198763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Icons_11
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc29c08076ee1db4f887683a2b2a0cc1
+      internalID: -404155799
       vertices: []
       indices: 
       edges: []
@@ -298,6 +361,8 @@ TextureImporter:
     nameFileIdTable:
       UI_Icons_0: -1776451240
       UI_Icons_1: 641907707
+      UI_Icons_10: -334198763
+      UI_Icons_11: -404155799
       UI_Icons_2: -1050029879
       UI_Icons_3: 225643427
       UI_Icons_4: 1564084404
@@ -305,6 +370,7 @@ TextureImporter:
       UI_Icons_6: 1401903923
       UI_Icons_7: 1530259109
       UI_Icons_8: -1240763202
+      UI_Icons_9: 950314134
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

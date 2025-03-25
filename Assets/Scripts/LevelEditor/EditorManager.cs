@@ -20,6 +20,7 @@ namespace LevelEditor {
         [SerializeField] private EditorState _state;
 
         public EditorState State => _state;
+        public Action<EditorState> OnStateChange;
 
         private void Start() {
             _save.onClick.AddListener(EnableSave);
@@ -37,6 +38,7 @@ namespace LevelEditor {
             }
             _saveUI.Close();
             _obstacleEditor.Close();
+            OnStateChange?.Invoke(_state);
         }
 
         private void EnableObstacle() {
@@ -54,6 +56,7 @@ namespace LevelEditor {
             }
             _tilemapEditor.Close();
             _saveUI.Close();
+            OnStateChange?.Invoke(_state);
         }
 
         private void EnableSave() {
@@ -66,6 +69,7 @@ namespace LevelEditor {
             }
             _tilemapEditor.Close();
             _obstacleEditor.Close();
+            OnStateChange?.Invoke(_state);
         }
     }
 }

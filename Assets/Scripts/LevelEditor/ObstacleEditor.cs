@@ -29,9 +29,11 @@ namespace LevelEditor {
         [SerializeField] private int _index = 0;
         [SerializeField] private KeyCode _hotkey = KeyCode.F11;
         [SerializeField] private CanvasGroup _canvas;
+        [SerializeField] private bool _hasSpawnPoint = false;
 
         private Dictionary<ObstacleType, ObstacleData> _obstacleLookup = new Dictionary<ObstacleType, ObstacleData>();
         public float Alpha => _canvas.alpha;
+        public bool HasSpawnPoint => _hasSpawnPoint;
 
         private void Start() {
             foreach (ObstacleData data in _obstacleData) {
@@ -49,6 +51,9 @@ namespace LevelEditor {
             }
             foreach (Placeable placeable in FindObjectsOfType<Placeable>()) {
                 _placeables.Add(placeable);
+                if (placeable is SpawnPoint) {
+                    _hasSpawnPoint = true;
+                }
             }
             _obstacleMask = 1 << LayerMask.NameToLayer("Obstacle") | 1 << LayerMask.NameToLayer("Enemy");
             _canvas = GetComponent<CanvasGroup>();
@@ -58,6 +63,9 @@ namespace LevelEditor {
 
         private void OnSpawn(ObstacleData data) {
             _placeables.Add(Instantiate(data.Prefab, Helpers.Instance.TileMapMousePosition, Quaternion.identity).GetComponentInChildren<Placeable>());
+            if (data.Obstacle == ObstacleType.SpawnPoint) {
+                _hasSpawnPoint = true;
+            }
             _selected = _placeables.Last();
             _selected.InitReferences();
             _selected.StartPlacement();
@@ -110,6 +118,9 @@ namespace LevelEditor {
                         hit.transform.TryGetComponent(out placeable);
                     }
                     if (placeable) {
+                        if (placeable is SpawnPoint) {
+                            _hasSpawnPoint = false;
+                        }
                         placeable.RemovePlaceable();
                         _placeables.Remove(placeable);
                         Destroy(placeable.gameObject);
@@ -164,6 +175,12 @@ namespace LevelEditor {
                 _placeables.Add(laser);
                 laser.LoadSaveData(laserData);
             }
+            if (data.SpawnPoint != null) {
+                SpawnPoint spawnPoint = Instantiate(_obstacleLookup[ObstacleType.SpawnPoint].Prefab).GetComponent<SpawnPoint>();
+                _placeables.Add(spawnPoint);
+                spawnPoint.LoadSaveData(data.SpawnPoint);
+                _hasSpawnPoint = true;
+            }
             // TODO: Handle other obstacle types
         }
 
@@ -188,6 +205,8 @@ namespace LevelEditor {
                 } else if (placeable is Laser) {
                     Laser laser = placeable as Laser;
                     data.Lasers.Add(laser.ToSaveData());
+                } else if (placeable is SpawnPoint) {
+                    data.SpawnPoint = (placeable as SpawnPoint).ToSaveData();
                 }
                 // TODO: Handle other obstacle types
             }

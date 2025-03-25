@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
+using LevelEditor;
+
 using Unity.VisualScripting;
 
 using UnityEngine;
@@ -28,6 +30,7 @@ namespace Entity.Player {
         [SerializeField] private bool _canDash = true;
         [SerializeField] private LayerMask _ground;
         [SerializeField] private bool _isJumping = false;
+        [SerializeField] private bool _isPlaying = true;
 
         //Gravity 
         [SerializeField] private float originalGravity;
@@ -59,7 +62,13 @@ namespace Entity.Player {
         private Animator _animator;
         private BoxCollider2D _collider;
 
+        [Header("Resume previous state")]
+        private Vector2 _fallbackPosition;
+        private Vector2 _previousVelocity = Vector2.zero;
+        private float _previousGravity = 1.0f;
+
         void Start() {
+            _fallbackPosition = transform.position;
             _rb2D = GetComponent<Rigidbody2D>();
             _renderer = GetComponent<SpriteRenderer>();
             _animator = GetComponent<Animator>();
@@ -74,6 +83,7 @@ namespace Entity.Player {
         }
 
         void Update() {
+            if (!_isPlaying) { return; }
             if (_canJump && !_isJumping) {
                 if (Input.GetButtonDown("Jump")) {
                     jumpPressed = true;
@@ -85,6 +95,7 @@ namespace Entity.Player {
         }
 
         void FixedUpdate() {
+            if (!_isPlaying) { return; }
             _isGrounded = GetGrounded();
 
 
@@ -218,6 +229,21 @@ namespace Entity.Player {
             if (currentAnimation == animation) { return; }
             currentAnimation = animation;
             _animator.Play(animation);
+        }
+
+        public void ToggleMovement(bool on) {
+            _isPlaying = on;
+            if (on) {
+                _rb2D.gravityScale = _previousGravity;
+                _rb2D.velocity = _previousVelocity;
+            } else {
+                _previousGravity = _rb2D.gravityScale;
+                _previousVelocity = _rb2D.velocity;
+            }
+        }
+
+        public void OnDeath() {
+            transform.position = FindFirstObjectByType<SpawnPoint>().OrNull()?.transform.position ?? _fallbackPosition;
         }
     }
 }
