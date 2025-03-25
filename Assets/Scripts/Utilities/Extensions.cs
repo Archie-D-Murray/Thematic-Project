@@ -90,8 +90,10 @@ public static class Extensions {
         }
         if (fadeToTransparent) {
             canvasGroup.interactable = false;
+            canvasGroup.blocksRaycasts = false;
         } else {
             canvasGroup.interactable = true;
+            canvasGroup.blocksRaycasts = true;
         }
     }
 
