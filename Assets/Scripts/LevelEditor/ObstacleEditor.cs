@@ -3,8 +3,6 @@ using System.Linq;
 
 using Data;
 
-using UI;
-
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -14,7 +12,6 @@ using Utilities;
 using Tags.UI;
 using Tags;
 using Tags.Obstacle;
-using UnityEngineInternal;
 using System;
 
 namespace LevelEditor {
@@ -28,7 +25,6 @@ namespace LevelEditor {
         [SerializeField] private Placeable _selected = null;
 
         [SerializeField] private int _index = 0;
-        [SerializeField] private KeyCode _hotkey = KeyCode.F11;
         [SerializeField] private CanvasGroup _canvas;
         [SerializeField] private bool _hasSpawnPoint = false;
 
@@ -61,7 +57,19 @@ namespace LevelEditor {
             _obstacleMask = 1 << LayerMask.NameToLayer("Obstacle") | 1 << LayerMask.NameToLayer("Enemy");
             _canvas = GetComponent<CanvasGroup>();
             _canvas.FadeCanvas(100.0f, true, this);
+            EditorManager.Instance.OnPlay += OnPlay;
+        }
 
+        private void OnPlay(PlayState state) {
+            if (_selected) {
+                _selected.FinishPlacement();
+                _selected = null;
+                _move = null;
+                EventSystem.current.SetSelectedGameObject(null); // Space can press button ffs
+            }
+            foreach (Placeable placeable in _placeables) {
+                placeable.OnPlay(state);
+            }
         }
 
         private void OnSpawn(ObstacleData data) {
@@ -225,6 +233,12 @@ namespace LevelEditor {
         }
 
         public void Close() {
+            if (_selected) {
+                _selected.FinishPlacement();
+                _selected = null;
+                _move = null;
+                EventSystem.current.SetSelectedGameObject(null); // Space can press button ffs
+            }
             if (_canvas.alpha == 1) {
                 _canvas.FadeCanvas(2.0f, true, this);
                 return;

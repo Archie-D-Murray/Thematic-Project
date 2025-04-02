@@ -138,6 +138,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 264
   _isJumping: 0
+  _isPlaying: 0
   originalGravity: 0
   maxFallGravity: 0
   fallGravityIncrement: 0

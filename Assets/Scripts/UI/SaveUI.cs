@@ -22,7 +22,6 @@ public class SaveUI : MonoBehaviour {
     [SerializeField] private string _saveDirectory = "Levels";
     [SerializeField] private List<Button> levelButtonList = new List<Button>();
     [SerializeField] private CanvasGroup canvas;
-    [SerializeField] private KeyCode _hotkey = KeyCode.F12;
     [SerializeField] private ObstacleEditor _obstacleEditor;
     public float Alpha => canvas.alpha;
     // Start is called before the first frame update

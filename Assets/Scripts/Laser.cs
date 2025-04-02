@@ -22,12 +22,12 @@ public class Laser : Placeable {
 
     // Update is called once per frame
     void FixedUpdate() {
-        if (_placing) { return; }
+        if (!_playing) { return; }
         _pivot.rotation = Quaternion.AngleAxis(_pivot.rotation.eulerAngles.z + rotationSpeed * Time.fixedDeltaTime, Vector3.forward);
     }
 
     public LaserData ToSaveData() {
-        return new LaserData(transform.position);
+        return new LaserData(_initialPosition);
     }
 
     public void LoadSaveData(LaserData laserData) {

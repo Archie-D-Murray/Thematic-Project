@@ -20,7 +20,7 @@ namespace LevelEditor {
         }
 
         public SpawnPointData ToSaveData() {
-            return new SpawnPointData(transform.position);
+            return new SpawnPointData(_initialPosition);
         }
     }
 }

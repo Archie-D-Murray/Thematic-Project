@@ -22,7 +22,6 @@ namespace LevelEditor {
         [SerializeField] private GameObject _tilePrefab;
         [SerializeField] private GameObject _indicatorPrefab;
         [SerializeField] private GameObject _selectionPrefab;
-        [SerializeField] private KeyCode _hotkey = KeyCode.F10;
 
         private SpriteRenderer _indicator;
         private Image _selection;

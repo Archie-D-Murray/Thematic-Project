@@ -38,6 +38,6 @@ public class FlyingEnemy : Enemy {
     }
 
     public FlyingEnemyData ToSaveData() {
-        return new FlyingEnemyData(transform.position);
+        return new FlyingEnemyData(_initialPosition);
     }
 }
