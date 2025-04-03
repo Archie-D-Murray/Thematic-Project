@@ -245,5 +245,18 @@ namespace Entity.Player {
         public void OnDeath() {
             transform.position = FindFirstObjectByType<SpawnPoint>().OrNull()?.transform.position ?? _fallbackPosition;
         }
+
+        private void OnCollisionEnter2D(Collision2D collision) {
+            print("collision");
+            if (collision.gameObject.layer == 9) {
+                if (_isDashing) {
+                    Destroy(collision.gameObject);
+                } else {
+                    OnDeath();
+                }
+            }
+            
+        }
+
     }
 }
