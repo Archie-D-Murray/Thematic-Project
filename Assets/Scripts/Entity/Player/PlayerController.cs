@@ -263,5 +263,18 @@ namespace Entity.Player {
             _rb2D.velocity = Vector2.zero;
             _rb2D.gravityScale = 1.0f;
         }
+
+        private void OnCollisionEnter2D(Collision2D collision) {
+            print("collision");
+            if (collision.gameObject.layer == 9) {
+                if (_isDashing) {
+                    Destroy(collision.gameObject);
+                } else {
+                    OnDeath();
+                }
+            }
+            
+        }
+
     }
 }
