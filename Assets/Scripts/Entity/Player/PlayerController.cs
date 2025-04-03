@@ -30,7 +30,7 @@ namespace Entity.Player {
         [SerializeField] private bool _canDash = true;
         [SerializeField] private LayerMask _ground;
         [SerializeField] private bool _isJumping = false;
-        [SerializeField] private bool _isPlaying = true;
+        [SerializeField] private bool _isPlaying = false;
 
         //Gravity 
         [SerializeField] private float originalGravity;
@@ -80,6 +80,7 @@ namespace Entity.Player {
 
             originalGravity = _rb2D.gravityScale;
             fallGravity = _rb2D.gravityScale * 2f;
+            OnPlay(PlayState.Exit);
         }
 
         void Update() {
@@ -231,19 +232,36 @@ namespace Entity.Player {
             _animator.Play(animation);
         }
 
-        public void ToggleMovement(bool on) {
-            _isPlaying = on;
-            if (on) {
-                _rb2D.gravityScale = _previousGravity;
-                _rb2D.velocity = _previousVelocity;
-            } else {
-                _previousGravity = _rb2D.gravityScale;
-                _previousVelocity = _rb2D.velocity;
+        public void OnPlay(PlayState state) {
+            switch (state) {
+                case PlayState.Begin:
+                    PlayerStart();
+                    break;
+
+                case PlayState.Continue:
+                    _isPlaying = true;
+                    _rb2D.gravityScale = _previousGravity;
+                    _rb2D.velocity = _previousVelocity;
+                    break;
+
+                case PlayState.Exit:
+                    _isPlaying = false;
+                    _previousGravity = _rb2D.gravityScale;
+                    _previousVelocity = _rb2D.velocity;
+                    break;
             }
         }
 
         public void OnDeath() {
+            // TODO: Play death animation
+            PlayerStart();
+        }
+
+        public void PlayerStart() {
+            _isPlaying = true;
             transform.position = FindFirstObjectByType<SpawnPoint>().OrNull()?.transform.position ?? _fallbackPosition;
+            _rb2D.velocity = Vector2.zero;
+            _rb2D.gravityScale = 1.0f;
         }
     }
 }

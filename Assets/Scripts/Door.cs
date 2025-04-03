@@ -51,7 +51,7 @@ public class Door : Placeable {
     }
 
     public DoorData ToSaveData() {
-        return new DoorData(transform.position, _button.transform.position, open);
+        return new DoorData(_initialPosition, _button.transform.position, open);
     }
 
     public void LoadSaveData(DoorData data) {

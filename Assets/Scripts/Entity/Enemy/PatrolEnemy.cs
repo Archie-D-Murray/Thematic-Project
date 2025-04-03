@@ -48,7 +48,7 @@ public class PatrolEnemy : Enemy {
     }
 
     protected override void Patrol() {
-        if (_placing) { return; }
+        if (!_playing) { return; }
         Vector2 targetPosition = Vector2.MoveTowards(rb2D.position, patrolPoints[patrolIndex].position, speed * Time.fixedDeltaTime);
         rb2D.MovePosition(targetPosition);
 
@@ -73,7 +73,7 @@ public class PatrolEnemy : Enemy {
     }
 
     public PatrolEnemyData ToSaveData() {
-        return new PatrolEnemyData(transform.position, patrolPoints[0].position, patrolPoints[1].position);
+        return new PatrolEnemyData(_initialPosition, patrolPoints[0].position, patrolPoints[1].position);
     }
     private void PlacementStart() {
         foreach (SpriteRenderer renderer in _pointRenderers) {
