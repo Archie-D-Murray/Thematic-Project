@@ -32,6 +32,10 @@ public class CameraController : MonoBehaviour {
 
     public void OnPlay(PlayState state) {
         _player.OnPlay(state);
+<<<<<<< HEAD
+        _inputControl = state != PlayState.Begin;
+=======
         _inputControl = state == PlayState.Exit;
+>>>>>>> main
     }
 }
