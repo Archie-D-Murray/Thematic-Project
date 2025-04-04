@@ -259,9 +259,30 @@ namespace Entity.Player {
 
         public void PlayerStart() {
             _isPlaying = true;
+            // TODO: Play death animation
+            PlayerStart();
+        }
+
+        public void PlayerStart() {
+            _isPlaying = true;
             transform.position = FindFirstObjectByType<SpawnPoint>().OrNull()?.transform.position ?? _fallbackPosition;
             _rb2D.velocity = Vector2.zero;
             _rb2D.gravityScale = 1.0f;
+            _rb2D.velocity = Vector2.zero;
+            _rb2D.gravityScale = 1.0f;
         }
+
+        private void OnCollisionEnter2D(Collision2D collision) {
+            print("collision");
+            if (collision.gameObject.layer == 9) {
+                if (_isDashing) {
+                    Destroy(collision.gameObject);
+                } else {
+                    OnDeath();
+                }
+            }
+            
+        }
+
     }
 }

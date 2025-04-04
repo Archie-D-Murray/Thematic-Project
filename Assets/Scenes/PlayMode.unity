@@ -411,8 +411,6 @@ Tilemap:
   m_CorrespondingSourceObject: {fileID: 7191348688866542874, guid: 462610f7ea7b32d4aa03f907eaf3ec91, type: 3}
   m_PrefabInstance: {fileID: 7757452016167325401}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
-=======
 --- !u!1 &1573640551 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3366601609785499684, guid: 462610f7ea7b32d4aa03f907eaf3ec91, type: 3}
@@ -488,7 +486,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
->>>>>>> main
 --- !u!1001 &267544360759294424
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1224,9 +1221,6 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-<<<<<<< HEAD
-    m_AddedComponents: []
-=======
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3366601609785499684, guid: 462610f7ea7b32d4aa03f907eaf3ec91, type: 3}
       insertIndex: -1
@@ -1234,7 +1228,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3366601609785499684, guid: 462610f7ea7b32d4aa03f907eaf3ec91, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1573640555}
->>>>>>> main
   m_SourcePrefab: {fileID: 100100000, guid: 462610f7ea7b32d4aa03f907eaf3ec91, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
