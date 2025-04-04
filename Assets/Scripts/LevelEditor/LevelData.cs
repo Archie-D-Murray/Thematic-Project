@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Data {
     public class LevelData {
-        public List<TileData> TilemapData;
+        public string Name;
+        public List<TileData> ForegroundData;
+        public List<TileData> BackgroundData;
         public List<DoorData> DoorData;
         public List<PlatformData> PlatformData;
         public List<PlatformData> DeathPlatformData;
@@ -12,8 +14,10 @@ namespace Data {
         public List<LaserData> Lasers;
         public SpawnPointData SpawnPoint;
 
-        public LevelData() {
-            TilemapData = new List<TileData>();
+        public LevelData(string name) {
+            Name = name;
+            ForegroundData = new List<TileData>();
+            BackgroundData = new List<TileData>();
             DoorData = new List<DoorData>();
             PlatformData = new List<PlatformData>();
             DeathPlatformData = new List<PlatformData>();
