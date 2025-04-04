@@ -26,6 +26,7 @@ namespace LevelEditor {
             public TileBase[] _tileAssets;
             public Tile[] _tiles;
             public Dictionary<Button, int> _lookup = new Dictionary<Button, int>();
+            public Vector3[] ButtonPositions;
             public Dictionary<Vector3Int, int> _levelTiles = new Dictionary<Vector3Int, int>();
 
             public void AddTile(Vector3Int position) {
@@ -52,6 +53,24 @@ namespace LevelEditor {
             public bool IsValid() {
                 return _tileAssets.Length == _tiles.Length;
             }
+
+            public void PopulateButtonPositions() {
+                if (ButtonPositions != null && ButtonPositions.Length != 0) { return; }
+                ButtonPositions = new Vector3[_tiles.Length];
+                int i = 0;
+                foreach (Button button in _lookup.Keys) {
+                    ButtonPositions[i] = button.transform.position;
+                    i++;
+                }
+            }
+
+            public Vector3 ButtonPosition() {
+                return ButtonPositions[_selected];
+            }
+
+            public Sprite Sprite() {
+                return _tiles[_selected].sprite;
+            }
         }
 
         [SerializeField] private TilemapData[] _tilemapData = new TilemapData[2];
@@ -64,8 +83,8 @@ namespace LevelEditor {
         [SerializeField] private GameObject _selectionPrefab;
         [SerializeField] private CanvasGroup _tilemapSelection;
 
-        [SerializeField] private KeyCode _cycleForward;
-        [SerializeField] private KeyCode _cycleBackward;
+        [SerializeField] private KeyCode _cycleForward = KeyCode.RightBracket;
+        [SerializeField] private KeyCode _cycleBackward = KeyCode.LeftBracket;
 
         private SpriteRenderer _indicator;
         private Image _selection;
@@ -122,15 +141,15 @@ namespace LevelEditor {
                     _selection.transform.position = button.transform.position;
                 });
                 button.GetComponent<Image>().sprite = _current._tiles[i].sprite;
-                if (i == _current._selected) { // GridLayout only updates on next frame...
-                    StartCoroutine(SetSelectionPosition(button.transform));
-                }
             }
+            StartCoroutine(SetSelectionPosition());
         }
 
-        private IEnumerator SetSelectionPosition(Transform transform) {
+        private IEnumerator SetSelectionPosition() {
             yield return Yielders.WaitForEndOfFrame;
-            _selection.transform.position = transform.position;
+            _current.PopulateButtonPositions();
+            _indicator.sprite = _current.Sprite();
+            _selection.transform.position = _current.ButtonPosition();
         }
 
         public void Close() {
@@ -158,10 +177,16 @@ namespace LevelEditor {
             }
 
             if (Input.GetKeyDown(_cycleForward)) {
+                Debug.Log("Cycling forward");
                 _current.IncrementIndex();
+                _selection.transform.position = _current.ButtonPosition();
+                _indicator.sprite = _current.Sprite();
             }
             if (Input.GetKeyDown(_cycleBackward)) {
+                Debug.Log("Cycling backward");
                 _current.DecrementIndex();
+                _selection.transform.position = _current.ButtonPosition();
+                _indicator.sprite = _current.Sprite();
             }
         }
 

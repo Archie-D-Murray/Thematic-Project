@@ -398,10 +398,10 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_HighlightedColor: {r: 0.9150943, g: 0.9150943, b: 0.9150943, a: 1}
+    m_PressedColor: {r: 0.8018868, g: 0.8018868, b: 0.8018868, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -1092,6 +1092,14 @@ PrefabInstance:
     - target: {fileID: 6796510833837272130, guid: 25575f97a471602bdb8d9258cc3ab255, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6838956107603843247, guid: 25575f97a471602bdb8d9258cc3ab255, type: 3}
+      propertyPath: _cycleForward
+      value: 93
+      objectReference: {fileID: 0}
+    - target: {fileID: 6838956107603843247, guid: 25575f97a471602bdb8d9258cc3ab255, type: 3}
+      propertyPath: _cycleBackward
+      value: 91
       objectReference: {fileID: 0}
     - target: {fileID: 6838956107603843247, guid: 25575f97a471602bdb8d9258cc3ab255, type: 3}
       propertyPath: _tilemapData.Array.data[1].Type
