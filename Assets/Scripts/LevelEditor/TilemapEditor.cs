@@ -85,6 +85,7 @@ namespace LevelEditor {
 
         [SerializeField] private KeyCode _cycleForward = KeyCode.RightBracket;
         [SerializeField] private KeyCode _cycleBackward = KeyCode.LeftBracket;
+        [SerializeField] private KeyCode _toggleTilemap = KeyCode.Space;
 
         private SpriteRenderer _indicator;
         private Image _selection;
@@ -187,6 +188,9 @@ namespace LevelEditor {
                 _current.DecrementIndex();
                 _selection.transform.position = _current.ButtonPosition();
                 _indicator.sprite = _current.Sprite();
+            }
+            if (Input.GetKeyDown(_toggleTilemap)) {
+                ToggleTilemap();
             }
         }
 
