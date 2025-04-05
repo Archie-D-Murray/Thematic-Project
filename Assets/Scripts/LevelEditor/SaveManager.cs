@@ -28,7 +28,7 @@ namespace Data {
 
         public void Save(string levelName) {
             string path = GetFilePath(levelName);
-            _data = new LevelData();
+            _data = new LevelData(levelName);
             foreach (ISerialize serializeTarget in GetSerializableTargets()) {
                 serializeTarget.OnSave(ref _data);
             }
