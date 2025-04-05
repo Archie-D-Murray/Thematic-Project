@@ -21,7 +21,7 @@ namespace UI {
         public void Show() {
             _canvas.alpha = 1.0f;
             _message.text = $"Saved level: {SaveManager.Instance.LevelName}";
-            _canvas.FadeCanvas(_fadeSpeed, true, this, true);
+            _canvas.FadeCanvas(_fadeSpeed, true, this);
         }
     }
 }
