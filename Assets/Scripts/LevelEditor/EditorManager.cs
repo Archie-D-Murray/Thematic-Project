@@ -5,10 +5,12 @@ using System.Linq;
 using System;
 using Utilities;
 using UnityEngine.EventSystems;
+using Data;
+using UI;
 
 namespace LevelEditor {
 
-    public enum EditorState { None, Obstacle, Tilemap, Save }
+    public enum EditorState { None, Obstacle, Tilemap }
 
     public enum PlayState { Begin, Continue, Exit }
 
@@ -25,19 +27,20 @@ namespace LevelEditor {
 
         [SerializeField] private ObstacleEditor _obstacleEditor;
         [SerializeField] private TilemapEditor _tilemapEditor;
-        [SerializeField] private SaveUI _saveUI;
         [SerializeField] private EditorState _state;
 
         [SerializeField] private KeyCode _tilemapHotkey = KeyCode.F1;
         [SerializeField] private KeyCode _obstacleHotkey = KeyCode.F2;
         [SerializeField] private KeyCode _saveHotkey = KeyCode.F3;
 
+        [SerializeField] private SaveMessage _saveMessage;
+
         public EditorState State => _state;
         public Action<EditorState> OnStateChange;
         public Action<PlayState> OnPlay;
 
         private void Start() {
-            _save.onClick.AddListener(EnableSave);
+            _save.onClick.AddListener(Save);
             _tilemap.onClick.AddListener(EnableTilemap);
             _obstacle.onClick.AddListener(EnableObstacle);
             _play.onClick.AddListener(Play);
@@ -57,7 +60,7 @@ namespace LevelEditor {
                 return;
             }
             if (Input.GetKeyDown(_saveHotkey)) {
-                EnableSave();
+                Save();
                 return;
             }
         }
@@ -70,7 +73,6 @@ namespace LevelEditor {
                 _tilemapEditor.Open();
                 _state = EditorState.Tilemap;
             }
-            _saveUI.Close();
             _obstacleEditor.Close();
             OnStateChange?.Invoke(_state);
         }
@@ -89,27 +91,17 @@ namespace LevelEditor {
                 _obstacleEditor.Open();
             }
             _tilemapEditor.Close();
-            _saveUI.Close();
             OnStateChange?.Invoke(_state);
         }
 
-        private void EnableSave() {
-            if (_state == EditorState.Save) {
-                _saveUI.Close();
-                _state = EditorState.None;
-            } else {
-                _saveUI.Open();
-                _state = EditorState.Save;
-            }
-            _tilemapEditor.Close();
-            _obstacleEditor.Close();
-            OnStateChange?.Invoke(_state);
+        private void Save() {
+            SaveManager.Instance.Save();
+            _saveMessage.Show();
         }
 
         private void HideAllEditors() {
             _tilemapEditor.Close();
             _obstacleEditor.Close();
-            _saveUI.Close();
             _state = EditorState.None;
             OnStateChange?.Invoke(_state);
         }

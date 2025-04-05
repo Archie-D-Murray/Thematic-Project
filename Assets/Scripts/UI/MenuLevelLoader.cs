@@ -14,7 +14,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SaveUI : MonoBehaviour {
+public class MenuLevelLoader : MonoBehaviour {
     [SerializeField] private Button saveButton;
     [SerializeField] private Button levelButtonPrefab;
     [SerializeField] private TMP_InputField levelNameInput;
@@ -91,6 +91,7 @@ public class SaveUI : MonoBehaviour {
 
     private void LoadLevel(string levelName) {
         Debug.Log($"Loading level: {levelName}");
-        SaveManager.Instance.Load(levelName);
+        SaveManager.Instance.LevelName = levelName;
+        SaveManager.Instance.Load();
     }
 }
