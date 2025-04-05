@@ -40,7 +40,9 @@ public class PatrolEnemy : Enemy {
 
     private void FixedUpdate() {
         UpdateAnimations();
-        Patrol();
+        if(!_isDead){
+            Patrol(); 
+        }
     }
 
     public override void RemovePlaceable() {

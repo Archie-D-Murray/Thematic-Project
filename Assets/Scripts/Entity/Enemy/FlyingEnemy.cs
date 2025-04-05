@@ -15,7 +15,9 @@ public class FlyingEnemy : Enemy {
     // Update is called once per frame
     private void FixedUpdate() {
         UpdateAnimations();
-        AttackPlayer();
+        if (!_isDead) {
+            AttackPlayer();
+        }
     }
 
     private void AttackPlayer() {
