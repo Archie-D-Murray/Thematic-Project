@@ -235,7 +235,7 @@ namespace Entity.Player {
         public void OnPlay(PlayState state) {
             switch (state) {
                 case PlayState.Begin:
-                    PlayerStart();
+                    PlayerReset();
                     break;
 
                 case PlayState.Continue:
@@ -254,15 +254,16 @@ namespace Entity.Player {
 
         public void OnDeath() {
             // TODO: Play death animation
-            PlayerStart();
+            PlayerReset();
         }
 
-        public void PlayerStart() {
+        public void PlayerReset() {
             _isPlaying = true;
             transform.position = FindFirstObjectByType<SpawnPoint>().OrNull()?.transform.position ?? _fallbackPosition;
             _rb2D.velocity = Vector2.zero;
             _rb2D.gravityScale = 1.0f;
         }
+
 
         //private void OnCollisionEnter2D(Collision2D collision) {
         //    print("collision");
