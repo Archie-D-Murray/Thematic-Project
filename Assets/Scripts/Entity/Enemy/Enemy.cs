@@ -80,7 +80,7 @@ public abstract class Enemy : Placeable {
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
-        if (collider.TryGetComponent(out PlayerController player)) {
+        if (collision.collider.gameObject.TryGetComponent(out PlayerController player)) {
             print("player");
             if (player.IsVulnerable()) {
                 player.OnDeath();
