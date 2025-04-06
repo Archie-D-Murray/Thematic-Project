@@ -12,23 +12,20 @@ public class FlyingEnemy : Enemy {
         return new Transform[] { transform };
     }
 
-    // Update is called once per frame
-    private void FixedUpdate() {
-        UpdateAnimations();
-        if (!_isDead) {
-            AttackPlayer();
-        }
-    }
-
-    private void AttackPlayer() {
-        if (IsInRange()) {
+    protected override void Attack() {
+        if (IsInRange() && !_isDead) {
+            spriteRenderer.flipX = player.position.x > rb2D.position.x;
             Vector2 targetPosition = Vector2.MoveTowards(rb2D.position, player.position, speed * Time.fixedDeltaTime);
             rb2D.MovePosition(targetPosition);
         }
     }
-    private void UpdateAnimations() {
+
+    protected override void EnterAttack() {
         PlayAnimation(animations.Walk);
-        spriteRenderer.flipX = player.position.x > rb2D.position.x;
+    }
+
+    protected override void Idle() {
+        SwitchState(EnemyState.Attack);
     }
 
     protected override void InitAnimations() {

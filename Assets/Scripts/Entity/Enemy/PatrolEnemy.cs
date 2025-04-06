@@ -38,19 +38,19 @@ public class PatrolEnemy : Enemy {
         OnPlaceFinish += PlacementFinish;
     }
 
-    private void FixedUpdate() {
-        UpdateAnimations();
-        if(!_isDead){
-            Patrol(); 
-        }
-    }
-
     public override void RemovePlaceable() {
         Destroy(transform.parent.gameObject);
     }
 
+    protected override void EnterPatrol() {
+        patrolIndex = 0;
+        PlayAnimation(animations.Walk);
+    }
+    protected override void Idle() {
+       SwitchState(EnemyState.Patrol);
+    }
     protected override void Patrol() {
-        if (!_playing) { return; }
+        if (!_playing || _isDead) { return; }
         Vector2 targetPosition = Vector2.MoveTowards(rb2D.position, patrolPoints[patrolIndex].position, speed * Time.fixedDeltaTime);
         rb2D.MovePosition(targetPosition);
 
@@ -58,10 +58,6 @@ public class PatrolEnemy : Enemy {
             patrolIndex = ++patrolIndex % patrolPoints.Length;
         }
         spriteRenderer.flipX = patrolPoints[patrolIndex].position.x > rb2D.position.x;
-    }
-
-    private void UpdateAnimations() {
-        PlayAnimation(animations.Walk);
     }
 
     protected override void InitAnimations() {

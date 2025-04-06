@@ -17,7 +17,8 @@ public abstract class Enemy : Placeable {
         }
         public int Walk;
     }
-
+    public enum EnemyState { Idle, Patrol, Attack, Death }
+    [SerializeField] protected EnemyState state;
     [SerializeField] protected Transform player;
     [SerializeField] protected Animator animator;
     [SerializeField] protected int currentAnimation = 0;
@@ -40,12 +41,56 @@ public abstract class Enemy : Placeable {
 
         InitAnimations();
         InitReferences();
+        SwitchState(InitialState());
     }
 
+    private void FixedUpdate() {
+        if (state == EnemyState.Death) {
+            return;
+        }
+        if (!player) {
+            state = EnemyState.Idle;
+        }
+
+        switch (state) {
+            case EnemyState.Idle:
+                Idle();
+                break;
+            case EnemyState.Patrol:
+                Patrol();
+                break;
+            case EnemyState.Attack:
+                Attack();
+                break;
+            default:
+                break;
+        }
+    }
+    protected virtual EnemyState InitialState() => EnemyState.Idle;
+
+    protected void SwitchState(EnemyState state) {
+        switch (state) {
+            case EnemyState.Idle:
+                EnterIdle();
+                break;
+            case EnemyState.Patrol:
+                EnterPatrol();
+                break;
+            case EnemyState.Attack:
+                EnterAttack();
+                break;
+            default:
+                break;
+        }
+        this.state = state;
+    }
     protected abstract void InitAnimations();
     protected virtual void Idle() { }
     protected virtual void Patrol() { }
     protected virtual void Attack() { }
+    protected virtual void EnterIdle() { }
+    protected virtual void EnterPatrol() { }
+    protected virtual void EnterAttack() { }
     protected virtual bool IsInRange() {
         if (!player) {
             return false;
