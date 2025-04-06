@@ -44,4 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d3cc77d273cbae45a43f257855d8ac7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UnparentOnAwake: 1
   _saveDirectory: Levels
+  LevelName: Level

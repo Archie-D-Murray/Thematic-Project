@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90c94c6106a5d6e448705a510fc4dc81, type: 3}
-  m_Name: 2_Platform
+  m_Name: 4_Death Platform
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 3098314455688318652, guid: 20715de16e09d2e449ac5bf784a8ed7d, type: 3}
-  Key: 50
-  Sprite: {fileID: -1098393674, guid: dbb5577829d79c44f9221e976abab672, type: 3}
-  KeySprite: {fileID: 1564084404, guid: ed6eeed1f8849704fb6054fa947370ab, type: 3}
-  Obstacle: 2
+  Prefab: {fileID: 3098314455688318652, guid: 8e0702be0d655b84dac0f02780a19127, type: 3}
+  Key: 52
+  Sprite: {fileID: 374103603, guid: 103121d74352ebb44972966dd8f1b4c7, type: 3}
+  KeySprite: {fileID: 1401903923, guid: ed6eeed1f8849704fb6054fa947370ab, type: 3}
+  Obstacle: 3

@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prefab: {fileID: 7679538867322452056, guid: d80583d2fa778154392fc88094dfa2a0, type: 3}
   Key: 49
-  Sprite: {fileID: 2000539099, guid: dbb5577829d79c44f9221e976abab672, type: 3}
+  Sprite: {fileID: -989995604, guid: 103121d74352ebb44972966dd8f1b4c7, type: 3}
   KeySprite: {fileID: 225643427, guid: ed6eeed1f8849704fb6054fa947370ab, type: 3}
   Obstacle: 0

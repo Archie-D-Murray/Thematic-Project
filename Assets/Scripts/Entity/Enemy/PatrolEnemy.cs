@@ -33,19 +33,24 @@ public class PatrolEnemy : Enemy {
     }
 
     // Start is called before the first frame update
-    protected override void Start() {
-        base.Start();
+    protected void Awake() {
         OnPlaceStart += PlacementStart;
         OnPlaceFinish += PlacementFinish;
     }
 
     private void FixedUpdate() {
         UpdateAnimations();
-        Patrol();
+        if(!_isDead){
+            Patrol(); 
+        }
+    }
+
+    public override void RemovePlaceable() {
+        Destroy(transform.parent.gameObject);
     }
 
     protected override void Patrol() {
-        if (_placing) { return; }
+        if (!_playing) { return; }
         Vector2 targetPosition = Vector2.MoveTowards(rb2D.position, patrolPoints[patrolIndex].position, speed * Time.fixedDeltaTime);
         rb2D.MovePosition(targetPosition);
 
@@ -63,14 +68,14 @@ public class PatrolEnemy : Enemy {
         animations = new EnemyAnimations("Goblin");
     }
 
-    public void LoadPatrolEnemyData(PatrolEnemyData data) {
+    public void LoadSaveData(PatrolEnemyData data) {
         transform.position = data.CurrentPosition;
         patrolPoints[0].position = data.Patrol1;
         patrolPoints[1].position = data.Patrol2;
     }
 
-    public PatrolEnemyData ToPatrolEnemyData() {
-        return new PatrolEnemyData(transform.position, patrolPoints[0].position, patrolPoints[1].position);
+    public PatrolEnemyData ToSaveData() {
+        return new PatrolEnemyData(_initialPosition, patrolPoints[0].position, patrolPoints[1].position);
     }
     private void PlacementStart() {
         foreach (SpriteRenderer renderer in _pointRenderers) {

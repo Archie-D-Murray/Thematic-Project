@@ -26,11 +26,15 @@ public abstract class Enemy : Placeable {
     [SerializeField] protected Rigidbody2D rb2D;
     [SerializeField] protected EnemyAnimations animations;
     [SerializeField] protected SpriteRenderer spriteRenderer;
+    [SerializeField] protected BoxCollider2D _collider;
+
+    protected bool _isDead;
 
     protected virtual void Start() {
         animator = GetComponent<Animator>();
         rb2D = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        _collider = GetComponent<BoxCollider2D>();
 
         player = FindFirstObjectByType<PlayerController>().transform;
 
@@ -53,5 +57,35 @@ public abstract class Enemy : Placeable {
         if (currentAnimation == animation) { return; }
         currentAnimation = animation;
         animator.Play(animation);
+    }
+
+    protected virtual void OnDeath() {
+        _isDead = true;
+        _collider.enabled = false;
+        print("dead");
+    }
+
+    public override void EnterPlayMode() {
+        base.EnterPlayMode();
+        _isDead = false;
+        _collider.enabled = true;
+    }
+
+    public override void ContinuePlayMode() {
+        _collider.enabled = !_isDead;
+        base.ContinuePlayMode();
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision) {
+        if (collision.collider.gameObject.TryGetComponent(out PlayerController player)) {
+            print("player");
+            if (player.IsVulnerable()) {
+                player.OnDeath();
+            } else {
+                OnDeath();
+            }
+        } else {
+            print("no player :(");
+        }
     }
 }

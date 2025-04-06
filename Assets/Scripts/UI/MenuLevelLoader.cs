@@ -5,6 +5,8 @@ using System.Linq;
 
 using Data;
 
+using LevelEditor;
+
 using TMPro;
 
 using Unity.VisualScripting;
@@ -12,7 +14,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SaveUI : MonoBehaviour {
+public class MenuLevelLoader : MonoBehaviour {
     [SerializeField] private Button saveButton;
     [SerializeField] private Button levelButtonPrefab;
     [SerializeField] private TMP_InputField levelNameInput;
@@ -20,14 +22,17 @@ public class SaveUI : MonoBehaviour {
     [SerializeField] private string _saveDirectory = "Levels";
     [SerializeField] private List<Button> levelButtonList = new List<Button>();
     [SerializeField] private CanvasGroup canvas;
-    [SerializeField] private KeyCode _hotkey = KeyCode.F12;
+    [SerializeField] private ObstacleEditor _obstacleEditor;
     public float Alpha => canvas.alpha;
     // Start is called before the first frame update
-    private void Start() {
+    private void Awake() {
         canvas = GetComponent<CanvasGroup>();
+        _obstacleEditor = FindFirstObjectByType<ObstacleEditor>();
+        _obstacleEditor.UpdateSpawnPoint += CanSave;
         levelNameInput.characterValidation = TMP_InputField.CharacterValidation.Alphanumeric;
         saveButton.onClick.AddListener(() => SaveLevel());
         UpdateLevelUI();
+        CanSave(_obstacleEditor.HasSpawnPoint);
     }
 
     private void SaveLevel() {
@@ -38,10 +43,16 @@ public class SaveUI : MonoBehaviour {
             }
         }
 
-        if (!fileList.Contains(levelNameInput.text)) {
+        if (!fileList.Contains(levelNameInput.text) && _obstacleEditor.HasSpawnPoint) {
             SaveManager.Instance.Save(levelNameInput.text);
             UpdateLevelUI();
+        } else if (!_obstacleEditor.HasSpawnPoint) {
+            // TODO: Show error message
         }
+    }
+
+    private void CanSave(bool hasSpawnPoint) {
+        saveButton.interactable = hasSpawnPoint;
     }
 
     private void UpdateLevelUI() {
@@ -80,6 +91,7 @@ public class SaveUI : MonoBehaviour {
 
     private void LoadLevel(string levelName) {
         Debug.Log($"Loading level: {levelName}");
-        SaveManager.Instance.Load(levelName);
+        SaveManager.Instance.LevelName = levelName;
+        SaveManager.Instance.Load();
     }
 }

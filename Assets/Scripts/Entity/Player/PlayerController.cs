@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
+using LevelEditor;
+
 using Unity.VisualScripting;
 
 using UnityEngine;
@@ -28,6 +30,7 @@ namespace Entity.Player {
         [SerializeField] private bool _canDash = true;
         [SerializeField] private LayerMask _ground;
         [SerializeField] private bool _isJumping = false;
+        [SerializeField] private bool _isPlaying = false;
 
         //Gravity 
         [SerializeField] private float originalGravity;
@@ -59,7 +62,13 @@ namespace Entity.Player {
         private Animator _animator;
         private BoxCollider2D _collider;
 
+        [Header("Resume previous state")]
+        private Vector2 _fallbackPosition;
+        private Vector2 _previousVelocity = Vector2.zero;
+        private float _previousGravity = 1.0f;
+
         void Start() {
+            _fallbackPosition = transform.position;
             _rb2D = GetComponent<Rigidbody2D>();
             _renderer = GetComponent<SpriteRenderer>();
             _animator = GetComponent<Animator>();
@@ -71,9 +80,11 @@ namespace Entity.Player {
 
             originalGravity = _rb2D.gravityScale;
             fallGravity = _rb2D.gravityScale * 2f;
+            OnPlay(PlayState.Exit);
         }
 
         void Update() {
+            if (!_isPlaying) { return; }
             if (_canJump && !_isJumping) {
                 if (Input.GetButtonDown("Jump")) {
                     jumpPressed = true;
@@ -85,6 +96,7 @@ namespace Entity.Player {
         }
 
         void FixedUpdate() {
+            if (!_isPlaying) { return; }
             _isGrounded = GetGrounded();
 
 
@@ -149,7 +161,6 @@ namespace Entity.Player {
             }
 
             UpdateCoyoteTime();
- 
             UpdateAnimations();
         }
 
@@ -220,5 +231,55 @@ namespace Entity.Player {
             currentAnimation = animation;
             _animator.Play(animation);
         }
+
+        public void OnPlay(PlayState state) {
+            switch (state) {
+                case PlayState.Begin:
+                    PlayerReset();
+                    break;
+
+                case PlayState.Continue:
+                    _isPlaying = true;
+                    _rb2D.gravityScale = _previousGravity;
+                    _rb2D.velocity = _previousVelocity;
+                    break;
+
+                case PlayState.Exit:
+                    _isPlaying = false;
+                    _previousGravity = _rb2D.gravityScale;
+                    _previousVelocity = _rb2D.velocity;
+                    break;
+            }
+        }
+
+        public void OnDeath() {
+            // TODO: Play death animation
+            PlayerReset();
+        }
+
+        public void PlayerReset() {
+            _isPlaying = true;
+            transform.position = FindFirstObjectByType<SpawnPoint>().OrNull()?.transform.position ?? _fallbackPosition;
+            _rb2D.velocity = Vector2.zero;
+            _rb2D.gravityScale = 1.0f;
+        }
+
+
+        //private void OnCollisionEnter2D(Collision2D collision) {
+        //    print("collision");
+        //    if (collision.gameObject.layer == 9) {
+        //        if (_isDashing) {
+        //            print("enemy death");
+        //        } else {
+        //            OnDeath();
+        //        }
+        //    }
+            
+        //}
+
+        public bool IsVulnerable() {
+            return (!_isDashing);
+        }
+
     }
 }

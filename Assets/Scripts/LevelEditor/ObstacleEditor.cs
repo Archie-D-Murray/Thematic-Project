@@ -3,8 +3,6 @@ using System.Linq;
 
 using Data;
 
-using UI;
-
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -14,7 +12,7 @@ using Utilities;
 using Tags.UI;
 using Tags;
 using Tags.Obstacle;
-using UnityEngineInternal;
+using System;
 
 namespace LevelEditor {
     public class ObstacleEditor : MonoBehaviour, ISerialize {
@@ -27,11 +25,13 @@ namespace LevelEditor {
         [SerializeField] private Placeable _selected = null;
 
         [SerializeField] private int _index = 0;
-        [SerializeField] private KeyCode _hotkey = KeyCode.F11;
         [SerializeField] private CanvasGroup _canvas;
+        [SerializeField] private bool _hasSpawnPoint = false;
 
         private Dictionary<ObstacleType, ObstacleData> _obstacleLookup = new Dictionary<ObstacleType, ObstacleData>();
         public float Alpha => _canvas.alpha;
+        public bool HasSpawnPoint => _hasSpawnPoint;
+        public Action<bool> UpdateSpawnPoint;
 
         private void Start() {
             foreach (ObstacleData data in _obstacleData) {
@@ -49,18 +49,38 @@ namespace LevelEditor {
             }
             foreach (Placeable placeable in FindObjectsOfType<Placeable>()) {
                 _placeables.Add(placeable);
+                if (placeable is SpawnPoint) {
+                    UpdateSpawnPoint?.Invoke(_hasSpawnPoint);
+                    _hasSpawnPoint = true;
+                }
             }
             _obstacleMask = 1 << LayerMask.NameToLayer("Obstacle") | 1 << LayerMask.NameToLayer("Enemy");
             _canvas = GetComponent<CanvasGroup>();
             _canvas.FadeCanvas(100.0f, true, this);
+            EditorManager.Instance.OnPlay += OnPlay;
+        }
 
+        private void OnPlay(PlayState state) {
+            if (_selected) {
+                _selected.FinishPlacement();
+                _selected = null;
+                _move = null;
+                EventSystem.current.SetSelectedGameObject(null); // Space can press button ffs
+            }
+            foreach (Placeable placeable in _placeables) {
+                placeable.OnPlay(state);
+            }
         }
 
         private void OnSpawn(ObstacleData data) {
-            _placeables.Add(Instantiate(data.Prefab, Helpers.Instance.TileMapMousePosition, Quaternion.identity).GetComponent<Placeable>());
+            _placeables.Add(Instantiate(data.Prefab, Helpers.Instance.TileMapMousePosition, Quaternion.identity).GetComponentInChildren<Placeable>());
+            if (data.Obstacle == ObstacleType.SpawnPoint) {
+                _hasSpawnPoint = true;
+                UpdateSpawnPoint?.Invoke(_hasSpawnPoint);
+            }
             _selected = _placeables.Last();
-            _selected.StartPlacement();
             _selected.InitReferences();
+            _selected.StartPlacement();
             _move = _selected.GetInitial();
             _index = 0;
         }
@@ -110,8 +130,12 @@ namespace LevelEditor {
                         hit.transform.TryGetComponent(out placeable);
                     }
                     if (placeable) {
+                        if (placeable is SpawnPoint) {
+                            UpdateSpawnPoint?.Invoke(_hasSpawnPoint);
+                            _hasSpawnPoint = false;
+                        }
                         _placeables.Remove(placeable);
-                        Destroy(placeable.gameObject);
+                        placeable.RemovePlaceable();
                     }
                 }
             }
@@ -151,12 +175,24 @@ namespace LevelEditor {
             foreach (PatrolEnemyData patrolEnemy in data.PatrolEnemies) {
                 PatrolEnemy patrol = Instantiate(_obstacleLookup[ObstacleType.PatrolEnemy].Prefab).GetComponentInChildren<PatrolEnemy>();
                 _placeables.Add(patrol);
-                patrol.LoadPatrolEnemyData(patrolEnemy);
+                patrol.LoadSaveData(patrolEnemy);
             }
             foreach (FlyingEnemyData flyingEnemy in data.FlyingEnemies) {
                 FlyingEnemy flying = Instantiate(_obstacleLookup[ObstacleType.FlyingEnemy].Prefab).GetComponent<FlyingEnemy>();
                 _placeables.Add(flying);
-                flying.LoadFlyingEnemyData(flyingEnemy);
+                flying.LoadSaveData(flyingEnemy);
+            }
+            foreach (LaserData laserData in data.Lasers) {
+                Laser laser = Instantiate(_obstacleLookup[ObstacleType.Laser].Prefab).GetComponent<Laser>();
+                _placeables.Add(laser);
+                laser.LoadSaveData(laserData);
+            }
+            if (data.SpawnPoint != null) {
+                SpawnPoint spawnPoint = Instantiate(_obstacleLookup[ObstacleType.SpawnPoint].Prefab).GetComponent<SpawnPoint>();
+                _placeables.Add(spawnPoint);
+                spawnPoint.LoadSaveData(data.SpawnPoint);
+                UpdateSpawnPoint?.Invoke(_hasSpawnPoint);
+                _hasSpawnPoint = true;
             }
             // TODO: Handle other obstacle types
         }
@@ -168,17 +204,22 @@ namespace LevelEditor {
                     data.DoorData.Add(door.ToSaveData());
                 } else if (placeable is MovingPlatform) {
                     MovingPlatform platform = placeable as MovingPlatform;
-                    if (placeable.gameObject.HasComponent<KillZone>()) {
+                    if (placeable.GetComponentInChildren<KillZone>()) {
                         data.DeathPlatformData.Add(platform.ToSaveData());
                     } else {
                         data.PlatformData.Add(platform.ToSaveData());
                     }
                 } else if (placeable is PatrolEnemy) {
                     PatrolEnemy patrolEnemy = placeable as PatrolEnemy;
-                    data.PatrolEnemies.Add(patrolEnemy.ToPatrolEnemyData());
+                    data.PatrolEnemies.Add(patrolEnemy.ToSaveData());
                 } else if (placeable is FlyingEnemy) {
                     FlyingEnemy flyingEnemy = placeable as FlyingEnemy;
-                    data.FlyingEnemies.Add(flyingEnemy.ToFlyingEnemyData());
+                    data.FlyingEnemies.Add(flyingEnemy.ToSaveData());
+                } else if (placeable is Laser) {
+                    Laser laser = placeable as Laser;
+                    data.Lasers.Add(laser.ToSaveData());
+                } else if (placeable is SpawnPoint) {
+                    data.SpawnPoint = (placeable as SpawnPoint).ToSaveData();
                 }
                 // TODO: Handle other obstacle types
             }
@@ -192,6 +233,12 @@ namespace LevelEditor {
         }
 
         public void Close() {
+            if (_selected) {
+                _selected.FinishPlacement();
+                _selected = null;
+                _move = null;
+                EventSystem.current.SetSelectedGameObject(null); // Space can press button ffs
+            }
             if (_canvas.alpha == 1) {
                 _canvas.FadeCanvas(2.0f, true, this);
                 return;

@@ -7,9 +7,11 @@ using System.IO;
 using UnityEngine.UI;
 
 namespace Data {
-    public class SaveManager : Singleton<SaveManager> {
+    public class SaveManager : PersistentSingleton<SaveManager> {
         [SerializeField] private LevelData _data;
         [SerializeField] private string _saveDirectory = "Levels";
+
+        public string LevelName = "Level";
 
         private void Start() {
             if (!Directory.Exists(Path.Combine(Application.dataPath, _saveDirectory))) {
@@ -26,9 +28,17 @@ namespace Data {
             return FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).OfType<ISerialize>().ToArray();
         }
 
+        public void Save() {
+            Save(LevelName);
+        }
+
+        public void Load() {
+            Load(LevelName);
+        }
+
         public void Save(string levelName) {
             string path = GetFilePath(levelName);
-            _data = new LevelData();
+            _data = new LevelData(levelName);
             foreach (ISerialize serializeTarget in GetSerializableTargets()) {
                 serializeTarget.OnSave(ref _data);
             }

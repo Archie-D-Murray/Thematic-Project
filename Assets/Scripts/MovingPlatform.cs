@@ -20,18 +20,17 @@ public class MovingPlatform : Placeable {
     [SerializeField] private bool reset;
 
     protected override Transform[] GetMoveables() {
-        if (!pos1 || !pos2) {
+        if (!pos1 || !pos2 || !platform) {
             GetPositions();
         }
         if (_pointRenderers == null || _pointRenderers.Length < 1) {
             _pointRenderers = new SpriteRenderer[2] { pos1.GetComponent<SpriteRenderer>(), pos2.GetComponent<SpriteRenderer>() };
         }
-        return new Transform[] { transform, pos1, pos2 };
+        return new Transform[] { platform.transform, pos1, pos2 };
     }
 
     // Start is called before the first frame update
     void Start() {
-        platform = GetComponentInChildren<Rigidbody2D>();
         GetPositions();
         _moveables = GetMoveables();
         currTarget = pos1.position;
@@ -53,6 +52,7 @@ public class MovingPlatform : Placeable {
     }
 
     void GetPositions() {
+        platform = GetComponentInChildren<Rigidbody2D>();
         foreach (Transform child in transform) {
             if (child.gameObject.HasComponent<FirstPosition>()) {
                 pos1 = child;
@@ -64,7 +64,7 @@ public class MovingPlatform : Placeable {
 
     // Update is called once per frame
     void Update() {
-        if (_placing) { return; }
+        if (!_playing) { return; }
         platform.transform.position = Vector2.MoveTowards(platform.transform.position, currTarget, speed * Time.deltaTime);
 
         if (Vector2.Distance(pos1.position, platform.transform.position) <= 0.1) {
@@ -80,12 +80,12 @@ public class MovingPlatform : Placeable {
 
     public void LoadSaveData(PlatformData data) {
         GetPositions();
-        transform.position = data.CurrentPosition;
+        platform.position = data.CurrentPosition;
         pos1.position = data.Pos1;
         pos2.position = data.Pos2;
     }
 
     public PlatformData ToSaveData() {
-        return new PlatformData(transform.position, pos1.position, pos2.position);
+        return new PlatformData(_initialPosition, pos1.position, pos2.position);
     }
 }

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90c94c6106a5d6e448705a510fc4dc81, type: 3}
-  m_Name: 5_Flying
+  m_Name: 2_Laser
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 2682290860696052760, guid: 9d3e6ee739e675a4a978af66e1a1cc45, type: 3}
-  Key: 53
-  Sprite: {fileID: -2095446829, guid: da19f8d03b6fb5247ae94d8d614daa1e, type: 3}
-  KeySprite: {fileID: 1530259109, guid: ed6eeed1f8849704fb6054fa947370ab, type: 3}
-  Obstacle: 5
+  Prefab: {fileID: 7386264264167539676, guid: f2832a2e398ea2a45924747c611e28db, type: 3}
+  Key: 50
+  Sprite: {fileID: 1007907074, guid: 103121d74352ebb44972966dd8f1b4c7, type: 3}
+  KeySprite: {fileID: 1564084404, guid: ed6eeed1f8849704fb6054fa947370ab, type: 3}
+  Obstacle: 1

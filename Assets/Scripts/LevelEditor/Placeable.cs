@@ -5,7 +5,8 @@ using UnityEngine;
 namespace LevelEditor {
     public abstract class Placeable : MonoBehaviour {
         [SerializeField] protected Transform[] _moveables;
-        [SerializeField] protected bool _placing = false;
+        [SerializeField] protected bool _playing = false;
+        [SerializeField] protected Vector3 _initialPosition;
 
         protected Action OnPlaceStart = delegate { };
         protected Action OnPlaceFinish = delegate { };
@@ -14,19 +15,18 @@ namespace LevelEditor {
 
         public void InitReferences() {
             if (_moveables == null || _moveables.Length < 1) {
-                Debug.Log("Manually inited Moveables");
                 _moveables = GetMoveables();
             }
         }
 
         public void StartPlacement() {
-            _placing = true;
             OnPlaceStart?.Invoke();
+            _initialPosition = GetInitial().position;
         }
 
         public void FinishPlacement() {
-            _placing = false;
             OnPlaceFinish?.Invoke();
+            _initialPosition = GetInitial().position;
         }
 
         public Transform GetInitial() {
@@ -44,6 +44,40 @@ namespace LevelEditor {
                 index--;
             }
             return _moveables[index];
+        }
+
+        public virtual void RemovePlaceable() {
+            Destroy(gameObject);
+        }
+
+        public virtual void EnterPlayMode() {
+            _playing = true;
+            GetInitial().position = _initialPosition;
+        }
+
+        public virtual void ExitPlayMode() {
+            _playing = false;
+        }
+
+        public virtual void ContinuePlayMode() {
+            _playing = true;
+        }
+
+        public void OnPlay(PlayState state) {
+            switch (state) {
+                case PlayState.Begin:
+                    EnterPlayMode();
+                    break;
+                case PlayState.Continue:
+                    ContinuePlayMode();
+                    break;
+                case PlayState.Exit:
+                    ExitPlayMode();
+                    break;
+                default:
+                    Debug.LogWarning($"Unknown play state encountered: {state}", this);
+                    break;
+            }
         }
     }
 }

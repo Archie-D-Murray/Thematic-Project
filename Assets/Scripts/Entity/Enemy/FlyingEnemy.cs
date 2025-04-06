@@ -15,7 +15,9 @@ public class FlyingEnemy : Enemy {
     // Update is called once per frame
     private void FixedUpdate() {
         UpdateAnimations();
-        AttackPlayer();
+        if (!_isDead) {
+            AttackPlayer();
+        }
     }
 
     private void AttackPlayer() {
@@ -33,11 +35,11 @@ public class FlyingEnemy : Enemy {
         animations = new EnemyAnimations("Skull");
     }
 
-    public void LoadFlyingEnemyData(FlyingEnemyData data) {
+    public void LoadSaveData(FlyingEnemyData data) {
         transform.position = data.CurrentPosition;
     }
 
-    public FlyingEnemyData ToFlyingEnemyData() {
-        return new FlyingEnemyData(transform.position);
+    public FlyingEnemyData ToSaveData() {
+        return new FlyingEnemyData(_initialPosition);
     }
 }
