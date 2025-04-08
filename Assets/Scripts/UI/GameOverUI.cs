@@ -19,8 +19,6 @@ public class GameOverUI : MonoBehaviour
     {
         GetComponentInChildren<TextMeshPro>().text = TitleText;
         enabled = true;
-        RestartButton.onClick.AddListener(() => Restart());
-        MenuButton.onClick.AddListener(() => Menu());
     }
 
     public void Menu() {
