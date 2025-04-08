@@ -12,6 +12,7 @@ namespace Data {
         [SerializeField] private string _saveDirectory = "Levels";
 
         public string LevelName = "Level";
+        public bool InitialSave = false;
 
         private void Start() {
             if (!Directory.Exists(Path.Combine(Application.dataPath, _saveDirectory))) {
