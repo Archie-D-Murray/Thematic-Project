@@ -17,6 +17,7 @@ namespace LevelEditor {
             if (_moveables == null || _moveables.Length < 1) {
                 _moveables = GetMoveables();
             }
+            _initialPosition = GetInitial().position;
         }
 
         public void StartPlacement() {

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -52,8 +53,6 @@ namespace Entity.Player {
         float input;
         private int currentAnimation;
 
-        [SerializeField] private Toggle _uiToggle;
-
         //[SerializeField] private CountDownTimer _coyoteTimer = new CountDownTimer(0.25f);
         [SerializeField] private CountDownTimer _dashTimer = new CountDownTimer(0f);
 
@@ -66,6 +65,8 @@ namespace Entity.Player {
         private Vector2 _fallbackPosition;
         private Vector2 _previousVelocity = Vector2.zero;
         private float _previousGravity = 1.0f;
+
+        public Action OnDeath;
 
         void Start() {
             _fallbackPosition = transform.position;
@@ -252,8 +253,9 @@ namespace Entity.Player {
             }
         }
 
-        public void OnDeath() {
+        public void Death() {
             // TODO: Play death animation
+            OnDeath?.Invoke();
             PlayerReset();
         }
 

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
+using Entity.Player;
+
 using TMPro;
 
 using UnityEngine;
@@ -13,14 +15,19 @@ public class GameOverUI : MonoBehaviour
     [SerializeField] Button MenuButton;
     [SerializeField] int MainMenuIndex;
     [SerializeField] string TitleText;
+    [SerializeField] private CanvasGroup _canvas;
+    private PlayerController _playerController;
         
     // Start is called before the first frame update
     void Start()
     {
-        GetComponentInChildren<TextMeshPro>().text = TitleText;
-        enabled = true;
+        _canvas = GetComponent<CanvasGroup>();
+        _canvas.FadeCanvas(100.0f, true, this);
+        GetComponentInChildren<TMP_Text>().text = TitleText;
         RestartButton.onClick.AddListener(() => Restart());
         MenuButton.onClick.AddListener(() => Menu());
+        _playerController = FindFirstObjectByType<PlayerController>();
+        _playerController.OnDeath += PopUp;
     }
 
     public void Menu() {
@@ -36,7 +43,8 @@ public class GameOverUI : MonoBehaviour
     }
 
     public void PopUp() {
-        enabled = true;
+        Debug.Log("Player died");
+        _canvas.FadeCanvas(2.0f, false, this);
     }
 
     //TODO

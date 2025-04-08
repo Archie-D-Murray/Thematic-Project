@@ -14,6 +14,7 @@ public class Laser : Placeable {
     // Start is called before the first frame update
     void Start() {
         _pivot = transform.GetChild(0);
+        InitReferences();
     }
 
     protected override Transform[] GetMoveables() {
