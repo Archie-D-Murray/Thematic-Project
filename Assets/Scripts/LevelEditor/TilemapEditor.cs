@@ -32,6 +32,7 @@ namespace LevelEditor {
             public void AddTile(Vector3Int position) {
                 _tilemap.SetTile(position, _tileAssets[_selected]);
                 _levelTiles[position] = _selected;
+                
             }
 
             public void RemoveTile(Vector3Int position) {
@@ -81,11 +82,13 @@ namespace LevelEditor {
         [SerializeField] private GameObject _tilePrefab;
         [SerializeField] private GameObject _indicatorPrefab;
         [SerializeField] private GameObject _selectionPrefab;
-        [SerializeField] private CanvasGroup _tilemapSelection;
 
         [SerializeField] private KeyCode _cycleForward = KeyCode.RightBracket;
         [SerializeField] private KeyCode _cycleBackward = KeyCode.LeftBracket;
         [SerializeField] private KeyCode _toggleTilemap = KeyCode.Space;
+
+        [SerializeField] private CanvasGroup _tilemapSelection;
+        [SerializeField] private PolygonCollider2D _cameraBounds;
 
         private SpriteRenderer _indicator;
         private Image _selection;
@@ -119,6 +122,23 @@ namespace LevelEditor {
             _toggle.onClick.AddListener(ToggleTilemap);
             AddExistingTiles();
             Close();
+        }
+
+        private void UpdateBounds() {
+            Vector3Int min = _tilemapData[0]._tilemap.cellBounds.min;
+            Vector3Int max = _tilemapData[0]._tilemap.cellBounds.max;
+            foreach (TilemapData data in _tilemapData) {
+                Debug.Log($"{data.Type}: Bounds: min: {data._tilemap.cellBounds.min}, max: {data._tilemap.cellBounds.max}");
+                min = Vector3Int.Min(data._tilemap.cellBounds.min, min);
+                max = Vector3Int.Max(data._tilemap.cellBounds.max, max);
+            }
+            Debug.Log($"Found bounds: min: {min}, max {max}");
+            _cameraBounds.SetPath(0, new Vector2[] {
+                new Vector2(min.x, min.y),
+                new Vector2(min.x, max.y),
+                new Vector2(max.x, max.y),
+                new Vector2(max.x, min.y),
+            });
         }
 
         private void ToggleTilemap() {
@@ -240,6 +260,7 @@ namespace LevelEditor {
                     continue;
                 }
             }
+            UpdateBounds();
         }
 
         private void AddExistingTiles() {
