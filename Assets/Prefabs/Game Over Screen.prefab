@@ -70,8 +70,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1484925341, guid: 4281ef7646461954a98c337c88e48531, type: 3}
-  m_Type: 2
+  m_Sprite: {fileID: 1557632159, guid: 4281ef7646461954a98c337c88e48531, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -335,6 +335,18 @@ PrefabInstance:
       propertyPath: m_text
       value: Main Menu
       objectReference: {fileID: 0}
+    - target: {fileID: 5163144642994604861, guid: 4ff4241445621274fb37f6a5186a6cf6, type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5163144642994604861, guid: 4ff4241445621274fb37f6a5186a6cf6, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1080332793, guid: 4281ef7646461954a98c337c88e48531, type: 3}
+    - target: {fileID: 5684814053581672661, guid: 4ff4241445621274fb37f6a5186a6cf6, type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: -810304436, guid: 4281ef7646461954a98c337c88e48531, type: 3}
     - target: {fileID: 6275613175462383076, guid: 4ff4241445621274fb37f6a5186a6cf6, type: 3}
       propertyPath: m_Name
       value: Main Menu
@@ -452,6 +464,18 @@ PrefabInstance:
       propertyPath: m_text
       value: Restart
       objectReference: {fileID: 0}
+    - target: {fileID: 5163144642994604861, guid: 4ff4241445621274fb37f6a5186a6cf6, type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5163144642994604861, guid: 4ff4241445621274fb37f6a5186a6cf6, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1080332793, guid: 4281ef7646461954a98c337c88e48531, type: 3}
+    - target: {fileID: 5684814053581672661, guid: 4ff4241445621274fb37f6a5186a6cf6, type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: -810304436, guid: 4281ef7646461954a98c337c88e48531, type: 3}
     - target: {fileID: 6275613175462383076, guid: 4ff4241445621274fb37f6a5186a6cf6, type: 3}
       propertyPath: m_Name
       value: Restart
