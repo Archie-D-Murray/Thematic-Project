@@ -211,7 +211,7 @@ TextureImporter:
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 1, y: 1, z: 1, w: 1}
+      border: {x: 3, y: 3, z: 3, w: 3}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -274,7 +274,7 @@ TextureImporter:
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 1, y: 1, z: 1, w: 1}
+      border: {x: 5, y: 5, z: 5, w: 5}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -621,6 +621,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: UI - Panel, Buttons, Icons_25
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 3, y: 3, z: 3, w: 3}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3f0a77a509a3fb43929584a0125c0e6
+      internalID: 1096063421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -650,6 +671,7 @@ TextureImporter:
       UI - Panel, Buttons, Icons_22: 1250126783
       UI - Panel, Buttons, Icons_23: -1927623471
       UI - Panel, Buttons, Icons_24: 1485634240
+      UI - Panel, Buttons, Icons_25: 1096063421
       UI - Panel, Buttons, Icons_3: -1318563608
       UI - Panel, Buttons, Icons_4: 1317530071
       UI - Panel, Buttons, Icons_5: -1080332793

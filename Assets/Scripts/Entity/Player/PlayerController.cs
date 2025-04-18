@@ -20,6 +20,8 @@ namespace Entity.Player {
             public static int Walk = Animator.StringToHash("Player_Walk");
             public static int Fall = Animator.StringToHash("Player_Fall");
             public static int Jump = Animator.StringToHash("Player_Jump");
+            public static int Dash = Animator.StringToHash("Player_Dash");
+            public static int Death = Animator.StringToHash("Player_Death");
         }
 
         [SerializeField] private float _speed = 5f;
@@ -52,6 +54,8 @@ namespace Entity.Player {
 
         float input;
         private int currentAnimation;
+        float _deathAnimationLength;
+        public float DeathTime => _deathAnimationLength;
 
         //[SerializeField] private CountDownTimer _coyoteTimer = new CountDownTimer(0.25f);
         [SerializeField] private CountDownTimer _dashTimer = new CountDownTimer(0f);
@@ -78,7 +82,7 @@ namespace Entity.Player {
             //_coyoteTimer.OnTimerStop += () => _canJump = false;
             _dashTimer.OnTimerStart += () => { _canDash = false; _isDashing = true; };
             _dashTimer.OnTimerStop += () => { _canDash = true; _isDashing = false; };
-
+            _deathAnimationLength = _animator.GetRuntimeClip(PlayerAnimations.Death).length;
             originalGravity = _rb2D.gravityScale;
             fallGravity = _rb2D.gravityScale * 2f;
             OnPlay(PlayState.Exit);
@@ -208,7 +212,16 @@ namespace Entity.Player {
                 }
             }
         }
+
         private void UpdateAnimations() {
+            if (currentAnimation == PlayerAnimations.Death) { return; }
+
+            if (_isDashing) {
+                PlayAnimation(PlayerAnimations.Dash);
+                _renderer.flipX = _rb2D.velocity.x > 0;
+                return;
+            }
+
             if (input < 0f) {
                 _renderer.flipX = false;
             } else if (input > 0f) {
@@ -254,9 +267,8 @@ namespace Entity.Player {
         }
 
         public void Death() {
-            // TODO: Play death animation
+            PlayAnimation(PlayerAnimations.Death);
             OnDeath?.Invoke();
-            PlayerReset();
         }
 
         public void PlayerReset() {
@@ -276,7 +288,7 @@ namespace Entity.Player {
         //            OnDeath();
         //        }
         //    }
-            
+
         //}
 
         public bool IsVulnerable() {
