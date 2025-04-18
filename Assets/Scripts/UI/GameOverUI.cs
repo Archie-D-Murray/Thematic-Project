@@ -5,6 +5,8 @@ using Entity.Player;
 
 using TMPro;
 
+using UI;
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -14,7 +16,7 @@ using Utilities;
 public class GameOverUI : MonoBehaviour {
     [SerializeField] Button RestartButton;
     [SerializeField] Button MenuButton;
-    [SerializeField] int MainMenuIndex;
+    [SerializeField] int _currentScene;
     [SerializeField] string TitleText;
     [SerializeField] private CanvasGroup _canvas;
     private PlayerController _playerController;
@@ -28,18 +30,18 @@ public class GameOverUI : MonoBehaviour {
         MenuButton.onClick.AddListener(() => Menu());
         _playerController = FindFirstObjectByType<PlayerController>();
         _playerController.OnDeath += PopUp;
+        _currentScene = SceneManager.GetActiveScene().buildIndex;
     }
 
     public void Menu() {
         //Load Main Menu scene
-        SceneManager.LoadScene(MainMenuIndex);
+        SceneManager.LoadScene(LevelIndex.Menu);
     }
 
     public void Restart() {
         //Reload level data here
-        print("restart");
-        string currentSceneName = SceneManager.GetActiveScene().name;
-        SceneManager.LoadScene(currentSceneName);
+
+        SceneManager.LoadScene(_currentScene);
     }
 
     public void PopUp() {
