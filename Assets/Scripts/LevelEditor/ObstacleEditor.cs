@@ -32,6 +32,7 @@ namespace LevelEditor {
         public Action<ObstacleType> OnPlace;
         public Action OnDestroy;
         public Action OnPickup;
+        public Action OnCycleMoveable;
 
         private Dictionary<ObstacleType, ObstacleData> _obstacleLookup = new Dictionary<ObstacleType, ObstacleData>();
         public float Alpha => _canvas.alpha;
@@ -148,11 +149,13 @@ namespace LevelEditor {
                 }
             }
 
-            if (_selected && Input.GetKeyDown(KeyCode.Tab) && !Input.GetKey(KeyCode.LeftShift)) { // Cycle to next move point
+            if (_selected && _selected.MoveableCount > 1 && Input.GetKeyDown(KeyCode.Tab) && !Input.GetKey(KeyCode.LeftShift)) { // Cycle to next move point
                 _move = _selected.GetNext(ref _index);
+                OnCycleMoveable?.Invoke();
             }
-            if (_selected && Input.GetKeyDown(KeyCode.Tab) && Input.GetKey(KeyCode.LeftShift)) {
+            if (_selected && _selected.MoveableCount > 1 && Input.GetKeyDown(KeyCode.Tab) && Input.GetKey(KeyCode.LeftShift)) {
                 _move = _selected.GetPrev(ref _index);
+                OnCycleMoveable?.Invoke();
             }
             if (_selected && _move) {
                 _move.position = Helpers.Instance.TileMapMousePosition;

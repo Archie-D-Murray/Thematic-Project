@@ -5,10 +5,36 @@ using System.Collections.Generic;
 using LevelEditor;
 using Entity.Player;
 using System;
+using UnityEngine.UI;
+using TMPro;
+using System.Linq;
+using Tags.UI;
 
 namespace Game {
+
+    [Serializable]
+    public class TutorialUI {
+        public Image Panel;
+        public Image _readout;
+        public TMP_Text _readoutText;
+
+        public TutorialUI(GameObject instance, Tutorial tutorial, TutorialManager manager) {
+            Panel = instance.GetComponent<Image>();
+            _readout = instance.GetComponentsInChildren<Image>().First(image => image.gameObject.HasComponent<ReadoutTag>());
+            foreach (TMP_Text text in instance.GetComponentsInChildren<TMP_Text>()) {
+                if (text.gameObject.HasComponent<ReadoutTag>()) {
+                    _readoutText = text;
+                    int steps = tutorial.GetSteps(manager);
+                    text.text = steps > 0 ? $"0 / {steps}" : "";
+                } else {
+                    text.text = tutorial.Task;
+                }
+            }
+        }
+    }
+
     public class TutorialManager : MonoBehaviour {
-        public int MinPlacedTypes = 3;
+        public int MinObstacleTypes = 3;
         public List<ObstacleType> PlacedObstacles;
         public bool HasDestroyedObstacle;
         public bool HasPickedUpObstacle;
@@ -18,7 +44,7 @@ namespace Game {
 
         [SerializeField] private Tutorial[] _tutorials;
         private Dictionary<TutorialType, Tutorial> _lookup;
-        private Dictionary<TutorialType, GameObject> _uiPanels;
+        private Dictionary<TutorialType, TutorialUI> _uiPanels;
         [SerializeField] private CanvasGroup _canvas;
         [SerializeField] private Transform _scroll;
 
@@ -32,7 +58,7 @@ namespace Game {
             }
             foreach (Tutorial tutorial in _tutorials) {
                 _lookup.Add(tutorial.Type, tutorial);
-                _uiPanels.Add(tutorial.Type, Instantiate(tutorial.Panel, _scroll));
+                _uiPanels.Add(tutorial.Type, new TutorialUI(Instantiate(tutorial.Panel, _scroll), tutorial, this));
             }
             _playerController = FindFirstObjectByType<PlayerController>();
             _obstacleEditor = FindFirstObjectByType<ObstacleEditor>();
@@ -75,8 +101,7 @@ namespace Game {
         }
 
         private void TryComplete(TutorialType type) {
-            if (_lookup.TryGetValue(type, out Tutorial tutorial) && tutorial.CheckComplete(this)) {
-                Destroy(_uiPanels[type]);
+            if (_lookup.TryGetValue(type, out Tutorial tutorial) && tutorial.CheckComplete(this, _uiPanels[type])) {
                 switch (type) {
                     case TutorialType.Attack:
                         _playerController.OnKill -= EnemyKill;

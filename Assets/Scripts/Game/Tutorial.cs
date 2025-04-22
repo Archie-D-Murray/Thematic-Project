@@ -1,3 +1,5 @@
+using System;
+
 using UnityEngine;
 
 namespace Game {
@@ -10,21 +12,58 @@ namespace Game {
         public TutorialType Type;
         public GameObject Panel;
 
-        public bool CheckComplete(TutorialManager manager) {
+        public bool CheckComplete(TutorialManager manager, TutorialUI ui) {
             switch (Type) {
                 case TutorialType.Attack:
-                    return manager.KilledEnemy;
+                    if (manager.KilledEnemy) {
+                        ui.Panel.color = Color.gray;
+                        return true;
+                    } else {
+                        return false;
+                    }
                 case TutorialType.PlaceTile:
-                    return manager.PlacedTiles.Count >= manager.MinTileTypes;
+                    if (manager.PlacedTiles.Count >= manager.MinTileTypes) {
+                        ui._readout.fillAmount = 1.0f;
+                        ui.Panel.color = Color.gray;
+                        return true;
+                    } else {
+                        ui._readout.fillAmount = Mathf.Clamp01((float)manager.PlacedTiles.Count / (float)manager.MinTileTypes);
+                        return false;
+                    }
                 case TutorialType.PlaceObstacle:
-                    return manager.PlacedObstacles.Count >= manager.MinPlacedTypes;
+                    if (manager.PlacedObstacles.Count >= manager.MinObstacleTypes) {
+                        ui._readout.fillAmount = 1.0f;
+                        ui.Panel.color = Color.gray;
+                        return true;
+                    } else {
+                        ui._readout.fillAmount = Mathf.Clamp01((float)manager.PlacedObstacles.Count / (float)manager.MinObstacleTypes);
+                        return false;
+                    }
                 case TutorialType.RemoveObstacle:
-                    return manager.HasDestroyedObstacle;
+                    if (manager.HasDestroyedObstacle) {
+                        ui.Panel.color = Color.gray;
+                        return true;
+                    } else {
+                        return false;
+                    }
                 case TutorialType.PickupObstacle:
-                    return manager.HasPickedUpObstacle;
+                    if (manager.HasPickedUpObstacle) {
+                        ui.Panel.color = Color.gray;
+                        return true;
+                    } else {
+                        return false;
+                    }
                 default:
                     return false;
             }
+        }
+
+        public int GetSteps(TutorialManager manager) {
+            return Type switch {
+                TutorialType.PlaceObstacle => manager.MinObstacleTypes,
+                TutorialType.PlaceTile => manager.MinTileTypes,
+                _ => -1
+            };
         }
     }
 }
