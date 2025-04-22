@@ -199,8 +199,8 @@ namespace LevelEditor {
                 SpawnPoint spawnPoint = Instantiate(_obstacleLookup[ObstacleType.SpawnPoint].Prefab).GetComponent<SpawnPoint>();
                 _placeables.Add(spawnPoint);
                 spawnPoint.LoadSaveData(data.SpawnPoint);
-                UpdateSpawnPoint?.Invoke(_hasSpawnPoint);
                 _hasSpawnPoint = true;
+                UpdateSpawnPoint?.Invoke(_hasSpawnPoint);
             }
             // TODO: Handle other obstacle types
         }
