@@ -29,6 +29,10 @@ namespace LevelEditor {
         [SerializeField] private CanvasGroup _canvas;
         [SerializeField] private bool _hasSpawnPoint = false;
 
+        public Action<ObstacleType> OnPlace;
+        public Action OnDestroy;
+        public Action OnPickup;
+
         private Dictionary<ObstacleType, ObstacleData> _obstacleLookup = new Dictionary<ObstacleType, ObstacleData>();
         public float Alpha => _canvas.alpha;
         public bool HasSpawnPoint => _hasSpawnPoint;
@@ -83,6 +87,7 @@ namespace LevelEditor {
             _selected.InitReferences();
             _selected.StartPlacement();
             _move = _selected.GetInitial();
+            OnPlace?.Invoke(data.Obstacle);
             _index = 0;
         }
 
@@ -117,6 +122,7 @@ namespace LevelEditor {
                         _selected.StartPlacement();
                         _move = placeable.GetInitial();
                         _index = 0;
+                        OnPickup?.Invoke();
                     }
                 }
             }
@@ -135,6 +141,7 @@ namespace LevelEditor {
                             UpdateSpawnPoint?.Invoke(_hasSpawnPoint);
                             _hasSpawnPoint = false;
                         }
+                        OnDestroy?.Invoke();
                         _placeables.Remove(placeable);
                         placeable.RemovePlaceable();
                     }

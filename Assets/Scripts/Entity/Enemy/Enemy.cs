@@ -82,6 +82,7 @@ public abstract class Enemy : Placeable {
             if (player.IsVulnerable()) {
                 player.Death();
             } else {
+                player.OnKill?.Invoke();
                 OnDeath();
             }
         } else {

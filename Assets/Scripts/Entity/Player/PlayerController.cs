@@ -71,6 +71,8 @@ namespace Entity.Player {
         private float _previousGravity = 1.0f;
 
         public Action OnDeath;
+        public Action OnKill;
+        public Action OnDash;
 
         void Start() {
             _fallbackPosition = transform.position;
@@ -147,6 +149,7 @@ namespace Entity.Player {
                 _dashTimer.Reset(_dashTime);
                 _rb2D.velocity = Vector2.right * input * _dashForce;
                 _isJumping = false;
+                OnDash?.Invoke();
             }
             if (!_isDashing) {
                 if (_isGrounded) {
