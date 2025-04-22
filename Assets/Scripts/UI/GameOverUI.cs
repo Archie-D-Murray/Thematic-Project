@@ -47,7 +47,4 @@ public class GameOverUI : MonoBehaviour
         _canvas.FadeCanvas(2.0f, false, this);
     }
 
-    //TODO
-    // menu pop up when player die/complete level
-    // level end prefab
 }
