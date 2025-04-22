@@ -11,10 +11,7 @@ using Game;
 
 namespace LevelEditor {
 
-    public enum EditorState {
-        None, Obstacle, Tilemap,
-        Tutorial
-    }
+    public enum EditorState { None, Obstacle, Tilemap, Tutorial }
 
     public enum PlayState { Begin, Continue, Exit }
 

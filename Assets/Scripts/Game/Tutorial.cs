@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Game {
 
-    public enum TutorialType { Attack, PlaceTile, PlaceObstacle, RemoveObstacle, PickupObstacle }
+    public enum TutorialType { EditorMenu, PlayMode, Attack, PlaceTile, PlaceObstacle, RemoveObstacle, PickupObstacle }
 
     [CreateAssetMenu(menuName = "Tutorial")]
     public class Tutorial : ScriptableObject {
