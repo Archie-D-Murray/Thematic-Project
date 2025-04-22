@@ -1,28 +1,56 @@
 using System.Collections;
 using System.Collections.Generic;
+
+using Entity.Player;
+
+using TMPro;
+
+using UI;
+
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameOverUI : MonoBehaviour
-{
+using Utilities;
+
+public class GameOverUI : MonoBehaviour {
     [SerializeField] Button RestartButton;
     [SerializeField] Button MenuButton;
-        
+    [SerializeField] int _currentScene;
+    [SerializeField] string TitleText;
+    [SerializeField] private CanvasGroup _canvas;
+    private PlayerController _playerController;
+
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
+        _canvas = GetComponent<CanvasGroup>();
+        _canvas.FadeCanvas(100.0f, true, this);
+        GetComponentInChildren<TMP_Text>().text = TitleText;
         RestartButton.onClick.AddListener(() => Restart());
         MenuButton.onClick.AddListener(() => Menu());
+        _playerController = FindFirstObjectByType<PlayerController>();
+        _playerController.OnDeath += PopUp;
+        _currentScene = SceneManager.GetActiveScene().buildIndex;
     }
 
-    private void Menu() {
+    public void Menu() {
         //Load Main Menu scene
-        print("Back to Menu");
+        SceneManager.LoadScene(LevelIndex.Menu);
     }
 
-    private void Restart() {
+    public void Restart() {
         //Reload level data here
-        print("restart");
+
+        SceneManager.LoadScene(_currentScene);
+    }
+
+    public void PopUp() {
+        StartCoroutine(WaitForDeathAnimation(_playerController.DeathTime));
+    }
+
+    private IEnumerator WaitForDeathAnimation(float duration) {
+        yield return Yielders.WaitForSeconds(duration);
+        _canvas.FadeCanvas(2.0f, false, this);
     }
 
     //TODO

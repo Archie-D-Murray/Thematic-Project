@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8362166818115885956}
   - component: {fileID: 3775174994863737956}
   m_Layer: 5
-  m_Name: Obstacle Spawners
+  m_Name: Obstacle Editor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -80,8 +80,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 1484925341, guid: 4281ef7646461954a98c337c88e48531, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -116,8 +116,8 @@ MonoBehaviour:
   _move: {fileID: 0}
   _selected: {fileID: 0}
   _index: 0
-  _hotkey: 292
   _canvas: {fileID: 0}
+  _hasSpawnPoint: 0
 --- !u!114 &3775174994863737956
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -125,7 +125,7 @@ public abstract class Enemy : Placeable {
         if (collision.collider.gameObject.TryGetComponent(out PlayerController player)) {
             print("player");
             if (player.IsVulnerable()) {
-                player.OnDeath();
+                player.Death();
             } else {
                 OnDeath();
             }

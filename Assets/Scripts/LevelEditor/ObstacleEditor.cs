@@ -15,6 +15,7 @@ using Tags.Obstacle;
 using System;
 
 namespace LevelEditor {
+    [DefaultExecutionOrder(-99)]
     public class ObstacleEditor : MonoBehaviour, ISerialize {
         [SerializeField] private List<Placeable> _placeables = new List<Placeable>();
         [SerializeField] private ObstacleData[] _obstacleData;
@@ -33,7 +34,7 @@ namespace LevelEditor {
         public bool HasSpawnPoint => _hasSpawnPoint;
         public Action<bool> UpdateSpawnPoint;
 
-        private void Start() {
+        private void Awake() {
             foreach (ObstacleData data in _obstacleData) {
                 _obstacleLookup.Add(data.Obstacle, data);
                 GameObject panel = Instantiate(_obstaclePanelPrefab, transform);
