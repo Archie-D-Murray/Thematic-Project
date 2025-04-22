@@ -14,8 +14,10 @@ public abstract class Enemy : Placeable {
     protected class EnemyAnimations {
         public EnemyAnimations(string name) {
             Walk = Animator.StringToHash($"{name}_Walk");
+            Death = Animator.StringToHash("Enemy_Death");
         }
         public int Walk;
+        public int Death;
     }
     public enum EnemyState { Idle, Patrol, Attack, Death }
     [SerializeField] protected EnemyState state;
@@ -105,6 +107,7 @@ public abstract class Enemy : Placeable {
     }
 
     protected virtual void OnDeath() {
+        PlayAnimation(animations.Death);
         _isDead = true;
         _collider.enabled = false;
         print("dead");
@@ -114,6 +117,7 @@ public abstract class Enemy : Placeable {
         base.EnterPlayMode();
         _isDead = false;
         _collider.enabled = true;
+        PlayAnimation(animations.Walk);
     }
 
     public override void ContinuePlayMode() {

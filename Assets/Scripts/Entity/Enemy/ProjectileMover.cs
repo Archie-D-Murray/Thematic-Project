@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Entity.Player;
+
 using UnityEngine;
 
 public class ProjectileMover : MonoBehaviour
@@ -15,5 +17,17 @@ public class ProjectileMover : MonoBehaviour
         this.duration = duration;
         rigidbodyProjectile.velocity = new Vector2(shootDirection.x * speed, shootDirection.y * speed);
         Destroy(gameObject, duration);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision) {
+        if (collision.collider.gameObject.TryGetComponent(out PlayerController player)) {
+            print("player");
+            if (player.IsVulnerable()) {
+                player.Death();
+            } 
+        } else {
+            print("no player :(");
+        }
+        Destroy(this.gameObject);
     }
 }

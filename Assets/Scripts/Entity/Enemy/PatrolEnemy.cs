@@ -79,7 +79,6 @@ public class PatrolEnemy : Enemy {
     protected override void InitAnimations() {
         animations = new EnemyAnimations("Goblin");
     }
-
     public void LoadSaveData(PatrolEnemyData data) {
         transform.position = data.CurrentPosition;
         patrolPoints[0].position = data.Patrol1;
