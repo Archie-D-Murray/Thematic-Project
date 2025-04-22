@@ -12,13 +12,5 @@ namespace LevelEditor {
         public Sprite Sprite;
         public Sprite KeySprite;
         public ObstacleType Obstacle;
-
-        public Type Type() {
-            return Obstacle switch {
-                ObstacleType.Laser => typeof(Door),
-                ObstacleType.Platform => typeof(Door),
-                _ => typeof(Door)
-            };
-        }
     }
 }
