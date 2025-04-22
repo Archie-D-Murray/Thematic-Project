@@ -13,11 +13,10 @@ public class FlyingEnemy : Enemy {
     }
 
     protected override void Attack() {
-        if (IsInRange() && !_isDead) {
-            spriteRenderer.flipX = player.position.x > rb2D.position.x;
-            Vector2 targetPosition = Vector2.MoveTowards(rb2D.position, player.position, speed * Time.fixedDeltaTime);
-            rb2D.MovePosition(targetPosition);
-        }
+        if (!_playing || _isDead) { return; }
+        spriteRenderer.flipX = player.position.x > rb2D.position.x;
+        Vector2 targetPosition = Vector2.MoveTowards(rb2D.position, player.position, speed * Time.fixedDeltaTime);
+        rb2D.MovePosition(targetPosition);
     }
 
     protected override void EnterAttack() {

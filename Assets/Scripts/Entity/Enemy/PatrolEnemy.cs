@@ -51,6 +51,10 @@ public class PatrolEnemy : Enemy {
     }
     protected override void Patrol() {
         if (!_playing || _isDead) { return; }
+
+        if(IsInRange()) {
+            SwitchState(EnemyState.Attack);
+        }
         Vector2 targetPosition = Vector2.MoveTowards(rb2D.position, patrolPoints[patrolIndex].position, speed * Time.fixedDeltaTime);
         rb2D.MovePosition(targetPosition);
 
@@ -58,6 +62,18 @@ public class PatrolEnemy : Enemy {
             patrolIndex = ++patrolIndex % patrolPoints.Length;
         }
         spriteRenderer.flipX = patrolPoints[patrolIndex].position.x > rb2D.position.x;
+    }
+
+    protected override void Attack() {
+        if (!_playing || _isDead) { return; }
+        if(!IsInRange()) {
+            SwitchState(EnemyState.Idle);
+        }
+        spriteRenderer.flipX = player.position.x > rb2D.position.x;
+        Vector2 playerPos = player.position;
+        playerPos.y = rb2D.position.y;
+        Vector2 targetPosition = Vector2.MoveTowards(rb2D.position, playerPos, speed * Time.fixedDeltaTime);
+        rb2D.MovePosition(targetPosition);
     }
 
     protected override void InitAnimations() {
