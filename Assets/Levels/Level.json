@@ -1849,5 +1849,13 @@
     "DeathPlatformData": [],
     "PatrolEnemies": [],
     "FlyingEnemies": [],
-    "Lasers": []
+    "Lasers": [
+        {
+            "Position": {
+                "x": -6.5,
+                "y": -0.5,
+                "z": 0.0
+            }
+        }
+    ]
 }

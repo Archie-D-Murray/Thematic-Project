@@ -8,18 +8,17 @@ using UnityEngine.EventSystems;
 using Data;
 using UI;
 using UnityEngine.SceneManagement;
+using Game;
 
 namespace LevelEditor {
 
-    public enum EditorState { None, Obstacle, Tilemap }
+    public enum EditorState { None, Obstacle, Tilemap, Tutorial }
 
     public enum PlayState { Begin, Continue, Exit }
 
     public class EditorManager : Singleton<EditorManager> {
 
-        [SerializeField] int MainMenuIndex;
-
-        [SerializeField] private Button _save;
+        [SerializeField] private Button _other;
         [SerializeField] private Button _tilemap;
         [SerializeField] private Button _obstacle;
         [SerializeField] private Button _play;
@@ -31,6 +30,7 @@ namespace LevelEditor {
 
         [SerializeField] private ObstacleEditor _obstacleEditor;
         [SerializeField] private TilemapEditor _tilemapEditor;
+        [SerializeField] private TutorialManager _tutorialManager;
         [SerializeField] private EditorState _state;
 
         [SerializeField] private KeyCode _tilemapHotkey = KeyCode.F1;
@@ -38,13 +38,14 @@ namespace LevelEditor {
         [SerializeField] private KeyCode _saveHotkey = KeyCode.F3;
 
         [SerializeField] private SaveMessage _saveMessage;
+        [SerializeField] private bool _isTutorial;
 
         public EditorState State => _state;
         public Action<EditorState> OnStateChange;
         public Action<PlayState> OnPlay;
 
         private void Start() {
-            _save.onClick.AddListener(Save);
+            _other.onClick.AddListener(Other);
             _tilemap.onClick.AddListener(EnableTilemap);
             _obstacle.onClick.AddListener(EnableObstacle);
             _play.onClick.AddListener(Play);
@@ -65,7 +66,7 @@ namespace LevelEditor {
                 return;
             }
             if (Input.GetKeyDown(_saveHotkey)) {
-                Save();
+                Other();
                 return;
             }
         }
@@ -79,6 +80,9 @@ namespace LevelEditor {
                 _state = EditorState.Tilemap;
             }
             _obstacleEditor.Close();
+            if (_isTutorial) {
+                _tutorialManager.Close();
+            }
             OnStateChange?.Invoke(_state);
         }
 
@@ -90,23 +94,34 @@ namespace LevelEditor {
                 _obstacleEditor.Open();
                 _state = EditorState.Obstacle;
             }
-            if (_obstacleEditor.Alpha != 0.0f) {
-                _obstacleEditor.Close();
-            } else if (_obstacleEditor.Alpha != 1.0f) {
-                _obstacleEditor.Open();
-            }
             _tilemapEditor.Close();
+            if (_isTutorial) {
+                _tutorialManager.Close();
+            }
             OnStateChange?.Invoke(_state);
         }
 
-        private void Save() {
-            SaveManager.Instance.Save();
-            _saveMessage.Show();
+        private void Other() {
+            if (_isTutorial) {
+                if (_state == EditorState.Tutorial) {
+                    _tutorialManager.Close();
+                    _state = EditorState.None;
+                } else {
+                    _tutorialManager.Open();
+                    _state = EditorState.Tutorial;
+                }
+            } else {
+                SaveManager.Instance.Save();
+                _saveMessage.Show();
+            }
         }
 
         private void HideAllEditors() {
             _tilemapEditor.Close();
             _obstacleEditor.Close();
+            if (_isTutorial) {
+                _tutorialManager.Close();
+            }
             _state = EditorState.None;
             OnStateChange?.Invoke(_state);
         }

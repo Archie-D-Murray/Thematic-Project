@@ -20,6 +20,8 @@ namespace Entity.Player {
             public static int Walk = Animator.StringToHash("Player_Walk");
             public static int Fall = Animator.StringToHash("Player_Fall");
             public static int Jump = Animator.StringToHash("Player_Jump");
+            public static int Dash = Animator.StringToHash("Player_Dash");
+            public static int Death = Animator.StringToHash("Player_Death");
         }
 
         [SerializeField] private float _speed = 5f;
@@ -52,6 +54,8 @@ namespace Entity.Player {
 
         float input;
         private int currentAnimation;
+        float _deathAnimationLength;
+        public float DeathTime => _deathAnimationLength;
 
         //[SerializeField] private CountDownTimer _coyoteTimer = new CountDownTimer(0.25f);
         [SerializeField] private CountDownTimer _dashTimer = new CountDownTimer(0f);
@@ -68,8 +72,8 @@ namespace Entity.Player {
 
         public Action OnDeath;
         public Action OnWin;
-
-        public GameOverUI Menu;
+        public Action OnKill;
+        public Action OnDash;
 
         void Start() {
             _fallbackPosition = transform.position;
@@ -81,8 +85,7 @@ namespace Entity.Player {
             //_coyoteTimer.OnTimerStop += () => _canJump = false;
             _dashTimer.OnTimerStart += () => { _canDash = false; _isDashing = true; };
             _dashTimer.OnTimerStop += () => { _canDash = true; _isDashing = false; };
-
-            Menu = FindAnyObjectByType<GameOverUI>();
+            _deathAnimationLength = _animator.GetRuntimeClip(PlayerAnimations.Death).length;
             originalGravity = _rb2D.gravityScale;
             fallGravity = _rb2D.gravityScale * 2f;
             OnPlay(PlayState.Exit);
@@ -147,6 +150,7 @@ namespace Entity.Player {
                 _dashTimer.Reset(_dashTime);
                 _rb2D.velocity = Vector2.right * input * _dashForce;
                 _isJumping = false;
+                OnDash?.Invoke();
             }
             if (!_isDashing) {
                 if (_isGrounded) {
@@ -212,7 +216,16 @@ namespace Entity.Player {
                 }
             }
         }
+
         private void UpdateAnimations() {
+            if (currentAnimation == PlayerAnimations.Death) { return; }
+
+            if (_isDashing) {
+                PlayAnimation(PlayerAnimations.Dash);
+                _renderer.flipX = _rb2D.velocity.x > 0;
+                return;
+            }
+
             if (input < 0f) {
                 _renderer.flipX = false;
             } else if (input > 0f) {
@@ -258,10 +271,8 @@ namespace Entity.Player {
         }
 
         public void Death() {
-            // TODO: Play death animation
+            PlayAnimation(PlayerAnimations.Death);
             OnDeath?.Invoke();
-            Menu.setText("GAME OVER");
-            PlayerReset();
         }
 
         public void Win() {
@@ -287,7 +298,7 @@ namespace Entity.Player {
         //            OnDeath();
         //        }
         //    }
-            
+
         //}
 
         public bool IsVulnerable() {

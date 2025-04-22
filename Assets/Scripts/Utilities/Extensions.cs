@@ -128,4 +128,8 @@ public static class Extensions {
         angle = (int)(Mathf.RoundToInt(angle < 0 ? 360 + angle : angle + 45) / 90) * 90;
         return Quaternion.AngleAxis(angle, Vector3.forward);
     }
+
+    public static AnimationClip GetRuntimeClip(this Animator animator, int hash) {
+        return animator.runtimeAnimatorController.OrNull()?.animationClips.FirstOrDefault(clip => Animator.StringToHash(clip.name) == hash) ?? null;
+    }
 }
