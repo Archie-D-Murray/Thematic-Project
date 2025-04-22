@@ -7,6 +7,7 @@ using Utilities;
 using UnityEngine.EventSystems;
 using Data;
 using UI;
+using UnityEngine.SceneManagement;
 using Game;
 
 namespace LevelEditor {
@@ -23,6 +24,7 @@ namespace LevelEditor {
         [SerializeField] private Button _play;
         [SerializeField] private Button _continue;
         [SerializeField] private Button _exit;
+        [SerializeField] private Button _return;
 
         [SerializeField] private CanvasGroup _editorButtons;
 
@@ -49,6 +51,7 @@ namespace LevelEditor {
             _play.onClick.AddListener(Play);
             _continue.onClick.AddListener(Continue);
             _exit.onClick.AddListener(Exit);
+            _return.onClick.AddListener(Return);
             _continue.interactable = false;
             _exit.interactable = false;
         }
@@ -150,6 +153,11 @@ namespace LevelEditor {
             _continue.interactable = true;
             _exit.interactable = false;
             _editorButtons.FadeCanvas(2.0f, false, this);
+        }
+
+        private void Return() {
+            print("return");
+            SceneManager.LoadScene(MainMenuIndex);
         }
     }
 }

@@ -71,6 +71,7 @@ namespace Entity.Player {
         private float _previousGravity = 1.0f;
 
         public Action OnDeath;
+        public Action OnWin;
         public Action OnKill;
         public Action OnDash;
 
@@ -272,6 +273,12 @@ namespace Entity.Player {
         public void Death() {
             PlayAnimation(PlayerAnimations.Death);
             OnDeath?.Invoke();
+        }
+
+        public void Win() {
+            OnWin?.Invoke();
+            Menu.setText("YOU WIN");
+            Menu.PopUp();
         }
 
         public void PlayerReset() {
