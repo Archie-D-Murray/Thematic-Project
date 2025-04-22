@@ -8,11 +8,6 @@ using Data;
 namespace LevelEditor {
     public class EndPoint : Placeable {
 
-        public GameOverUI Menu;
-
-        public void Start() {
-            Menu = FindAnyObjectByType<GameOverUI>();
-        }
         protected override Transform[] GetMoveables() {
             return new Transform[] { transform };
         }
@@ -27,7 +22,17 @@ namespace LevelEditor {
 
         private void OnTriggerEnter2D(Collider2D collision) {
             if (collision.gameObject.HasComponent<PlayerController>()) {
-                Menu.PopUp();
+                if (_playing) {
+                    collision.gameObject.GetComponent<PlayerController>().Win();
+                }
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D collision) {
+            if (collision.gameObject.HasComponent<PlayerController>()) {
+                if (_playing) {
+                    collision.gameObject.GetComponent<PlayerController>().Menu.Close();
+                }
             }
         }
 

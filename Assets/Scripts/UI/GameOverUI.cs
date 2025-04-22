@@ -14,7 +14,7 @@ public class GameOverUI : MonoBehaviour
     [SerializeField] Button RestartButton;
     [SerializeField] Button MenuButton;
     [SerializeField] int MainMenuIndex;
-    [SerializeField] string TitleText;
+    [SerializeField] public TMP_Text Title;
     [SerializeField] private CanvasGroup _canvas;
     private PlayerController _playerController;
         
@@ -23,11 +23,14 @@ public class GameOverUI : MonoBehaviour
     {
         _canvas = GetComponent<CanvasGroup>();
         _canvas.FadeCanvas(100.0f, true, this);
-        GetComponentInChildren<TMP_Text>().text = TitleText;
         RestartButton.onClick.AddListener(() => Restart());
         MenuButton.onClick.AddListener(() => Menu());
         _playerController = FindFirstObjectByType<PlayerController>();
         _playerController.OnDeath += PopUp;
+    }
+
+    public void setText(string text) {
+        Title.text = text;
     }
 
     public void Menu() {
@@ -45,6 +48,10 @@ public class GameOverUI : MonoBehaviour
     public void PopUp() {
         Debug.Log("Player died");
         _canvas.FadeCanvas(2.0f, false, this);
+    }
+
+    public void Close() {
+        _canvas.FadeCanvas(100.0f, true, this);
     }
 
 }

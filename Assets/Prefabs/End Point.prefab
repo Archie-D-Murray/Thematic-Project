@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6351214701090866467}
   - component: {fileID: 1207052825408356766}
   - component: {fileID: 4261655458668679381}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: End Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,12 +75,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1203207253, guid: 6704d15690172f240a32a26df2944d9f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6704d15690172f240a32a26df2944d9f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2, y: 2}
+  m_Size: {x: 4, y: 4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -121,9 +121,9 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 2}
-    newSize: {x: 2, y: 2}
+    pivot: {x: 0.5, y: 0.25}
+    oldSize: {x: 4, y: 4}
+    newSize: {x: 4, y: 4}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0

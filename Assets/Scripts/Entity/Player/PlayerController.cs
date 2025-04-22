@@ -67,6 +67,9 @@ namespace Entity.Player {
         private float _previousGravity = 1.0f;
 
         public Action OnDeath;
+        public Action OnWin;
+
+        public GameOverUI Menu;
 
         void Start() {
             _fallbackPosition = transform.position;
@@ -79,6 +82,7 @@ namespace Entity.Player {
             _dashTimer.OnTimerStart += () => { _canDash = false; _isDashing = true; };
             _dashTimer.OnTimerStop += () => { _canDash = true; _isDashing = false; };
 
+            Menu = FindAnyObjectByType<GameOverUI>();
             originalGravity = _rb2D.gravityScale;
             fallGravity = _rb2D.gravityScale * 2f;
             OnPlay(PlayState.Exit);
@@ -256,7 +260,14 @@ namespace Entity.Player {
         public void Death() {
             // TODO: Play death animation
             OnDeath?.Invoke();
+            Menu.setText("GAME OVER");
             PlayerReset();
+        }
+
+        public void Win() {
+            OnWin?.Invoke();
+            Menu.setText("YOU WIN");
+            Menu.PopUp();
         }
 
         public void PlayerReset() {
