@@ -1221,26 +1221,67 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tilemapData:
   - Type: 0
-    _tilemap: {fileID: 0}
-    _selected: 0
-    _tileAssets: []
-    _tiles: []
+    Tilemap: {fileID: 0}
+    Selected: 0
+    TileAssets:
+    - {fileID: 11400000, guid: 0fdf622d43f900f419564a4537853691, type: 2}
+    - {fileID: 11400000, guid: 86f3a884c6caae54880aeed9f8996fa8, type: 2}
+    - {fileID: 11400000, guid: ce6ce50ee64af6e41b97d027344d859c, type: 2}
+    - {fileID: 11400000, guid: bff192bf10ca8394aa08018c74b8f867, type: 2}
+    - {fileID: 11400000, guid: 50ffcbaa12eff004ab12e63dcfa26424, type: 2}
+    - {fileID: 11400000, guid: 10eab8e9323e33948ba1be4e89d17eac, type: 2}
+    - {fileID: 11400000, guid: a0a65e09eed918842b1b60b08542fe11, type: 2}
+    - {fileID: 11400000, guid: 63752b718d45f0746be346505700e96a, type: 2}
+    - {fileID: 11400000, guid: c85b24664fcafb843b4532aae04bdf8f, type: 2}
+    - {fileID: 11400000, guid: 460d2d130dfa0a9449a8d4c258b34cc3, type: 2}
+    - {fileID: 11400000, guid: 8537e182f2563ce4ba7799046d13f301, type: 2}
+    - {fileID: 11400000, guid: d77d596474989d14e884f59fcabacdd6, type: 2}
+    - {fileID: 11400000, guid: 1700ad268bc2c7649b3b15b92bc4fca3, type: 2}
+    Tiles:
+    - {fileID: 11400000, guid: 0fdf622d43f900f419564a4537853691, type: 2}
+    - {fileID: 11400000, guid: 86f3a884c6caae54880aeed9f8996fa8, type: 2}
+    - {fileID: 11400000, guid: ce6ce50ee64af6e41b97d027344d859c, type: 2}
+    - {fileID: 11400000, guid: bff192bf10ca8394aa08018c74b8f867, type: 2}
+    - {fileID: 11400000, guid: 50ffcbaa12eff004ab12e63dcfa26424, type: 2}
+    - {fileID: 11400000, guid: 10eab8e9323e33948ba1be4e89d17eac, type: 2}
+    - {fileID: 11400000, guid: a0a65e09eed918842b1b60b08542fe11, type: 2}
+    - {fileID: 11400000, guid: 63752b718d45f0746be346505700e96a, type: 2}
+    - {fileID: 11400000, guid: c85b24664fcafb843b4532aae04bdf8f, type: 2}
+    - {fileID: 11400000, guid: 460d2d130dfa0a9449a8d4c258b34cc3, type: 2}
+    - {fileID: 11400000, guid: 8537e182f2563ce4ba7799046d13f301, type: 2}
+    - {fileID: 11400000, guid: d77d596474989d14e884f59fcabacdd6, type: 2}
+    - {fileID: 11400000, guid: 1700ad268bc2c7649b3b15b92bc4fca3, type: 2}
     ButtonPositions: []
   - Type: 0
-    _tilemap: {fileID: 0}
-    _selected: 0
-    _tileAssets: []
-    _tiles: []
+    Tilemap: {fileID: 0}
+    Selected: 0
+    TileAssets:
+    - {fileID: 11400000, guid: 99f2c87a704c9c54fb708f72c0643e52, type: 2}
+    - {fileID: 11400000, guid: 156326684b6a0da4cb659d84e4c9df38, type: 2}
+    - {fileID: 11400000, guid: c13ff92f24f7d0e4482ecce8406fe495, type: 2}
+    - {fileID: 11400000, guid: 2e14060ee541fdb46830adb6b79d5fc7, type: 2}
+    - {fileID: 11400000, guid: 1cdab50c8e4f2f64385316521287b17b, type: 2}
+    - {fileID: 11400000, guid: 96b2955b1e78f204bbd4beef432b452f, type: 2}
+    - {fileID: 11400000, guid: 5b3a61e99e7e34e4d9a7a824d4619d7e, type: 2}
+    Tiles:
+    - {fileID: 11400000, guid: 99f2c87a704c9c54fb708f72c0643e52, type: 2}
+    - {fileID: 11400000, guid: 156326684b6a0da4cb659d84e4c9df38, type: 2}
+    - {fileID: 11400000, guid: c13ff92f24f7d0e4482ecce8406fe495, type: 2}
+    - {fileID: 11400000, guid: 2e14060ee541fdb46830adb6b79d5fc7, type: 2}
+    - {fileID: 11400000, guid: 1cdab50c8e4f2f64385316521287b17b, type: 2}
+    - {fileID: 11400000, guid: 96b2955b1e78f204bbd4beef432b452f, type: 2}
+    - {fileID: 11400000, guid: 5b3a61e99e7e34e4d9a7a824d4619d7e, type: 2}
     ButtonPositions: []
   _index: 0
   _errorTile: {fileID: 11400000, guid: 0b650797ba6de2643980b4f1b722ad10, type: 2}
   _tilePrefab: {fileID: 3263478713407253458, guid: f90cab27b11d16ec9bc29c8049da82dd, type: 3}
   _indicatorPrefab: {fileID: 2864736297556863169, guid: befa2d5a2b2dfa80199fa4e191ece794, type: 3}
   _selectionPrefab: {fileID: 7721064198421143169, guid: 6716ed10b0c9587099a2da0060119436, type: 3}
-  _tilemapSelection: {fileID: 0}
   _cycleForward: 93
   _cycleBackward: 91
   _toggleTilemap: 32
+  _tilemapSelection: {fileID: 0}
+  _cameraBounds: {fileID: 0}
 --- !u!1 &7383976653414856902
 GameObject:
   m_ObjectHideFlags: 0
