@@ -23,20 +23,20 @@ namespace Game {
                     }
                 case TutorialType.PlaceTile:
                     if (manager.PlacedTiles.Count >= manager.MinTileTypes) {
-                        ui._readout.fillAmount = 1.0f;
+                        ui.Readout.fillAmount = 1.0f;
                         ui.Panel.color = Color.gray;
                         return true;
                     } else {
-                        ui._readout.fillAmount = Mathf.Clamp01((float)manager.PlacedTiles.Count / (float)manager.MinTileTypes);
+                        ui.Readout.fillAmount = Mathf.Clamp01((float)manager.PlacedTiles.Count / (float)manager.MinTileTypes);
                         return false;
                     }
                 case TutorialType.PlaceObstacle:
                     if (manager.PlacedObstacles.Count >= manager.MinObstacleTypes) {
-                        ui._readout.fillAmount = 1.0f;
+                        ui.Readout.fillAmount = 1.0f;
                         ui.Panel.color = Color.gray;
                         return true;
                     } else {
-                        ui._readout.fillAmount = Mathf.Clamp01((float)manager.PlacedObstacles.Count / (float)manager.MinObstacleTypes);
+                        ui.Readout.fillAmount = Mathf.Clamp01((float)manager.PlacedObstacles.Count / (float)manager.MinObstacleTypes);
                         return false;
                     }
                 case TutorialType.RemoveObstacle:

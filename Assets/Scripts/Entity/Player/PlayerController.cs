@@ -277,8 +277,6 @@ namespace Entity.Player {
 
         public void Win() {
             OnWin?.Invoke();
-            Menu.setText("YOU WIN");
-            Menu.PopUp();
         }
 
         public void PlayerReset() {

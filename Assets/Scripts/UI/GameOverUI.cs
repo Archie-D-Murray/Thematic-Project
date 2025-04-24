@@ -3,23 +3,26 @@ using System.Collections.Generic;
 
 using Entity.Player;
 
+using LevelEditor;
+
 using TMPro;
+
 using UI;
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+
 using Utilities;
 
-public class GameOverUI : MonoBehaviour
-{
+public class GameOverUI : MonoBehaviour {
     [SerializeField] Button RestartButton;
     [SerializeField] Button MenuButton;
     [SerializeField] int _currentScene;
     [SerializeField] public TMP_Text Title;
     [SerializeField] private CanvasGroup _canvas;
     private PlayerController _playerController;
-        
+
     // Start is called before the first frame update
     void Start() {
         _canvas = GetComponent<CanvasGroup>();
@@ -27,25 +30,35 @@ public class GameOverUI : MonoBehaviour
         RestartButton.onClick.AddListener(() => Restart());
         MenuButton.onClick.AddListener(() => Menu());
         _playerController = FindFirstObjectByType<PlayerController>();
-        _playerController.OnDeath += PopUp;
+        _playerController.OnDeath += Death;
         _currentScene = SceneManager.GetActiveScene().buildIndex;
+        if (_currentScene != LevelIndex.Game) {
+            EditorManager.Instance.OnPlay += CloseOnEditorMode;
+        }
     }
 
-    public void setText(string text) {
-        Title.text = text;
+    private void CloseOnEditorMode(PlayState mode) {
+        if (mode == PlayState.Exit) {
+            Close();
+        }
     }
 
     public void Menu() {
-        //Load Main Menu scene
-        SceneManager.LoadScene(LevelIndex.Menu);
+        FadeScreen.Instance.Black(LevelIndex.Menu);
     }
 
     public void Restart() {
-        SceneManager.LoadScene(_currentScene);
+        FadeScreen.Instance.Black(_currentScene);
     }
 
-    public void PopUp() {
+    public void Death() {
+        Title.text = "You Died!";
         StartCoroutine(WaitForDeathAnimation(_playerController.DeathTime));
+    }
+
+    public void Win() {
+        Title.text = "You Win!";
+        _canvas.FadeCanvas(2.0f, false, this);
     }
 
     private IEnumerator WaitForDeathAnimation(float duration) {
@@ -56,5 +69,6 @@ public class GameOverUI : MonoBehaviour
     public void Close() {
         _canvas.FadeCanvas(100.0f, true, this);
     }
+
 
 }

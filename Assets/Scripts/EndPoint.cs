@@ -28,14 +28,6 @@ namespace LevelEditor {
             }
         }
 
-        private void OnTriggerExit2D(Collider2D collision) {
-            if (collision.gameObject.HasComponent<PlayerController>()) {
-                if (_playing) {
-                    collision.gameObject.GetComponent<PlayerController>().Menu.Close();
-                }
-            }
-        }
-
         //TO DO
         //change screen text
         //placeable in editor

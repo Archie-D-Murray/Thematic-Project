@@ -15,15 +15,15 @@ namespace Game {
     [Serializable]
     public class TutorialUI {
         public Image Panel;
-        public Image _readout;
-        public TMP_Text _readoutText;
+        public Image Readout;
+        public TMP_Text ReadoutText;
 
         public TutorialUI(GameObject instance, Tutorial tutorial, TutorialManager manager) {
             Panel = instance.GetComponent<Image>();
-            _readout = instance.GetComponentsInChildren<Image>().First(image => image.gameObject.HasComponent<ReadoutTag>());
+            Readout = instance.GetComponentsInChildren<Image>().First(image => image.gameObject.HasComponent<ReadoutTag>());
             foreach (TMP_Text text in instance.GetComponentsInChildren<TMP_Text>()) {
                 if (text.gameObject.HasComponent<ReadoutTag>()) {
-                    _readoutText = text;
+                    ReadoutText = text;
                     int steps = tutorial.GetSteps(manager);
                     text.text = steps > 0 ? $"0 / {steps}" : "";
                 } else {

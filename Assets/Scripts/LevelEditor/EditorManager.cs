@@ -9,6 +9,7 @@ using Data;
 using UI;
 using UnityEngine.SceneManagement;
 using Game;
+using System.Collections;
 
 namespace LevelEditor {
 
@@ -156,8 +157,12 @@ namespace LevelEditor {
         }
 
         private void Return() {
-            print("return");
-            SceneManager.LoadScene(MainMenuIndex);
+            FadeScreen.Instance.Black(LevelIndex.Menu);
+        }
+
+        private IEnumerator FadeScene(int sceneIndex, float fadeTime) {
+            yield return Yielders.WaitForSeconds(fadeTime);
+            SceneManager.LoadScene(sceneIndex);
         }
     }
 }
