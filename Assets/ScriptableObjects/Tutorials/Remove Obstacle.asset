@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4958f66a75c22b74295315874ec6830a, type: 3}
   m_Name: Remove Obstacle
   m_EditorClassIdentifier: 
-  Task: 
-  Type: 0
-  Panel: {fileID: 0}
+  Task: Remove a placed or held obstacle by using [RMB]
+  Type: 5
+  Panel: {fileID: 7420106543314539013, guid: a744558860b8bd8428d3655e0707ba76, type: 3}

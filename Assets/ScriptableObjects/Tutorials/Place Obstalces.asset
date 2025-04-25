@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4958f66a75c22b74295315874ec6830a, type: 3}
   m_Name: Place Obstalces
   m_EditorClassIdentifier: 
-  Task: 
-  Type: 0
-  Panel: {fileID: 0}
+  Task: Place Obstacles using [1] - [8] or clicking on the buttons
+  Type: 4
+  Panel: {fileID: 3039675950935532555, guid: 674c2833c3d2e794fb3935667b7cd869, type: 3}

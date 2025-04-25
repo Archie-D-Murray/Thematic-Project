@@ -17,6 +17,7 @@ namespace Game {
                 case TutorialType.Attack:
                     if (manager.KilledEnemy) {
                         ui.Panel.color = Color.gray;
+                        ui.Readout.sprite = manager.Checkmark;
                         return true;
                     } else {
                         return false;
@@ -24,6 +25,7 @@ namespace Game {
                 case TutorialType.PlaceTile:
                     if (manager.PlacedTiles.Count >= manager.MinTileTypes) {
                         ui.Readout.fillAmount = 1.0f;
+                        ui.ReadoutText.text = $"{manager.PlacedTiles.Count} / {manager.MinTileTypes}";
                         ui.Panel.color = Color.gray;
                         return true;
                     } else {
@@ -33,6 +35,7 @@ namespace Game {
                 case TutorialType.PlaceObstacle:
                     if (manager.PlacedObstacles.Count >= manager.MinObstacleTypes) {
                         ui.Readout.fillAmount = 1.0f;
+                        ui.ReadoutText.text = $"{manager.PlacedObstacles.Count} / {manager.MinObstacleTypes}";
                         ui.Panel.color = Color.gray;
                         return true;
                     } else {
@@ -41,6 +44,7 @@ namespace Game {
                     }
                 case TutorialType.RemoveObstacle:
                     if (manager.HasDestroyedObstacle) {
+                        ui.Readout.sprite = manager.Checkmark;
                         ui.Panel.color = Color.gray;
                         return true;
                     } else {
@@ -48,6 +52,7 @@ namespace Game {
                     }
                 case TutorialType.PickupObstacle:
                     if (manager.HasPickedUpObstacle) {
+                        ui.Readout.sprite = manager.Checkmark;
                         ui.Panel.color = Color.gray;
                         return true;
                     } else {
