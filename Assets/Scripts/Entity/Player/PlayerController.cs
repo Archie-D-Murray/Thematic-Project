@@ -57,7 +57,6 @@ namespace Entity.Player {
         float _deathAnimationLength;
         public float DeathTime => _deathAnimationLength;
 
-        //[SerializeField] private CountDownTimer _coyoteTimer = new CountDownTimer(0.25f);
         [SerializeField] private CountDownTimer _dashTimer = new CountDownTimer(0f);
 
         private Rigidbody2D _rb2D;
@@ -75,14 +74,14 @@ namespace Entity.Player {
         public Action OnKill;
         public Action OnDash;
 
+        [SerializeField] private GameObject dashEffect;
+        private GameObject effectObject;
         void Start() {
             _fallbackPosition = transform.position;
             _rb2D = GetComponent<Rigidbody2D>();
             _renderer = GetComponent<SpriteRenderer>();
             _animator = GetComponent<Animator>();
             _collider = GetComponent<BoxCollider2D>();
-            //_coyoteTimer.OnTimerStart += () => _canJump = true;
-            //_coyoteTimer.OnTimerStop += () => _canJump = false;
             _dashTimer.OnTimerStart += () => { _canDash = false; _isDashing = true; };
             _dashTimer.OnTimerStop += () => { _canDash = true; _isDashing = false; };
             _deathAnimationLength = _animator.GetRuntimeClip(PlayerAnimations.Death).length;
@@ -109,28 +108,17 @@ namespace Entity.Player {
 
 
             if (_isGrounded) {
-                //_coyoteTimeTrigger = true;
                 _isJumping = false;
             }
-            //if (_isGrounded) {
-            //    _coyoteTimer.Stop();
-            //}
-            //if (!_isGrounded && _coyoteTimeTrigger) {
-            //    _coyoteTimer.Reset();
-            //    _coyoteTimer.Start();
-            //    _coyoteTimeTrigger = false;
-            //}
-            //_coyoteTimer.Update(Time.fixedDeltaTime);
             _dashTimer.Update(Time.fixedDeltaTime);
-            //_canJump = _isGrounded || _coyoteTimer.IsRunning;
             input = Input.GetAxisRaw("Horizontal");
 
-            //Jump Changes (Lucas)
             _canJump = _isGrounded || _coyoteTimeTrigger;
             if (_canJump && !_isJumping) {
                 if (jumpPressed) {
                     _rb2D.velocity = new Vector2(_rb2D.velocity.x, _jumpForce);
                     jumpPressed = false;
+                    timeSinceLeftGround = coyoteTimeDuration + 1;
                 }
                 if (jumpReleased && _rb2D.velocity.y > 0) {
                     _rb2D.velocity = new Vector2(_rb2D.velocity.x, _rb2D.velocity.y / 2);
@@ -138,16 +126,11 @@ namespace Entity.Player {
                     jumpReleased = false;
                 }
             }
-            //END Jump Changes
 
-            //if (Input.GetKey(KeyCode.Space) && _canJump && !_isJumping) {
-            //    _rb2D.velocity += Vector2.up * _jumpForce;
-            //    _canJump = false;
-            //    _isJumping = true;
-            //}
 
             if (Input.GetKey(KeyCode.LeftShift) && _canDash && input != 0.0f) {
                 _dashTimer.Reset(_dashTime);
+                effectObject = Instantiate(dashEffect, this.transform);
                 _rb2D.velocity = Vector2.right * input * _dashForce;
                 _isJumping = false;
                 OnDash?.Invoke();
@@ -158,11 +141,6 @@ namespace Entity.Player {
                 } else {
                     _rb2D.velocity = new Vector2(input * _speed, _rb2D.velocity.y);
                 }
-                //if (_rb2D.velocity.y < 0 && !_isGrounded) {
-                //    _rb2D.gravityScale = 2f;
-                //} else {
-                //    _rb2D.gravityScale = 1f;
-                //}
                 UpdateGravity();
             } else {
                 _rb2D.velocity = new Vector2(_rb2D.velocity.x, _rb2D.velocity.y);
@@ -187,14 +165,6 @@ namespace Entity.Player {
                 _coyoteTimeTrigger = false;
             }
         }
-        //private bool GetGrounded() {
-        //    RaycastHit2D hit = Physics2D.BoxCast(_rb2D.position, _renderer.size, 0f, Vector2.down, 0.04f, _ground);
-        //    if (hit) {
-        //        return hit.normal.y >= 0.75f;
-        //    } else {
-        //        return false;
-        //    }
-        //}
 
         private bool GetGrounded() {
             return Physics2D.BoxCast(_collider.bounds.center, _collider.bounds.size, 0f, Vector2.down, .4f, _ground);
@@ -223,6 +193,9 @@ namespace Entity.Player {
             if (_isDashing) {
                 PlayAnimation(PlayerAnimations.Dash);
                 _renderer.flipX = _rb2D.velocity.x > 0;
+                if (_renderer.flipX) {
+                    effectObject.transform.localScale = new Vector3(-1, 1, 1);
+                }
                 return;
             }
 
@@ -285,19 +258,6 @@ namespace Entity.Player {
             _rb2D.velocity = Vector2.zero;
             _rb2D.gravityScale = 1.0f;
         }
-
-
-        //private void OnCollisionEnter2D(Collision2D collision) {
-        //    print("collision");
-        //    if (collision.gameObject.layer == 9) {
-        //        if (_isDashing) {
-        //            print("enemy death");
-        //        } else {
-        //            OnDeath();
-        //        }
-        //    }
-
-        //}
 
         public bool IsVulnerable() {
             return (!_isDashing);

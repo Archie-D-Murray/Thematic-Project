@@ -642,6 +642,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: UI - Panel, Buttons, Icons_26
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cde6007eee6a4c947ab4f3e96d07b74e
+      internalID: 601257743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -672,6 +693,7 @@ TextureImporter:
       UI - Panel, Buttons, Icons_23: -1927623471
       UI - Panel, Buttons, Icons_24: 1485634240
       UI - Panel, Buttons, Icons_25: 1096063421
+      UI - Panel, Buttons, Icons_26: 601257743
       UI - Panel, Buttons, Icons_3: -1318563608
       UI - Panel, Buttons, Icons_4: 1317530071
       UI - Panel, Buttons, Icons_5: -1080332793
