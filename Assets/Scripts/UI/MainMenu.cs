@@ -16,6 +16,7 @@ namespace UI {
         public const int Menu = 0;
         public const int Edit = 1;
         public const int Game = 2;
+        public const int Tutorial = 3;
     }
 
     public class MainMenu : MonoBehaviour {
@@ -46,14 +47,14 @@ namespace UI {
         public void CreateSave() {
             SaveManager.Instance.LevelName = _saveName.text;
             SaveManager.Instance.InitialSave = true;
-            StartCoroutine(LoadSceneDelayed(_transitionTime, LevelIndex.Edit));
+            FadeScreen.Instance.Black(LevelIndex.Edit);
         }
 
         public void LoadSave() {
             if (_mode == MenuMode.Game) {
-                StartCoroutine(LoadSceneDelayed(_transitionTime, LevelIndex.Game));
+                FadeScreen.Instance.Black(LevelIndex.Game);
             } else {
-                StartCoroutine(LoadSceneDelayed(_transitionTime, LevelIndex.Edit));
+                FadeScreen.Instance.Black(LevelIndex.Edit);
             }
         }
 
@@ -78,6 +79,10 @@ namespace UI {
         }
         public void SFXVolume(float value) {
             _mixer.SetFloat(SFX_VOLUME, 20 * Mathf.Log10(value));
+        }
+
+        public void Tutorial() {
+            FadeScreen.Instance.Black(LevelIndex.Tutorial);
         }
 
         public void Quit() {

@@ -757,7 +757,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 228238614908420359, guid: f90d450cb2d92964fa036e9e83f18642, type: 3}
       propertyPath: _hideOnAwake
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1270727376212020291, guid: f90d450cb2d92964fa036e9e83f18642, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1009,9 +1009,14 @@ MonoBehaviour:
   PlacedTiles: 
   MinTileTypes: 2
   KilledEnemy: 0
-  _tutorials: []
+  Checkmark: {fileID: 21300000, guid: 0f7cebe5d6d566e4e95450c9172127f4, type: 3}
+  _tutorials:
+  - {fileID: 11400000, guid: b77aa9f024193a84eb3fba345f940d27, type: 2}
+  - {fileID: 11400000, guid: 22a092602f7031047927eddca0dbb564, type: 2}
+  - {fileID: 11400000, guid: 54a2e61bc1c54a548a2020b8bb2c8a62, type: 2}
+  - {fileID: 11400000, guid: dc3436c240f0eb240b13d68bbafeefbb, type: 2}
   _canvas: {fileID: 1165306707}
-  _scroll: {fileID: 490745765}
+  _scroll: {fileID: 2041599375}
 --- !u!1001 &1453595112
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2141,7 +2146,7 @@ PrefabInstance:
       insertIndex: 3
       addedObject: {fileID: 16980990}
     - targetCorrespondingSourceObject: {fileID: 259865499889492311, guid: 4022e0c4246b2e37ca562e9e81e475a5, type: 3}
-      insertIndex: -1
+      insertIndex: 4
       addedObject: {fileID: 1165306705}
     - targetCorrespondingSourceObject: {fileID: 1281871942932146683, guid: 4022e0c4246b2e37ca562e9e81e475a5, type: 3}
       insertIndex: -1

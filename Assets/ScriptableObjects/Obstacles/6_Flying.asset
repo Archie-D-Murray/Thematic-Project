@@ -15,5 +15,5 @@ MonoBehaviour:
   Prefab: {fileID: 2682290860696052760, guid: 9d3e6ee739e675a4a978af66e1a1cc45, type: 3}
   Key: 54
   Sprite: {fileID: -2095446829, guid: da19f8d03b6fb5247ae94d8d614daa1e, type: 3}
-  KeySprite: {fileID: -1240763202, guid: ed6eeed1f8849704fb6054fa947370ab, type: 3}
+  KeySprite: {fileID: -11716566, guid: 4281ef7646461954a98c337c88e48531, type: 3}
   Obstacle: 5

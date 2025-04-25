@@ -115,6 +115,8 @@ namespace LevelEditor {
                 SaveManager.Instance.Save();
                 _saveMessage.Show();
             }
+            _obstacleEditor.Close();
+            _tilemapEditor.Close();
         }
 
         private void HideAllEditors() {

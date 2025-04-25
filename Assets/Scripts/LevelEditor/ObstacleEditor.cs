@@ -28,8 +28,10 @@ namespace LevelEditor {
         [SerializeField] private int _index = 0;
         [SerializeField] private CanvasGroup _canvas;
         [SerializeField] private bool _hasSpawnPoint = false;
+        [SerializeField] private float _gracePeriod = 0.75f;
 
         private Dictionary<ObstacleType, ObstacleData> _obstacleLookup = new Dictionary<ObstacleType, ObstacleData>();
+        private CountDownTimer _graceTimer = new CountDownTimer(0.0f);
         public float Alpha => _canvas.alpha;
         public bool HasSpawnPoint => _hasSpawnPoint;
         public Action<bool> UpdateSpawnPoint;
@@ -38,6 +40,7 @@ namespace LevelEditor {
             foreach (ObstacleData data in _obstacleData) {
                 _obstacleLookup.Add(data.Obstacle, data);
                 GameObject panel = Instantiate(_obstaclePanelPrefab, transform);
+                panel.GetComponentInChildren<Button>().onClick.AddListener(() => OnSpawn(_obstacleLookup[data.Obstacle]));
                 foreach (Image image in panel.GetComponentsInChildren<Image>()) {
                     if (image.transform == panel.transform) { continue; }
                     // TODO: This is not very robust - may need to be changed later
@@ -74,6 +77,7 @@ namespace LevelEditor {
         }
 
         private void OnSpawn(ObstacleData data) {
+            _graceTimer.Reset(_gracePeriod);
             _placeables.Add(Instantiate(data.Prefab, Helpers.Instance.TileMapMousePosition, Quaternion.identity).GetComponentInChildren<Placeable>());
             if (data.Obstacle == ObstacleType.SpawnPoint) {
                 _hasSpawnPoint = true;
@@ -88,13 +92,14 @@ namespace LevelEditor {
 
         private void Update() {
             if (_canvas.alpha != 1.0f) { return; }
+            _graceTimer.Update(Time.deltaTime);
             foreach (ObstacleData data in _obstacleData) {
                 if (Input.GetKeyDown(data.Key)) {
                     OnSpawn(data);
                     return;
                 }
             }
-            if (_selected && (Input.GetKeyDown(KeyCode.Escape) || Input.GetMouseButtonDown(0))) {
+            if (_selected && (Input.GetKeyDown(KeyCode.Escape) || Input.GetMouseButtonDown(0)) && _graceTimer.IsFinished) {
                 _selected.FinishPlacement();
                 _selected = null;
                 _move = null;
