@@ -126,7 +126,9 @@ namespace LevelEditor {
             PopulateUI();
             _toggle.onClick.AddListener(ToggleTilemap);
             AddExistingTiles();
-            Close();
+            _indicator.gameObject.SetActive(false);
+            _selection.gameObject.SetActive(false);
+            _tilemapSelection.FadeCanvas(100.0f, true, this);
         }
 
         private void UpdateBounds() {

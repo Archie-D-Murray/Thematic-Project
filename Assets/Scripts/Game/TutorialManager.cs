@@ -60,6 +60,7 @@ namespace Game {
             if (!_canvas) {
                 _canvas = GetComponent<CanvasGroup>();
             }
+            _canvas.FadeCanvas(100.0f, true, this);
             foreach (Tutorial tutorial in _tutorials) {
                 _lookup.Add(tutorial.Type, tutorial);
                 _uiPanels.Add(tutorial.Type, new TutorialUI(Instantiate(tutorial.Panel, _scroll), tutorial, this));

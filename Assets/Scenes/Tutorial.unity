@@ -757,7 +757,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 228238614908420359, guid: f90d450cb2d92964fa036e9e83f18642, type: 3}
       propertyPath: _hideOnAwake
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1270727376212020291, guid: f90d450cb2d92964fa036e9e83f18642, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2146,7 +2146,7 @@ PrefabInstance:
       insertIndex: 3
       addedObject: {fileID: 16980990}
     - targetCorrespondingSourceObject: {fileID: 259865499889492311, guid: 4022e0c4246b2e37ca562e9e81e475a5, type: 3}
-      insertIndex: -1
+      insertIndex: 4
       addedObject: {fileID: 1165306705}
     - targetCorrespondingSourceObject: {fileID: 1281871942932146683, guid: 4022e0c4246b2e37ca562e9e81e475a5, type: 3}
       insertIndex: -1
