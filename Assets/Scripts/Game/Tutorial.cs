@@ -30,6 +30,7 @@ namespace Game {
                         return true;
                     } else {
                         ui.Readout.fillAmount = Mathf.Clamp01((float)manager.PlacedTiles.Count / (float)manager.MinTileTypes);
+                        ui.ReadoutText.text = $"{manager.PlacedTiles.Count} / {manager.MinTileTypes}";
                         return false;
                     }
                 case TutorialType.PlaceObstacle:
@@ -39,6 +40,7 @@ namespace Game {
                         ui.Panel.color = Color.gray;
                         return true;
                     } else {
+                        ui.ReadoutText.text = $"{manager.PlacedObstacles.Count} / {manager.MinObstacleTypes}";
                         ui.Readout.fillAmount = Mathf.Clamp01((float)manager.PlacedObstacles.Count / (float)manager.MinObstacleTypes);
                         return false;
                     }
