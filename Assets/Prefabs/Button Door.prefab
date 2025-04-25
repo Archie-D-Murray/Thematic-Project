@@ -28,8 +28,8 @@ Transform:
   m_GameObject: {fileID: 931082382261844915}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6401641747418696727}
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 259057700, guid: 103121d74352ebb44972966dd8f1b4c7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -163,7 +163,7 @@ Transform:
   m_GameObject: {fileID: 7679538867322452056}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.49, y: 0.49, z: 0.051587313}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -183,7 +183,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveables: []
-  _placing: 0
+  _playing: 0
+  _initialPosition: {x: 0, y: 0, z: 0}
   open: 0
   openDoorSprite: {fileID: -989995604, guid: 103121d74352ebb44972966dd8f1b4c7, type: 3}
   closedDoorSprite: {fileID: -190486301, guid: 103121d74352ebb44972966dd8f1b4c7, type: 3}

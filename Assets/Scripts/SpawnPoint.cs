@@ -7,6 +7,10 @@ using UnityEngine;
 namespace LevelEditor {
     public class SpawnPoint : Placeable {
 
+        private void Start() {
+            InitReferences();
+        }
+
         protected override Transform[] GetMoveables() {
             return new Transform[] { transform };
         }

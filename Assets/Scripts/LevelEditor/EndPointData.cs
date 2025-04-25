@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace Data {
     [Serializable]
-    public class SpawnPointData {
+    public class EndPointData {
         public Vector3 Position;
 
-        public SpawnPointData(Vector3 position) {
+        public EndPointData(Vector3 position) {
             Position = position;
         }
     }

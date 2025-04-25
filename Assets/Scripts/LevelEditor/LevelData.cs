@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Net;
 
 using UnityEngine;
 namespace Data {
@@ -13,6 +14,7 @@ namespace Data {
         public List<FlyingEnemyData> FlyingEnemies;
         public List<LaserData> Lasers;
         public SpawnPointData SpawnPoint;
+        public EndPointData EndPoint;
 
         public LevelData(string name) {
             Name = name;
@@ -24,7 +26,8 @@ namespace Data {
             PatrolEnemies = new List<PatrolEnemyData>();
             FlyingEnemies = new List<FlyingEnemyData>();
             Lasers = new List<LaserData>();
-            SpawnPoint = null;
+            SpawnPoint = new SpawnPointData(Vector3.zero);
+            EndPoint = new EndPointData(Vector3.zero);
         }
     }
 }

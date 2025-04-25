@@ -210,7 +210,13 @@ namespace LevelEditor {
                 _hasSpawnPoint = true;
                 UpdateSpawnPoint?.Invoke(_hasSpawnPoint);
             }
+            if (data.EndPoint != null) {
+                EndPoint endPoint = Instantiate(_obstacleLookup[ObstacleType.EndPoint].Prefab).GetComponent<EndPoint>();
+                _placeables.Add(endPoint);
+                endPoint.LoadSaveData(data.EndPoint);
+            }
             // TODO: Handle other obstacle types
+            // // Assets/Scripts/SpawnPoint.cs
         }
 
         public void OnSave(ref LevelData data) {
@@ -236,6 +242,8 @@ namespace LevelEditor {
                     data.Lasers.Add(laser.ToSaveData());
                 } else if (placeable is SpawnPoint) {
                     data.SpawnPoint = (placeable as SpawnPoint).ToSaveData();
+                } else if (placeable is EndPoint) {
+                    data.EndPoint = (placeable as EndPoint).ToSaveData();
                 }
                 // TODO: Handle other obstacle types
             }
