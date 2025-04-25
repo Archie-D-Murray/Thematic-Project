@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 using Entity.Player;
 
+using LevelEditor;
+
 using TMPro;
 
 using UI;
@@ -17,7 +19,7 @@ public class GameOverUI : MonoBehaviour {
     [SerializeField] Button RestartButton;
     [SerializeField] Button MenuButton;
     [SerializeField] int _currentScene;
-    [SerializeField] string TitleText;
+    [SerializeField] public TMP_Text Title;
     [SerializeField] private CanvasGroup _canvas;
     private PlayerController _playerController;
 
@@ -25,27 +27,38 @@ public class GameOverUI : MonoBehaviour {
     void Start() {
         _canvas = GetComponent<CanvasGroup>();
         _canvas.FadeCanvas(100.0f, true, this);
-        GetComponentInChildren<TMP_Text>().text = TitleText;
         RestartButton.onClick.AddListener(() => Restart());
         MenuButton.onClick.AddListener(() => Menu());
         _playerController = FindFirstObjectByType<PlayerController>();
-        _playerController.OnDeath += PopUp;
+        _playerController.OnDeath += Death;
         _currentScene = SceneManager.GetActiveScene().buildIndex;
+        if (_currentScene != LevelIndex.Game) {
+            EditorManager.Instance.OnPlay += CloseOnEditorMode;
+        }
+    }
+
+    private void CloseOnEditorMode(PlayState mode) {
+        if (mode == PlayState.Exit) {
+            Close();
+        }
     }
 
     public void Menu() {
-        //Load Main Menu scene
-        SceneManager.LoadScene(LevelIndex.Menu);
+        FadeScreen.Instance.Black(LevelIndex.Menu);
     }
 
     public void Restart() {
-        //Reload level data here
-
-        SceneManager.LoadScene(_currentScene);
+        FadeScreen.Instance.Black(_currentScene);
     }
 
-    public void PopUp() {
+    public void Death() {
+        Title.text = "You Died!";
         StartCoroutine(WaitForDeathAnimation(_playerController.DeathTime));
+    }
+
+    public void Win() {
+        Title.text = "You Win!";
+        _canvas.FadeCanvas(2.0f, false, this);
     }
 
     private IEnumerator WaitForDeathAnimation(float duration) {
@@ -53,7 +66,9 @@ public class GameOverUI : MonoBehaviour {
         _canvas.FadeCanvas(2.0f, false, this);
     }
 
-    //TODO
-    // menu pop up when player die/complete level
-    // level end prefab
+    public void Close() {
+        _canvas.FadeCanvas(100.0f, true, this);
+    }
+
+
 }
