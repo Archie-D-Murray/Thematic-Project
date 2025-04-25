@@ -110,6 +110,7 @@ public abstract class Enemy : Placeable {
         PlayAnimation(animations.Death);
         _isDead = true;
         _collider.enabled = false;
+        rb2D.gravityScale = 0;
         print("dead");
     }
 
@@ -117,6 +118,7 @@ public abstract class Enemy : Placeable {
         base.EnterPlayMode();
         _isDead = false;
         _collider.enabled = true;
+        rb2D.gravityScale = 1;
         PlayAnimation(animations.Walk);
     }
 
