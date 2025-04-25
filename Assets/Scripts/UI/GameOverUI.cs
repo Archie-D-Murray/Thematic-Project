@@ -27,6 +27,7 @@ public class GameOverUI : MonoBehaviour {
     void Start() {
         _canvas = GetComponent<CanvasGroup>();
         _canvas.FadeCanvas(100.0f, true, this);
+        Title = GetComponentInChildren<TMP_Text>();
         RestartButton.onClick.AddListener(() => Restart());
         MenuButton.onClick.AddListener(() => Menu());
         _playerController = FindFirstObjectByType<PlayerController>();

@@ -45,7 +45,7 @@ namespace UI {
         }
 
         public void Black(int sceneIndex) {
-            StartCoroutine(Fade(false));
+            StartCoroutine(FadeSceneChange(sceneIndex, false));
         }
 
         public void Clear() {

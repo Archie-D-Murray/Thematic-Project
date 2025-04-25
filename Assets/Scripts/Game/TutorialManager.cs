@@ -21,6 +21,9 @@ namespace Game {
         public TutorialUI(GameObject instance, Tutorial tutorial, TutorialManager manager) {
             Panel = instance.GetComponent<Image>();
             Readout = instance.GetComponentsInChildren<Image>().First(image => image.gameObject.HasComponent<ReadoutTag>());
+            if (Readout.type == Image.Type.Filled) {
+                Readout.fillAmount = 0.0f;
+            }
             foreach (TMP_Text text in instance.GetComponentsInChildren<TMP_Text>()) {
                 if (text.gameObject.HasComponent<ReadoutTag>()) {
                     ReadoutText = text;
@@ -41,21 +44,23 @@ namespace Game {
         public List<TilemapEditor.TilemapType> PlacedTiles;
         public int MinTileTypes = 2;
         public bool KilledEnemy;
+        public Sprite Checkmark;
 
         [SerializeField] private Tutorial[] _tutorials;
-        private Dictionary<TutorialType, Tutorial> _lookup;
-        private Dictionary<TutorialType, TutorialUI> _uiPanels;
         [SerializeField] private CanvasGroup _canvas;
         [SerializeField] private Transform _scroll;
 
-        PlayerController _playerController;
-        ObstacleEditor _obstacleEditor;
-        TilemapEditor _tilemapEditor;
+        private Dictionary<TutorialType, Tutorial> _lookup = new Dictionary<TutorialType, Tutorial>();
+        private Dictionary<TutorialType, TutorialUI> _uiPanels = new Dictionary<TutorialType, TutorialUI>();
+        private PlayerController _playerController;
+        private ObstacleEditor _obstacleEditor;
+        private TilemapEditor _tilemapEditor;
 
         private void Start() {
             if (!_canvas) {
                 _canvas = GetComponent<CanvasGroup>();
             }
+            _canvas.FadeCanvas(100.0f, true, this);
             foreach (Tutorial tutorial in _tutorials) {
                 _lookup.Add(tutorial.Type, tutorial);
                 _uiPanels.Add(tutorial.Type, new TutorialUI(Instantiate(tutorial.Panel, _scroll), tutorial, this));

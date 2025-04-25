@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4958f66a75c22b74295315874ec6830a, type: 3}
   m_Name: Pickup Obstalce
   m_EditorClassIdentifier: 
-  Task: 
-  Type: 0
-  Panel: {fileID: 0}
+  Task: Pickup an obstacle using [LMB] on an existing obstacle
+  Type: 6
+  Panel: {fileID: 7420106543314539013, guid: a744558860b8bd8428d3655e0707ba76, type: 3}
