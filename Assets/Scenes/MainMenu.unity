@@ -433,8 +433,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3029492085065524623, guid: 18dcd70b6c81b644493f750e7c09af9b, type: 3}
       propertyPath: m_Type
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3029492085065524623, guid: 18dcd70b6c81b644493f750e7c09af9b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1832543000, guid: ed6eeed1f8849704fb6054fa947370ab, type: 3}
     - target: {fileID: 3798128580534863790, guid: 18dcd70b6c81b644493f750e7c09af9b, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -608,17 +612,9 @@ PrefabInstance:
       value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 9127787789253769554, guid: 18dcd70b6c81b644493f750e7c09af9b, type: 3}
-      propertyPath: m_Type
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 9127787789253769554, guid: 18dcd70b6c81b644493f750e7c09af9b, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 965267884, guid: 4281ef7646461954a98c337c88e48531, type: 3}
-    - target: {fileID: 9127787789253769554, guid: 18dcd70b6c81b644493f750e7c09af9b, type: 3}
-      propertyPath: m_PixelsPerUnitMultiplier
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1327,7 +1323,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3029492085065524623, guid: 18dcd70b6c81b644493f750e7c09af9b, type: 3}
       propertyPath: m_Type
-      value: 2
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3029492085065524623, guid: 18dcd70b6c81b644493f750e7c09af9b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1832543000, guid: ed6eeed1f8849704fb6054fa947370ab, type: 3}
+    - target: {fileID: 3029492085065524623, guid: 18dcd70b6c81b644493f750e7c09af9b, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3798128580534863790, guid: 18dcd70b6c81b644493f750e7c09af9b, type: 3}
       propertyPath: m_Pivot.x
@@ -1502,18 +1506,6 @@ PrefabInstance:
     - target: {fileID: 8961264366312970519, guid: 18dcd70b6c81b644493f750e7c09af9b, type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 9127787789253769554, guid: 18dcd70b6c81b644493f750e7c09af9b, type: 3}
-      propertyPath: m_Type
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 9127787789253769554, guid: 18dcd70b6c81b644493f750e7c09af9b, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 965267884, guid: 4281ef7646461954a98c337c88e48531, type: 3}
-    - target: {fileID: 9127787789253769554, guid: 18dcd70b6c81b644493f750e7c09af9b, type: 3}
-      propertyPath: m_PixelsPerUnitMultiplier
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2001,7 +1993,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 815937893}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
@@ -2094,14 +2086,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Global Volume
       objectReference: {fileID: 0}
-    - target: {fileID: 2570526840241069357, guid: 18dcd70b6c81b644493f750e7c09af9b, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 3029492085065524623, guid: 18dcd70b6c81b644493f750e7c09af9b, type: 3}
       propertyPath: m_Type
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3029492085065524623, guid: 18dcd70b6c81b644493f750e7c09af9b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1832543000, guid: ed6eeed1f8849704fb6054fa947370ab, type: 3}
     - target: {fileID: 3798128580534863790, guid: 18dcd70b6c81b644493f750e7c09af9b, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2266,18 +2258,6 @@ PrefabInstance:
       propertyPath: m_fontColor32.rgba
       value: 4294967295
       objectReference: {fileID: 0}
-    - target: {fileID: 9127787789253769554, guid: 18dcd70b6c81b644493f750e7c09af9b, type: 3}
-      propertyPath: m_Type
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 9127787789253769554, guid: 18dcd70b6c81b644493f750e7c09af9b, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 965267884, guid: 4281ef7646461954a98c337c88e48531, type: 3}
-    - target: {fileID: 9127787789253769554, guid: 18dcd70b6c81b644493f750e7c09af9b, type: 3}
-      propertyPath: m_PixelsPerUnitMultiplier
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2380,22 +2360,6 @@ PrefabInstance:
       propertyPath: m_text
       value: Back
       objectReference: {fileID: 0}
-    - target: {fileID: 5163144642994604861, guid: 4ff4241445621274fb37f6a5186a6cf6, type: 3}
-      propertyPath: m_Type
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5163144642994604861, guid: 4ff4241445621274fb37f6a5186a6cf6, type: 3}
-      propertyPath: m_PixelsPerUnitMultiplier
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5684814053581672661, guid: 4ff4241445621274fb37f6a5186a6cf6, type: 3}
-      propertyPath: m_SpriteState.m_DisabledSprite
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5684814053581672661, guid: 4ff4241445621274fb37f6a5186a6cf6, type: 3}
-      propertyPath: m_SpriteState.m_HighlightedSprite
-      value: 
-      objectReference: {fileID: -1909089418, guid: 4281ef7646461954a98c337c88e48531, type: 3}
     - target: {fileID: 5684814053581672661, guid: 4ff4241445621274fb37f6a5186a6cf6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 2
