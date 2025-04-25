@@ -13,8 +13,6 @@ namespace LevelEditor {
 
         protected abstract Transform[] GetMoveables();
 
-        public int MoveableCount => _moveables.Length;
-
         public void InitReferences() {
             if (_moveables == null || _moveables.Length < 1) {
                 _moveables = GetMoveables();
