@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Net;
 
 using UnityEngine;
 namespace Data {
+    [Serializable]
     public class LevelData {
         public string Name;
         public List<TileData> ForegroundData;
