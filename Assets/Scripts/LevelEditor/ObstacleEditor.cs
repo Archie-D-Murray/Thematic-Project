@@ -29,6 +29,11 @@ namespace LevelEditor {
         [SerializeField] private CanvasGroup _canvas;
         [SerializeField] private bool _hasSpawnPoint = false;
 
+        public Action<ObstacleType> OnPlace;
+        public Action OnDestroy;
+        public Action OnPickup;
+        public Action OnCycleMoveable;
+
         private Dictionary<ObstacleType, ObstacleData> _obstacleLookup = new Dictionary<ObstacleType, ObstacleData>();
         public float Alpha => _canvas.alpha;
         public bool HasSpawnPoint => _hasSpawnPoint;
@@ -83,6 +88,7 @@ namespace LevelEditor {
             _selected.InitReferences();
             _selected.StartPlacement();
             _move = _selected.GetInitial();
+            OnPlace?.Invoke(data.Obstacle);
             _index = 0;
         }
 
@@ -117,6 +123,7 @@ namespace LevelEditor {
                         _selected.StartPlacement();
                         _move = placeable.GetInitial();
                         _index = 0;
+                        OnPickup?.Invoke();
                     }
                 }
             }
@@ -135,17 +142,20 @@ namespace LevelEditor {
                             UpdateSpawnPoint?.Invoke(_hasSpawnPoint);
                             _hasSpawnPoint = false;
                         }
+                        OnDestroy?.Invoke();
                         _placeables.Remove(placeable);
                         placeable.RemovePlaceable();
                     }
                 }
             }
 
-            if (_selected && Input.GetKeyDown(KeyCode.Tab) && !Input.GetKey(KeyCode.LeftShift)) { // Cycle to next move point
+            if (_selected && _selected.MoveableCount > 1 && Input.GetKeyDown(KeyCode.Tab) && !Input.GetKey(KeyCode.LeftShift)) { // Cycle to next move point
                 _move = _selected.GetNext(ref _index);
+                OnCycleMoveable?.Invoke();
             }
-            if (_selected && Input.GetKeyDown(KeyCode.Tab) && Input.GetKey(KeyCode.LeftShift)) {
+            if (_selected && _selected.MoveableCount > 1 && Input.GetKeyDown(KeyCode.Tab) && Input.GetKey(KeyCode.LeftShift)) {
                 _move = _selected.GetPrev(ref _index);
+                OnCycleMoveable?.Invoke();
             }
             if (_selected && _move) {
                 _move.position = Helpers.Instance.TileMapMousePosition;
@@ -192,8 +202,8 @@ namespace LevelEditor {
                 SpawnPoint spawnPoint = Instantiate(_obstacleLookup[ObstacleType.SpawnPoint].Prefab).GetComponent<SpawnPoint>();
                 _placeables.Add(spawnPoint);
                 spawnPoint.LoadSaveData(data.SpawnPoint);
-                UpdateSpawnPoint?.Invoke(_hasSpawnPoint);
                 _hasSpawnPoint = true;
+                UpdateSpawnPoint?.Invoke(_hasSpawnPoint);
             }
             // TODO: Handle other obstacle types
         }
