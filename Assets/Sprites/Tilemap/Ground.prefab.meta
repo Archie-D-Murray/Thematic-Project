@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Sprites/Tilemap/Ground.prefab.meta
 guid: cf51c0f7a9a1e364f935f5ee14f46f94
 PrefabImporter:
+========
+guid: 9a79e860ab29e3948aa1f27b7cb0556a
+TextScriptImporter:
+>>>>>>>> main:Assets/Levels/Level.json.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

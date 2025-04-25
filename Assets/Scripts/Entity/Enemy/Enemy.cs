@@ -14,10 +14,13 @@ public abstract class Enemy : Placeable {
     protected class EnemyAnimations {
         public EnemyAnimations(string name) {
             Walk = Animator.StringToHash($"{name}_Walk");
+            Death = Animator.StringToHash("Enemy_Death");
         }
         public int Walk;
+        public int Death;
     }
-
+    public enum EnemyState { Idle, Patrol, Attack, Death }
+    [SerializeField] protected EnemyState state;
     [SerializeField] protected Transform player;
     [SerializeField] protected Animator animator;
     [SerializeField] protected int currentAnimation = 0;
@@ -40,12 +43,56 @@ public abstract class Enemy : Placeable {
 
         InitAnimations();
         InitReferences();
+        SwitchState(InitialState());
     }
 
+    private void FixedUpdate() {
+        if (state == EnemyState.Death) {
+            return;
+        }
+        if (!player) {
+            state = EnemyState.Idle;
+        }
+
+        switch (state) {
+            case EnemyState.Idle:
+                Idle();
+                break;
+            case EnemyState.Patrol:
+                Patrol();
+                break;
+            case EnemyState.Attack:
+                Attack();
+                break;
+            default:
+                break;
+        }
+    }
+    protected virtual EnemyState InitialState() => EnemyState.Idle;
+
+    protected void SwitchState(EnemyState state) {
+        switch (state) {
+            case EnemyState.Idle:
+                EnterIdle();
+                break;
+            case EnemyState.Patrol:
+                EnterPatrol();
+                break;
+            case EnemyState.Attack:
+                EnterAttack();
+                break;
+            default:
+                break;
+        }
+        this.state = state;
+    }
     protected abstract void InitAnimations();
     protected virtual void Idle() { }
     protected virtual void Patrol() { }
     protected virtual void Attack() { }
+    protected virtual void EnterIdle() { }
+    protected virtual void EnterPatrol() { }
+    protected virtual void EnterAttack() { }
     protected virtual bool IsInRange() {
         if (!player) {
             return false;
@@ -60,6 +107,7 @@ public abstract class Enemy : Placeable {
     }
 
     protected virtual void OnDeath() {
+        PlayAnimation(animations.Death);
         _isDead = true;
         _collider.enabled = false;
         print("dead");
@@ -69,6 +117,7 @@ public abstract class Enemy : Placeable {
         base.EnterPlayMode();
         _isDead = false;
         _collider.enabled = true;
+        PlayAnimation(animations.Walk);
     }
 
     public override void ContinuePlayMode() {
@@ -77,12 +126,11 @@ public abstract class Enemy : Placeable {
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.gameObject.TryGetComponent(out PlayerController player)) {
+        if (collision.collider.gameObject.TryGetComponent(out PlayerController player)) {
             print("player");
             if (player.IsVulnerable()) {
                 player.Death();
             } else {
-                player.OnKill?.Invoke();
                 OnDeath();
             }
         } else {

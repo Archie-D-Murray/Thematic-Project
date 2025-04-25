@@ -21,59 +21,56 @@ namespace LevelEditor {
         [Serializable]
         public class TilemapData {
             public TilemapType Type;
-            public Tilemap Tilemap;
-            public int Selected = 0;
-            public TileBase[] TileAssets;
-            public Tile[] Tiles;
-            public Dictionary<Button, int> Lookup = new Dictionary<Button, int>();
+            public Tilemap _tilemap;
+            public int _selected = 0;
+            public TileBase[] _tileAssets;
+            public Tile[] _tiles;
+            public Dictionary<Button, int> _lookup = new Dictionary<Button, int>();
             public Vector3[] ButtonPositions;
-            public Dictionary<Vector3Int, int> LevelTiles = new Dictionary<Vector3Int, int>();
+            public Dictionary<Vector3Int, int> _levelTiles = new Dictionary<Vector3Int, int>();
 
-            public void SetTile(Vector3Int position) {
-                Tilemap.SetTile(position, TileAssets[Selected]);
-                LevelTiles[position] = Selected;
+            public void AddTile(Vector3Int position) {
+                _tilemap.SetTile(position, _tileAssets[_selected]);
+                _levelTiles[position] = _selected;
+                
             }
 
             public void RemoveTile(Vector3Int position) {
-                Tilemap.SetTile(position, null);
-                LevelTiles.Remove(position);
+                _tilemap.SetTile(position, null);
+                _levelTiles.Remove(position);
             }
 
             public void IncrementIndex() {
-                Selected = ++Selected % TileAssets.Length;
+                _selected = ++_selected % _tileAssets.Length;
             }
 
             public void DecrementIndex() {
-                Selected--;
-                if (Selected < 0) {
-                    Selected = TileAssets.Length - 1;
+                _selected--;
+                if (_selected < 0) {
+                    _selected = _tileAssets.Length - 1;
                 }
             }
 
             public bool IsValid() {
-                return TileAssets.Length == Tiles.Length;
+                return _tileAssets.Length == _tiles.Length;
             }
 
             public void PopulateButtonPositions() {
                 if (ButtonPositions != null && ButtonPositions.Length != 0) { return; }
-                ButtonPositions = new Vector3[Tiles.Length];
+                ButtonPositions = new Vector3[_tiles.Length];
                 int i = 0;
-                foreach (Button button in Lookup.Keys) {
+                foreach (Button button in _lookup.Keys) {
                     ButtonPositions[i] = button.transform.position;
                     i++;
                 }
             }
 
             public Vector3 ButtonPosition() {
-                return ButtonPositions[Selected];
+                return ButtonPositions[_selected];
             }
 
             public Sprite Sprite() {
-                return Tiles[Selected].sprite;
-            }
-
-            public bool Different(Vector3Int position) {
-                return !(LevelTiles.ContainsKey(position) && LevelTiles[position] == Selected);
+                return _tiles[_selected].sprite;
             }
         }
 
@@ -97,8 +94,6 @@ namespace LevelEditor {
         private Image _selection;
         private Button _toggle;
         private Transform _tiles;
-
-        public Action<TilemapType> OnTilePlace;
 
         private TilemapData _current => _tilemapData[_index];
 
@@ -132,12 +127,12 @@ namespace LevelEditor {
         }
 
         private void UpdateBounds() {
-            Vector3Int min = _tilemapData[0].Tilemap.cellBounds.min;
-            Vector3Int max = _tilemapData[0].Tilemap.cellBounds.max;
+            Vector3Int min = _tilemapData[0]._tilemap.cellBounds.min;
+            Vector3Int max = _tilemapData[0]._tilemap.cellBounds.max;
             foreach (TilemapData data in _tilemapData) {
-                Debug.Log($"{data.Type}: Bounds: min: {data.Tilemap.cellBounds.min}, max: {data.Tilemap.cellBounds.max}");
-                min = Vector3Int.Min(data.Tilemap.cellBounds.min, min);
-                max = Vector3Int.Max(data.Tilemap.cellBounds.max, max);
+                Debug.Log($"{data.Type}: Bounds: min: {data._tilemap.cellBounds.min}, max: {data._tilemap.cellBounds.max}");
+                min = Vector3Int.Min(data._tilemap.cellBounds.min, min);
+                max = Vector3Int.Max(data._tilemap.cellBounds.max, max);
             }
             Debug.Log($"Found bounds: min: {min}, max {max}");
             _cameraBounds.SetPath(0, new Vector2[] {
@@ -158,17 +153,17 @@ namespace LevelEditor {
                 foreach (Transform child in _tiles) {
                     Destroy(child.gameObject);
                 }
-                _current.Lookup.Clear();
+                _current._lookup.Clear();
             }
-            for (int i = 0; i < _current.TileAssets.Length; i++) {
+            for (int i = 0; i < _current._tileAssets.Length; i++) {
                 Button button = Instantiate(_tilePrefab, _tiles).GetComponent<Button>();
-                _current.Lookup.Add(button, i);
+                _current._lookup.Add(button, i);
                 button.onClick.AddListener(() => {
-                    _current.Selected = _current.Lookup[button];
-                    _indicator.sprite = _current.Tiles[_current.Lookup[button]].sprite;
+                    _current._selected = _current._lookup[button];
+                    _indicator.sprite = _current._tiles[_current._lookup[button]].sprite;
                     _selection.transform.position = button.transform.position;
                 });
-                button.GetComponent<Image>().sprite = _current.Tiles[i].sprite;
+                button.GetComponent<Image>().sprite = _current._tiles[i].sprite;
             }
             StartCoroutine(SetSelectionPosition());
         }
@@ -198,10 +193,7 @@ namespace LevelEditor {
             _indicator.transform.position = mousePosition;
             if (Input.GetMouseButton(0) && !UIManager.Instance.IsHovered()) {
                 Vector3Int position = Vector3Int.FloorToInt(mousePosition);
-                if (_current.Different(position)) {
-                    OnTilePlace?.Invoke(_current.Type);
-                }
-                _current.SetTile(position);
+                _current.AddTile(position);
             } else if (Input.GetMouseButton(1) && !UIManager.Instance.IsHovered()) {
                 Vector3Int position = Vector3Int.FloorToInt(mousePosition);
                 _current.RemoveTile(position);
@@ -227,11 +219,11 @@ namespace LevelEditor {
         public void OnSave(ref LevelData data) {
             foreach (TilemapData tilemap in _tilemapData) {
                 if (tilemap.Type == TilemapType.Foreground) {
-                    foreach ((Vector3Int position, int ID) tile in tilemap.LevelTiles.Select(kvp => (kvp.Key, kvp.Value))) {
+                    foreach ((Vector3Int position, int ID) tile in tilemap._levelTiles.Select(kvp => (kvp.Key, kvp.Value))) {
                         data.ForegroundData.Add(new TileData(tile.ID, tile.position));
                     }
                 } else if (tilemap.Type == TilemapType.Background) {
-                    foreach ((Vector3Int position, int ID) tile in tilemap.LevelTiles.Select(kvp => (kvp.Key, kvp.Value))) {
+                    foreach ((Vector3Int position, int ID) tile in tilemap._levelTiles.Select(kvp => (kvp.Key, kvp.Value))) {
                         data.BackgroundData.Add(new TileData(tile.ID, tile.position));
                     }
                 } else {
@@ -243,26 +235,26 @@ namespace LevelEditor {
 
         public void OnLoad(LevelData data) {
             foreach (TilemapData tilemap in _tilemapData) {
-                tilemap.Tilemap.ClearAllTiles();
-                tilemap.LevelTiles.Clear();
+                tilemap._tilemap.ClearAllTiles();
+                tilemap._levelTiles.Clear();
                 if (tilemap.Type == TilemapType.Foreground) {
                     foreach (TileData tile in data.ForegroundData) {
-                        if (tile.ID >= tilemap.TileAssets.Length) {
+                        if (tile.ID >= tilemap._tileAssets.Length) {
                             Debug.LogWarning($"Tile of ID: {tile.ID} could not be parsed as it is not present in known tiles", this);
-                            tilemap.Tilemap.SetTile(tile.Position, _errorTile);
+                            tilemap._tilemap.SetTile(tile.Position, _errorTile);
                         } else {
-                            tilemap.Tilemap.SetTile(tile.Position, tilemap.TileAssets[tile.ID]);
-                            tilemap.LevelTiles[tile.Position] = tile.ID;
+                            tilemap._tilemap.SetTile(tile.Position, tilemap._tileAssets[tile.ID]);
+                            tilemap._levelTiles[tile.Position] = tile.ID;
                         }
                     }
                 } else if (tilemap.Type == TilemapType.Background) {
                     foreach (TileData tile in data.BackgroundData) {
-                        if (tile.ID >= tilemap.TileAssets.Length) {
+                        if (tile.ID >= tilemap._tileAssets.Length) {
                             Debug.LogWarning($"Tile of ID: {tile.ID} could not be parsed as it is not present in known tiles", this);
-                            tilemap.Tilemap.SetTile(tile.Position, _errorTile);
+                            tilemap._tilemap.SetTile(tile.Position, _errorTile);
                         } else {
-                            tilemap.Tilemap.SetTile(tile.Position, tilemap.TileAssets[tile.ID]);
-                            tilemap.LevelTiles[tile.Position] = tile.ID;
+                            tilemap._tilemap.SetTile(tile.Position, tilemap._tileAssets[tile.ID]);
+                            tilemap._levelTiles[tile.Position] = tile.ID;
                         }
                     }
                 } else {
@@ -276,15 +268,15 @@ namespace LevelEditor {
         private void AddExistingTiles() {
             foreach (TilemapData data in _tilemapData) {
                 Dictionary<TileBase, int> lookup = new Dictionary<TileBase, int>();
-                for (int i = 0; i < data.TileAssets.Length; i++) {
-                    lookup.Add(data.TileAssets[i], i);
+                for (int i = 0; i < data._tileAssets.Length; i++) {
+                    lookup.Add(data._tileAssets[i], i);
                 }
-                for (int y = data.Tilemap.origin.y; y < data.Tilemap.size.y; y++) {
-                    for (int x = data.Tilemap.origin.x; x < data.Tilemap.size.x; x++) {
+                for (int y = data._tilemap.origin.y; y < data._tilemap.size.y; y++) {
+                    for (int x = data._tilemap.origin.x; x < data._tilemap.size.x; x++) {
                         Vector3Int position = new Vector3Int(x, y, 0);
-                        TileBase tile = data.Tilemap.GetTile(position);
+                        TileBase tile = data._tilemap.GetTile(position);
                         if (tile != null && lookup.TryGetValue(tile, out int index)) {
-                            data.LevelTiles[position] = lookup[tile];
+                            data._levelTiles[position] = lookup[tile];
                         }
                     }
                 }

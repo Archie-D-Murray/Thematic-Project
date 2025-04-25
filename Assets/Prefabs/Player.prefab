@@ -145,11 +145,12 @@ MonoBehaviour:
   timeSinceLeftGround: 0
   coyoteTimeDuration: 0.2
   _isDashing: 0
+  dashEffect: {fileID: 6470437342712447976, guid: 3ee4b187fb0783a40a1d75465571d66a, type: 3}
   _coyoteTimeTrigger: 0
-  _uiToggle: {fileID: 0}
   _dashTimer:
     _initialTime: 0
     _time: 0
+  isDead: 0
 --- !u!95 &8809775927346941120
 Animator:
   serializedVersion: 5

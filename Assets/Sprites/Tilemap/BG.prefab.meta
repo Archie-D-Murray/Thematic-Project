@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Sprites/Tilemap/BG.prefab.meta
 guid: d8f8f1d6270c23240a00aa74b170083a
 PrefabImporter:
+========
+guid: 4ea2128206e8b2b4e8279ddc88958439
+TextScriptImporter:
+>>>>>>>> main:Assets/Levels/BarrenLevel.json.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
