@@ -15,6 +15,8 @@ public static class Extensions {
         return Enum.GetValues(flags.GetType()).Cast<Enum>().Where(flags.HasFlag);
     }
 
+    public const float FadeSpeed = 4.0f;
+
 
     /// <summary>
     /// Gets, or adds if doesn't contain a component

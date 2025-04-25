@@ -135,7 +135,7 @@ namespace LevelEditor {
             _play.interactable = false;
             _continue.interactable = false;
             _exit.interactable = true;
-            _editorButtons.FadeCanvas(2.0f, true, this);
+            _editorButtons.FadeCanvas(Extensions.FadeSpeed, true, this);
             HideAllEditors();
         }
 
@@ -145,7 +145,7 @@ namespace LevelEditor {
             _exit.interactable = true;
             _play.interactable = false;
             _continue.interactable = false;
-            _editorButtons.FadeCanvas(2.0f, true, this);
+            _editorButtons.FadeCanvas(Extensions.FadeSpeed, true, this);
             HideAllEditors();
         }
 
@@ -155,7 +155,7 @@ namespace LevelEditor {
             _play.interactable = true;
             _continue.interactable = true;
             _exit.interactable = false;
-            _editorButtons.FadeCanvas(2.0f, false, this);
+            _editorButtons.FadeCanvas(Extensions.FadeSpeed, false, this);
         }
 
         private void Return() {

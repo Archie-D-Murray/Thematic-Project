@@ -59,12 +59,12 @@ public class GameOverUI : MonoBehaviour {
 
     public void Win() {
         Title.text = "You Win!";
-        _canvas.FadeCanvas(2.0f, false, this);
+        _canvas.FadeCanvas(Extensions.FadeSpeed, false, this);
     }
 
     private IEnumerator WaitForDeathAnimation(float duration) {
         yield return Yielders.WaitForSeconds(duration);
-        _canvas.FadeCanvas(2.0f, false, this);
+        _canvas.FadeCanvas(Extensions.FadeSpeed, false, this);
     }
 
     public void Close() {

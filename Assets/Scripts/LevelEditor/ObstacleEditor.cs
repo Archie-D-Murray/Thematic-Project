@@ -251,7 +251,7 @@ namespace LevelEditor {
 
         public void Open() {
             if (_canvas.alpha == 0) {
-                _canvas.FadeCanvas(2.0f, false, this);
+                _canvas.FadeCanvas(Extensions.FadeSpeed, false, this);
                 return;
             }
         }
@@ -264,7 +264,7 @@ namespace LevelEditor {
                 EventSystem.current.SetSelectedGameObject(null); // Space can press button ffs
             }
             if (_canvas.alpha == 1) {
-                _canvas.FadeCanvas(2.0f, true, this);
+                _canvas.FadeCanvas(Extensions.FadeSpeed, true, this);
                 return;
             }
         }
