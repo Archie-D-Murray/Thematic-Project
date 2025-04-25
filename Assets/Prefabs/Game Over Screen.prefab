@@ -71,7 +71,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 1557632159, guid: 4281ef7646461954a98c337c88e48531, type: 3}
-  m_Type: 2
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -79,7 +79,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 0.5
+  m_PixelsPerUnitMultiplier: 1
 --- !u!114 &176125145802625391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94,8 +94,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RestartButton: {fileID: 4561194333648867904}
   MenuButton: {fileID: 5516858096079053952}
-  _currentScene: 0
-  Title: {fileID: 0}
+  MainMenuIndex: 0
+  TitleText: wwawa
   _canvas: {fileID: 8485655693330855256}
 --- !u!225 &8485655693330855256
 CanvasGroup:
@@ -105,7 +105,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1232089031210460775}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
@@ -335,6 +335,18 @@ PrefabInstance:
       propertyPath: m_text
       value: Main Menu
       objectReference: {fileID: 0}
+    - target: {fileID: 5163144642994604861, guid: 4ff4241445621274fb37f6a5186a6cf6, type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5163144642994604861, guid: 4ff4241445621274fb37f6a5186a6cf6, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1080332793, guid: 4281ef7646461954a98c337c88e48531, type: 3}
+    - target: {fileID: 5684814053581672661, guid: 4ff4241445621274fb37f6a5186a6cf6, type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: -810304436, guid: 4281ef7646461954a98c337c88e48531, type: 3}
     - target: {fileID: 6275613175462383076, guid: 4ff4241445621274fb37f6a5186a6cf6, type: 3}
       propertyPath: m_Name
       value: Main Menu
@@ -452,6 +464,18 @@ PrefabInstance:
       propertyPath: m_text
       value: Restart
       objectReference: {fileID: 0}
+    - target: {fileID: 5163144642994604861, guid: 4ff4241445621274fb37f6a5186a6cf6, type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5163144642994604861, guid: 4ff4241445621274fb37f6a5186a6cf6, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1080332793, guid: 4281ef7646461954a98c337c88e48531, type: 3}
+    - target: {fileID: 5684814053581672661, guid: 4ff4241445621274fb37f6a5186a6cf6, type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: -810304436, guid: 4281ef7646461954a98c337c88e48531, type: 3}
     - target: {fileID: 6275613175462383076, guid: 4ff4241445621274fb37f6a5186a6cf6, type: 3}
       propertyPath: m_Name
       value: Restart
