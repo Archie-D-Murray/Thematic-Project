@@ -8,16 +8,20 @@ using Data;
 namespace LevelEditor {
     public class EndPoint : Placeable {
 
+        private void Start() {
+            InitReferences();
+        }
+
         protected override Transform[] GetMoveables() {
             return new Transform[] { transform };
         }
 
-        public void LoadSaveData(SpawnPointData data) {
+        public void LoadSaveData(EndPointData data) {
             transform.position = data.Position;
         }
 
-        public SpawnPointData ToSaveData() {
-            return new SpawnPointData(_initialPosition);
+        public EndPointData ToSaveData() {
+            return new EndPointData(_initialPosition);
         }
 
         private void OnTriggerEnter2D(Collider2D collision) {

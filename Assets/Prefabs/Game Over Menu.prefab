@@ -69,8 +69,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 34531e00c5d49ad4983764ce1cde78a5, type: 2}
+  m_sharedMaterial: {fileID: 3567712008767527750, guid: 34531e00c5d49ad4983764ce1cde78a5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -186,8 +186,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RestartButton: {fileID: 2834245853600133072}
   MenuButton: {fileID: 5840345747308005001}
-  MainMenuIndex: 0
-  TitleText: wwawa
+  _currentScene: 0
+  Title: {fileID: 0}
   _canvas: {fileID: 0}
 --- !u!225 &8613211124370729054
 CanvasGroup:
@@ -403,8 +403,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 34531e00c5d49ad4983764ce1cde78a5, type: 2}
+  m_sharedMaterial: {fileID: 3567712008767527750, guid: 34531e00c5d49ad4983764ce1cde78a5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -537,8 +537,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Game Over
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 34531e00c5d49ad4983764ce1cde78a5, type: 2}
+  m_sharedMaterial: {fileID: 3567712008767527750, guid: 34531e00c5d49ad4983764ce1cde78a5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

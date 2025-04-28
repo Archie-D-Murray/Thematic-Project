@@ -16,6 +16,7 @@ using UnityEngine.UI;
 using Utilities;
 
 public class GameOverUI : MonoBehaviour {
+    [SerializeField] private KeyCode _menuKey = KeyCode.Tab;
     [SerializeField] Button RestartButton;
     [SerializeField] Button MenuButton;
     [SerializeField] int _currentScene;
@@ -36,6 +37,8 @@ public class GameOverUI : MonoBehaviour {
         _currentScene = SceneManager.GetActiveScene().buildIndex;
         if (_currentScene != LevelIndex.Game) {
             EditorManager.Instance.OnPlay += CloseOnEditorMode;
+        } else {
+            GetComponentInChildren<Tags.UI.ReadoutTag>().GetComponent<Button>().onClick.AddListener(Close);
         }
     }
 
@@ -60,17 +63,22 @@ public class GameOverUI : MonoBehaviour {
 
     public void Win() {
         Title.text = "You Win!";
-        _canvas.FadeCanvas(2.0f, false, this);
+        _canvas.FadeCanvas(Extensions.FadeSpeed, false, this);
     }
 
     private IEnumerator WaitForDeathAnimation(float duration) {
         yield return Yielders.WaitForSeconds(duration);
-        _canvas.FadeCanvas(2.0f, false, this);
+        _canvas.FadeCanvas(Extensions.FadeSpeed, false, this);
     }
 
     public void Close() {
         _canvas.FadeCanvas(100.0f, true, this);
     }
 
-
+    private void Update() {
+        if (_currentScene == LevelIndex.Game && Input.GetKeyDown(_menuKey) && _canvas.alpha == 0.0f) {
+            Title.text = string.Empty;
+            _canvas.FadeCanvas(Extensions.FadeSpeed, false, this);
+        }
+    }
 }

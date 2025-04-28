@@ -12,7 +12,7 @@ namespace Utilities {
             MainCamera = Camera.main;
         }
         public Camera MainCamera;
-        private Vector2 _mousePosition;
+        [SerializeField] private Vector2 _mousePosition;
         public Vector2 TileMapMousePosition => Vector2Int.FloorToInt(_mousePosition) + Offset;
         public static Vector2 FromRadians(float radians) {
             return new Vector2(Mathf.Sin(radians), Mathf.Cos(radians));

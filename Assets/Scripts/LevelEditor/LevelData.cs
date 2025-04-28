@@ -1,7 +1,10 @@
+using System;
 using System.Collections.Generic;
+using System.Net;
 
 using UnityEngine;
 namespace Data {
+    [Serializable]
     public class LevelData {
         public string Name;
         public List<TileData> ForegroundData;
@@ -10,9 +13,12 @@ namespace Data {
         public List<PlatformData> PlatformData;
         public List<PlatformData> DeathPlatformData;
         public List<PatrolEnemyData> PatrolEnemies;
-        public List<FlyingEnemyData> FlyingEnemies;
+        public List<PatrolEnemyData> SlowedEnemies;
+        public List<StaticEnemyData> FlyingEnemies;
+        public List<StaticEnemyData> TurretEnemies;
         public List<LaserData> Lasers;
         public SpawnPointData SpawnPoint;
+        public EndPointData EndPoint;
 
         public LevelData(string name) {
             Name = name;
@@ -22,9 +28,12 @@ namespace Data {
             PlatformData = new List<PlatformData>();
             DeathPlatformData = new List<PlatformData>();
             PatrolEnemies = new List<PatrolEnemyData>();
-            FlyingEnemies = new List<FlyingEnemyData>();
+            SlowedEnemies = new List<PatrolEnemyData>();
+            FlyingEnemies = new List<StaticEnemyData>();
+            TurretEnemies = new List<StaticEnemyData>();
             Lasers = new List<LaserData>();
-            SpawnPoint = null;
+            SpawnPoint = new SpawnPointData(Vector3.zero);
+            EndPoint = new EndPointData(Vector3.zero);
         }
     }
 }

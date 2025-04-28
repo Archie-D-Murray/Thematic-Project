@@ -177,40 +177,60 @@ namespace LevelEditor {
                 Door door = Instantiate(_obstacleLookup[ObstacleType.Door].Prefab).GetComponent<Door>();
                 _placeables.Add(door);
                 door.LoadSaveData(doorData);
+                door.InitReferences();
             }
             foreach (PlatformData platformData in data.PlatformData) {
                 MovingPlatform platform = Instantiate(_obstacleLookup[ObstacleType.Platform].Prefab).GetComponent<MovingPlatform>();
                 _placeables.Add(platform);
                 platform.LoadSaveData(platformData);
+                platform.InitReferences();
             }
             foreach (PlatformData platformData in data.DeathPlatformData) {
                 MovingPlatform platform = Instantiate(_obstacleLookup[ObstacleType.DeathPlatform].Prefab).GetComponent<MovingPlatform>();
                 _placeables.Add(platform);
                 platform.LoadSaveData(platformData);
+                platform.InitReferences();
             }
             foreach (PatrolEnemyData patrolEnemy in data.PatrolEnemies) {
                 PatrolEnemy patrol = Instantiate(_obstacleLookup[ObstacleType.PatrolEnemy].Prefab).GetComponentInChildren<PatrolEnemy>();
                 _placeables.Add(patrol);
                 patrol.LoadSaveData(patrolEnemy);
+                patrol.InitReferences();
             }
-            foreach (FlyingEnemyData flyingEnemy in data.FlyingEnemies) {
+            foreach (StaticEnemyData flyingEnemy in data.FlyingEnemies) {
                 FlyingEnemy flying = Instantiate(_obstacleLookup[ObstacleType.FlyingEnemy].Prefab).GetComponent<FlyingEnemy>();
                 _placeables.Add(flying);
                 flying.LoadSaveData(flyingEnemy);
+                flying.InitReferences();
+            }
+            foreach (StaticEnemyData turretEnemy in data.TurretEnemies) {
+                TurretEnemy turret = Instantiate(_obstacleLookup[ObstacleType.TurretEnemy].Prefab).GetComponent<TurretEnemy>();
+                _placeables.Add(turret);
+                turret.LoadSaveData(turretEnemy);
+                turret.InitReferences();
             }
             foreach (LaserData laserData in data.Lasers) {
                 Laser laser = Instantiate(_obstacleLookup[ObstacleType.Laser].Prefab).GetComponent<Laser>();
                 _placeables.Add(laser);
                 laser.LoadSaveData(laserData);
+                laser.InitReferences();
             }
             if (data.SpawnPoint != null) {
                 SpawnPoint spawnPoint = Instantiate(_obstacleLookup[ObstacleType.SpawnPoint].Prefab).GetComponent<SpawnPoint>();
                 _placeables.Add(spawnPoint);
                 spawnPoint.LoadSaveData(data.SpawnPoint);
+                spawnPoint.InitReferences();
                 _hasSpawnPoint = true;
                 UpdateSpawnPoint?.Invoke(_hasSpawnPoint);
             }
+            if (data.EndPoint != null) {
+                EndPoint endPoint = Instantiate(_obstacleLookup[ObstacleType.EndPoint].Prefab).GetComponent<EndPoint>();
+                _placeables.Add(endPoint);
+                endPoint.LoadSaveData(data.EndPoint);
+                endPoint.InitReferences();
+            }
             // TODO: Handle other obstacle types
+            // // Assets/Scripts/SpawnPoint.cs
         }
 
         public void OnSave(ref LevelData data) {
@@ -227,15 +247,24 @@ namespace LevelEditor {
                     }
                 } else if (placeable is PatrolEnemy) {
                     PatrolEnemy patrolEnemy = placeable as PatrolEnemy;
-                    data.PatrolEnemies.Add(patrolEnemy.ToSaveData());
+                    if (patrolEnemy.gameObject.HasComponent<SlowEnemyTag>()) {
+                        data.SlowedEnemies.Add(patrolEnemy.ToSaveData());
+                    } else {
+                        data.PatrolEnemies.Add(patrolEnemy.ToSaveData());
+                    }
                 } else if (placeable is FlyingEnemy) {
                     FlyingEnemy flyingEnemy = placeable as FlyingEnemy;
                     data.FlyingEnemies.Add(flyingEnemy.ToSaveData());
+                } else if (placeable is TurretEnemy) {
+                    TurretEnemy turretEnemy = placeable as TurretEnemy;
+                    data.TurretEnemies.Add(turretEnemy.ToSaveData());
                 } else if (placeable is Laser) {
                     Laser laser = placeable as Laser;
                     data.Lasers.Add(laser.ToSaveData());
                 } else if (placeable is SpawnPoint) {
                     data.SpawnPoint = (placeable as SpawnPoint).ToSaveData();
+                } else if (placeable is EndPoint) {
+                    data.EndPoint = (placeable as EndPoint).ToSaveData();
                 }
                 // TODO: Handle other obstacle types
             }
@@ -243,7 +272,7 @@ namespace LevelEditor {
 
         public void Open() {
             if (_canvas.alpha == 0) {
-                _canvas.FadeCanvas(2.0f, false, this);
+                _canvas.FadeCanvas(Extensions.FadeSpeed, false, this);
                 return;
             }
         }
@@ -256,7 +285,7 @@ namespace LevelEditor {
                 EventSystem.current.SetSelectedGameObject(null); // Space can press button ffs
             }
             if (_canvas.alpha == 1) {
-                _canvas.FadeCanvas(2.0f, true, this);
+                _canvas.FadeCanvas(Extensions.FadeSpeed, true, this);
                 return;
             }
         }

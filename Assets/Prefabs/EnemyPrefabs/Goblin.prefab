@@ -74,8 +74,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -133084529
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 9721024, guid: 3dc35bea883c81f4a8520367477d8b1d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -103,7 +103,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -149,13 +149,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveables: []
-  _placing: 0
+  _playing: 0
+  _initialPosition: {x: 0, y: 0, z: 0}
+  state: 0
   player: {fileID: 0}
   animator: {fileID: 0}
   currentAnimation: 0
-  attackRange: 2
+  attackRange: 4
   rb2D: {fileID: 0}
   spriteRenderer: {fileID: 0}
+  _collider: {fileID: 0}
   speed: 2
   patrolPoints:
   - {fileID: 661327202252037210}

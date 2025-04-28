@@ -33,7 +33,10 @@ public class Door : Placeable {
         _button = GetComponentInChildren<DoorButton>();
         doorSprite = GetComponentInChildren<SpriteRenderer>();
         doorCollider = GetComponentInChildren<BoxCollider2D>();
-        _moveables = GetMoveables();
+    }
+
+    private void Start() {
+        InitReferences();
     }
 
     public void Toggle() {

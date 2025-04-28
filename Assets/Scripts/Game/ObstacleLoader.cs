@@ -10,7 +10,7 @@ namespace Game {
     public class ObstacleLoader : MonoBehaviour, ISerialize {
 
         [SerializeField] private ObstacleData[] _obstacles;
-        
+
         private Dictionary<ObstacleType, ObstacleData> _obstacleLookup = new Dictionary<ObstacleType, ObstacleData>();
 
         public void OnLoad(LevelData data) {
@@ -41,11 +41,23 @@ namespace Game {
                 patrol.InitReferences();
                 patrol.EnterPlayMode();
             }
-            foreach (FlyingEnemyData flyingEnemy in data.FlyingEnemies) {
+            foreach (PatrolEnemyData slowEnemy in data.SlowedEnemies) {
+                PatrolEnemy slow = Instantiate(_obstacleLookup[ObstacleType.SlowEnemy].Prefab).GetComponentInChildren<PatrolEnemy>();
+                slow.LoadSaveData(slowEnemy);
+                slow.InitReferences();
+                slow.EnterPlayMode();
+            }
+            foreach (StaticEnemyData flyingEnemy in data.FlyingEnemies) {
                 FlyingEnemy flying = Instantiate(_obstacleLookup[ObstacleType.FlyingEnemy].Prefab).GetComponent<FlyingEnemy>();
                 flying.LoadSaveData(flyingEnemy);
                 flying.InitReferences();
                 flying.EnterPlayMode();
+            }
+            foreach (StaticEnemyData turretEnemy in data.TurretEnemies) {
+                TurretEnemy turret = Instantiate(_obstacleLookup[ObstacleType.TurretEnemy].Prefab).GetComponent<TurretEnemy>();
+                turret.LoadSaveData(turretEnemy);
+                turret.InitReferences();
+                turret.EnterPlayMode();
             }
             foreach (LaserData laserData in data.Lasers) {
                 Laser laser = Instantiate(_obstacleLookup[ObstacleType.Laser].Prefab).GetComponent<Laser>();
@@ -56,6 +68,12 @@ namespace Game {
             if (data.SpawnPoint != null) {
                 SpawnPoint spawnPoint = Instantiate(_obstacleLookup[ObstacleType.SpawnPoint].Prefab).GetComponent<SpawnPoint>();
                 spawnPoint.LoadSaveData(data.SpawnPoint);
+                spawnPoint.InitReferences();
+                spawnPoint.EnterPlayMode();
+            }
+            if (data.EndPoint != null) {
+                EndPoint spawnPoint = Instantiate(_obstacleLookup[ObstacleType.EndPoint].Prefab).GetComponent<EndPoint>();
+                spawnPoint.LoadSaveData(data.EndPoint);
                 spawnPoint.InitReferences();
                 spawnPoint.EnterPlayMode();
             }

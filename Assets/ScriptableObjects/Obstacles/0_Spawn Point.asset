@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90c94c6106a5d6e448705a510fc4dc81, type: 3}
-  m_Name: 8_End Point
+  m_Name: 0_Spawn Point
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 3785736512318628419, guid: 5ad83073bb9568a4d8e1826f959e71fa, type: 3}
-  Key: 56
-  Sprite: {fileID: 21300000, guid: 6704d15690172f240a32a26df2944d9f, type: 3}
-  KeySprite: {fileID: -1927623471, guid: 4281ef7646461954a98c337c88e48531, type: 3}
-  Obstacle: 7
+  Prefab: {fileID: 3998162975346523632, guid: e78068fac5dc4d841945a97392f69387, type: 3}
+  Key: 48
+  Sprite: {fileID: 21300000, guid: eeed56cc98b14dc4f8d1c4eaaef73ec8, type: 3}
+  KeySprite: {fileID: 1485634240, guid: 4281ef7646461954a98c337c88e48531, type: 3}
+  Obstacle: 6

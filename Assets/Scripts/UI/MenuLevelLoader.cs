@@ -54,7 +54,7 @@ public class MenuLevelLoader : MonoBehaviour {
 
     public void Open() {
         if (canvas.alpha == 0) {
-            canvas.FadeCanvas(2.0f, false, this);
+            canvas.FadeCanvas(Extensions.FadeSpeed, false, this);
             UpdateLevelUI();
             return;
         }
@@ -62,7 +62,7 @@ public class MenuLevelLoader : MonoBehaviour {
 
     public void Close() {
         if (canvas.alpha == 1) {
-            canvas.FadeCanvas(2.0f, true, this);
+            canvas.FadeCanvas(Extensions.FadeSpeed, true, this);
             return;
         }
     }

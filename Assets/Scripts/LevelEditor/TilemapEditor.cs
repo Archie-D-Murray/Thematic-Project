@@ -183,13 +183,13 @@ namespace LevelEditor {
         public void Close() {
             _indicator.gameObject.SetActive(false);
             _selection.gameObject.SetActive(false);
-            _tilemapSelection.FadeCanvas(2.0f, true, this);
+            _tilemapSelection.FadeCanvas(Extensions.FadeSpeed, true, this);
         }
 
         public void Open() {
             _indicator.gameObject.SetActive(true);
             _selection.gameObject.SetActive(true);
-            _tilemapSelection.FadeCanvas(2.0f, false, this);
+            _tilemapSelection.FadeCanvas(Extensions.FadeSpeed, false, this);
         }
 
         private void Update() {
