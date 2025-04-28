@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 using Data;
 
+using Entity.Player;
+
 using UnityEngine;
 
 using Utilities;
@@ -16,6 +18,14 @@ public class TurretEnemy : Enemy {
     private CountDownTimer attackTimer = new CountDownTimer(0f);
     [SerializeField] private float attackTime;
     protected override Transform[] GetMoveables() {
+        if (!animator) {
+            InitAnimations();
+            animator = GetComponent<Animator>();
+            rb2D = GetComponent<Rigidbody2D>();
+            spriteRenderer = GetComponent<SpriteRenderer>();
+            _collider = GetComponent<BoxCollider2D>();
+            player = FindFirstObjectByType<PlayerController>().transform;
+        }
         return new Transform[] { transform };
     }
 

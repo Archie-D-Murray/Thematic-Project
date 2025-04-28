@@ -17,7 +17,8 @@ namespace LevelEditor {
         }
 
         public void LoadSaveData(EndPointData data) {
-            transform.position = data.Position;
+            _initialPosition = data.Position;
+            transform.position = _initialPosition;
         }
 
         public EndPointData ToSaveData() {

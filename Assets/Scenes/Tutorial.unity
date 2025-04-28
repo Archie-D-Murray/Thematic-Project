@@ -2148,6 +2148,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Camera Controller
       objectReference: {fileID: 0}
+    - target: {fileID: 4933570429626288726, guid: 8fda73df11246c444b3f44e19d92ce1b, type: 3}
+      propertyPath: _confiner
+      value: 
+      objectReference: {fileID: 4168171715184951630}
+    - target: {fileID: 4933570429626288726, guid: 8fda73df11246c444b3f44e19d92ce1b, type: 3}
+      propertyPath: _cameraBounds
+      value: 
+      objectReference: {fileID: 218569405}
     - target: {fileID: 5208939407323939566, guid: 8fda73df11246c444b3f44e19d92ce1b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.7683756
@@ -2188,11 +2196,36 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5902384841503648304, guid: 8fda73df11246c444b3f44e19d92ce1b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9060260957416382397, guid: 8fda73df11246c444b3f44e19d92ce1b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4168171715184951630}
   m_SourcePrefab: {fileID: 100100000, guid: 8fda73df11246c444b3f44e19d92ce1b, type: 3}
+--- !u!1 &4168171715184951629 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9060260957416382397, guid: 8fda73df11246c444b3f44e19d92ce1b, type: 3}
+  m_PrefabInstance: {fileID: 4168171715184951628}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4168171715184951630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4168171715184951629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f453f694addf4275988fac205bc91968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BoundingShape2D: {fileID: 0}
+  m_Damping: 0.5
+  m_MaxWindowSize: -1
+  m_Padding: 0
 --- !u!1001 &7090440629306745708
 PrefabInstance:
   m_ObjectHideFlags: 0

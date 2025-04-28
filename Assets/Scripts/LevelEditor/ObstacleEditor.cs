@@ -176,58 +176,64 @@ namespace LevelEditor {
             foreach (DoorData doorData in data.DoorData) {
                 Door door = Instantiate(_obstacleLookup[ObstacleType.Door].Prefab).GetComponent<Door>();
                 _placeables.Add(door);
-                door.LoadSaveData(doorData);
                 door.InitReferences();
+                door.LoadSaveData(doorData);
             }
             foreach (PlatformData platformData in data.PlatformData) {
                 MovingPlatform platform = Instantiate(_obstacleLookup[ObstacleType.Platform].Prefab).GetComponent<MovingPlatform>();
                 _placeables.Add(platform);
-                platform.LoadSaveData(platformData);
                 platform.InitReferences();
+                platform.LoadSaveData(platformData);
             }
             foreach (PlatformData platformData in data.DeathPlatformData) {
                 MovingPlatform platform = Instantiate(_obstacleLookup[ObstacleType.DeathPlatform].Prefab).GetComponent<MovingPlatform>();
                 _placeables.Add(platform);
-                platform.LoadSaveData(platformData);
                 platform.InitReferences();
+                platform.LoadSaveData(platformData);
             }
             foreach (PatrolEnemyData patrolEnemy in data.PatrolEnemies) {
                 PatrolEnemy patrol = Instantiate(_obstacleLookup[ObstacleType.PatrolEnemy].Prefab).GetComponentInChildren<PatrolEnemy>();
                 _placeables.Add(patrol);
-                patrol.LoadSaveData(patrolEnemy);
                 patrol.InitReferences();
+                patrol.LoadSaveData(patrolEnemy);
+            }
+            foreach (PatrolEnemyData slowEnemy in data.SlowedEnemies) {
+                PatrolEnemy slow = Instantiate(_obstacleLookup[ObstacleType.SlowEnemy].Prefab).GetComponentInChildren<PatrolEnemy>();
+                _placeables.Add(slow);
+                slow.InitReferences();
+                slow.LoadSaveData(slowEnemy);
             }
             foreach (StaticEnemyData flyingEnemy in data.FlyingEnemies) {
                 FlyingEnemy flying = Instantiate(_obstacleLookup[ObstacleType.FlyingEnemy].Prefab).GetComponent<FlyingEnemy>();
                 _placeables.Add(flying);
-                flying.LoadSaveData(flyingEnemy);
                 flying.InitReferences();
+                flying.LoadSaveData(flyingEnemy);
             }
             foreach (StaticEnemyData turretEnemy in data.TurretEnemies) {
                 TurretEnemy turret = Instantiate(_obstacleLookup[ObstacleType.TurretEnemy].Prefab).GetComponent<TurretEnemy>();
                 _placeables.Add(turret);
-                turret.LoadSaveData(turretEnemy);
                 turret.InitReferences();
+                turret.LoadSaveData(turretEnemy);
             }
             foreach (LaserData laserData in data.Lasers) {
                 Laser laser = Instantiate(_obstacleLookup[ObstacleType.Laser].Prefab).GetComponent<Laser>();
                 _placeables.Add(laser);
-                laser.LoadSaveData(laserData);
                 laser.InitReferences();
+                laser.LoadSaveData(laserData);
             }
             if (data.SpawnPoint != null) {
                 SpawnPoint spawnPoint = Instantiate(_obstacleLookup[ObstacleType.SpawnPoint].Prefab).GetComponent<SpawnPoint>();
                 _placeables.Add(spawnPoint);
-                spawnPoint.LoadSaveData(data.SpawnPoint);
                 spawnPoint.InitReferences();
+                spawnPoint.LoadSaveData(data.SpawnPoint);
                 _hasSpawnPoint = true;
                 UpdateSpawnPoint?.Invoke(_hasSpawnPoint);
             }
             if (data.EndPoint != null) {
                 EndPoint endPoint = Instantiate(_obstacleLookup[ObstacleType.EndPoint].Prefab).GetComponent<EndPoint>();
                 _placeables.Add(endPoint);
-                endPoint.LoadSaveData(data.EndPoint);
                 endPoint.InitReferences();
+                endPoint.LoadSaveData(data.EndPoint);
             }
             // TODO: Handle other obstacle types
             // // Assets/Scripts/SpawnPoint.cs

@@ -17,7 +17,6 @@ public static class Extensions {
 
     public const float FadeSpeed = 4.0f;
 
-
     /// <summary>
     /// Gets, or adds if doesn't contain a component
     /// </summary>

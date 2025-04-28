@@ -203,7 +203,7 @@ MonoBehaviour:
   attackRange: 5
   rb2D: {fileID: 0}
   spriteRenderer: {fileID: 0}
-  _collider: {fileID: 0}
+  _collider: {fileID: 834785234650061637}
   enemyProjectile: {fileID: 6153164565258812691, guid: 3ea229dfbde3c814b9ecb4913309b6b2, type: 3}
   projectileSpeed: 3
   attackTime: 2

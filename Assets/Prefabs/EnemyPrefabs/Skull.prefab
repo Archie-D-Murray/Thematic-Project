@@ -203,5 +203,5 @@ MonoBehaviour:
   attackRange: 4
   rb2D: {fileID: 0}
   spriteRenderer: {fileID: 0}
-  _collider: {fileID: 0}
+  _collider: {fileID: 1333672042108807026}
   speed: 1

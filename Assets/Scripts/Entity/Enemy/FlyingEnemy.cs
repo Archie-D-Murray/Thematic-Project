@@ -3,12 +3,22 @@ using System.Collections.Generic;
 
 using Data;
 
+using Entity.Player;
+
 using UnityEngine;
 
 public class FlyingEnemy : Enemy {
     [SerializeField] private float speed = 2;
 
     protected override Transform[] GetMoveables() {
+        if (!animator) {
+            InitAnimations();
+            animator = GetComponent<Animator>();
+            rb2D = GetComponent<Rigidbody2D>();
+            spriteRenderer = GetComponent<SpriteRenderer>();
+            _collider = GetComponent<BoxCollider2D>();
+            player = FindFirstObjectByType<PlayerController>().transform;
+        }
         return new Transform[] { transform };
     }
 

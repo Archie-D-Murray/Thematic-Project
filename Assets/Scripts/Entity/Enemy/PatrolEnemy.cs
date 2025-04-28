@@ -1,5 +1,7 @@
 using Data;
 
+using Entity.Player;
+
 using LevelEditor;
 
 using Tags.Obstacle;
@@ -16,6 +18,14 @@ public class PatrolEnemy : Enemy {
     protected override Transform[] GetMoveables() {
         if (!patrolPoints[0] || !patrolPoints[1]) {
             GetPositions();
+        }
+        if (!animator) {
+            InitAnimations();
+            animator = GetComponent<Animator>();
+            rb2D = GetComponent<Rigidbody2D>();
+            spriteRenderer = GetComponent<SpriteRenderer>();
+            _collider = GetComponent<BoxCollider2D>();
+            player = FindFirstObjectByType<PlayerController>().transform;
         }
         if (_pointRenderers == null || _pointRenderers.Length < 1) {
             _pointRenderers = new SpriteRenderer[2] { patrolPoints[0].GetComponent<SpriteRenderer>(), patrolPoints[1].GetComponent<SpriteRenderer>() };
@@ -56,7 +66,7 @@ public class PatrolEnemy : Enemy {
         if (IsInRange()) {
             SwitchState(EnemyState.Attack);
         }
-        Vector2 targetPosition = Vector2.MoveTowards(rb2D.position, patrolPoints[patrolIndex].position, speed * Time.fixedDeltaTime);
+        Vector2 targetPosition = Vector2.MoveTowards(transform.position, patrolPoints[patrolIndex].position, speed * Time.fixedDeltaTime);
         rb2D.MovePosition(targetPosition);
 
         if (Mathf.Abs(rb2D.position.x - patrolPoints[patrolIndex].position.x) <= 0.1f) {
@@ -81,7 +91,9 @@ public class PatrolEnemy : Enemy {
         animations = new EnemyAnimations(_isSlow ? "Slow" : "Goblin");
     }
     public void LoadSaveData(PatrolEnemyData data) {
+        _initialPosition = data.CurrentPosition;
         transform.position = data.CurrentPosition;
+        Debug.Log($"Data pos: {data.CurrentPosition} curr pos: {transform.position}");
         patrolPoints[0].position = data.Patrol1;
         patrolPoints[1].position = data.Patrol2;
     }

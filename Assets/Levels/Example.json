@@ -1,5 +1,5 @@
 {
-    "Name": "Test",
+    "Name": "Example",
     "ForegroundData": [
         {
             "ID": 6,
@@ -920,6 +920,78 @@
                 "y": 2,
                 "z": 0
             }
+        },
+        {
+            "ID": 0,
+            "Position": {
+                "x": -3,
+                "y": 3,
+                "z": 0
+            }
+        },
+        {
+            "ID": 1,
+            "Position": {
+                "x": -2,
+                "y": 3,
+                "z": 0
+            }
+        },
+        {
+            "ID": 2,
+            "Position": {
+                "x": -1,
+                "y": 3,
+                "z": 0
+            }
+        },
+        {
+            "ID": 5,
+            "Position": {
+                "x": -3,
+                "y": 2,
+                "z": 0
+            }
+        },
+        {
+            "ID": 6,
+            "Position": {
+                "x": -2,
+                "y": 2,
+                "z": 0
+            }
+        },
+        {
+            "ID": 7,
+            "Position": {
+                "x": -1,
+                "y": 2,
+                "z": 0
+            }
+        },
+        {
+            "ID": 10,
+            "Position": {
+                "x": -3,
+                "y": 1,
+                "z": 0
+            }
+        },
+        {
+            "ID": 11,
+            "Position": {
+                "x": -2,
+                "y": 1,
+                "z": 0
+            }
+        },
+        {
+            "ID": 12,
+            "Position": {
+                "x": -1,
+                "y": 1,
+                "z": 0
+            }
         }
     ],
     "BackgroundData": [
@@ -1116,7 +1188,7 @@
             }
         },
         {
-            "ID": 4,
+            "ID": 3,
             "Position": {
                 "x": 8,
                 "y": -3,
@@ -1124,7 +1196,7 @@
             }
         },
         {
-            "ID": 4,
+            "ID": 3,
             "Position": {
                 "x": 9,
                 "y": -3,
@@ -5412,47 +5484,60 @@
             }
         }
     ],
-    "DoorData": [
-        {
-            "DoorPosition": {
-                "x": 0.5,
-                "y": -1.5,
-                "z": 0.0
-            },
-            "ButtonPosition": {
-                "x": 4.5,
-                "y": -2.5,
-                "z": 0.0
-            },
-            "Open": false
-        }
-    ],
+    "DoorData": [],
     "PlatformData": [
         {
             "CurrentPosition": {
-                "x": -4.5,
-                "y": -0.5,
+                "x": 3.5,
+                "y": -3.5,
                 "z": 0.0
             },
             "Pos1": {
-                "x": -4.5,
+                "x": 3.5,
                 "y": 2.5,
                 "z": 0.0
             },
             "Pos2": {
-                "x": -4.5,
-                "y": -2.5,
+                "x": 3.5,
+                "y": -3.5,
                 "z": 0.0
             }
         }
     ],
     "DeathPlatformData": [],
     "PatrolEnemies": [],
+    "SlowedEnemies": [
+        {
+            "CurrentPosition": {
+                "x": 6.500473976135254,
+                "y": -2.5,
+                "z": 0.0
+            },
+            "Patrol1": {
+                "x": 5.5,
+                "y": -2.5,
+                "z": 0.0
+            },
+            "Patrol2": {
+                "x": 9.5,
+                "y": -2.5,
+                "z": 0.0
+            }
+        }
+    ],
     "FlyingEnemies": [],
+    "TurretEnemies": [],
     "Lasers": [],
     "SpawnPoint": {
         "Position": {
-            "x": 7.5,
+            "x": -6.5,
+            "y": -2.5,
+            "z": 0.0
+        }
+    },
+    "EndPoint": {
+        "Position": {
+            "x": 8.5,
             "y": 3.5,
             "z": 0.0
         }

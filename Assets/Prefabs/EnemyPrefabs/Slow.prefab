@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4581158691785209022}
   - component: {fileID: 4140704517016356560}
   - component: {fileID: 4859857570822396770}
+  - component: {fileID: 8623039518617764374}
   m_Layer: 9
   m_Name: Slow
   m_TagString: Untagged
@@ -158,7 +159,7 @@ MonoBehaviour:
   attackRange: 2
   rb2D: {fileID: 0}
   spriteRenderer: {fileID: 0}
-  _collider: {fileID: 0}
+  _collider: {fileID: 4859857570822396770}
   speed: 1
   patrolPoints:
   - {fileID: 661327202252037210}
@@ -210,6 +211,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.9563041, y: 1.5650334}
   m_EdgeRadius: 0
+--- !u!114 &8623039518617764374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3042671532868138455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d64f5d706c2932f48a2ad6edacbaa748, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5458423757433963474
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,7 +251,7 @@ Transform:
   m_GameObject: {fileID: 5458423757433963474}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.98, y: 0, z: 0}
+  m_LocalPosition: {x: -1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -455,7 +468,7 @@ Transform:
   m_GameObject: {fileID: 9081066727831311949}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.98, y: 0.9, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

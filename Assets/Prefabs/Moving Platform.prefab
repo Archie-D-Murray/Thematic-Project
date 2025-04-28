@@ -244,6 +244,7 @@ MonoBehaviour:
   _moveables: []
   _playing: 0
   _initialPosition: {x: 0, y: 0, z: 0}
+  platform: {fileID: 0}
   pos1: {fileID: 0}
   pos2: {fileID: 0}
   speed: 3
@@ -261,6 +262,7 @@ GameObject:
   - component: {fileID: 1255856214874480666}
   - component: {fileID: 1395424995923633653}
   - component: {fileID: 3765468641697161880}
+  - component: {fileID: 3385334362677007208}
   m_Layer: 8
   m_Name: Platform
   m_TagString: Untagged
@@ -405,7 +407,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4, y: 1}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &3765468641697161880
 MonoBehaviour:
@@ -417,5 +419,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b0475c6800e10b46b5fabbb61d9aec2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3385334362677007208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6944046725731286523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6fe8c807565e604bbeed2e8052dcb7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

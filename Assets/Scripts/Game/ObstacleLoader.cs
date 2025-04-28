@@ -25,57 +25,57 @@ namespace Game {
             }
             foreach (PlatformData platformData in data.PlatformData) {
                 MovingPlatform platform = Instantiate(_obstacleLookup[ObstacleType.Platform].Prefab).GetComponent<MovingPlatform>();
-                platform.LoadSaveData(platformData);
                 platform.InitReferences();
+                platform.LoadSaveData(platformData);
                 platform.EnterPlayMode();
             }
             foreach (PlatformData platformData in data.DeathPlatformData) {
                 MovingPlatform platform = Instantiate(_obstacleLookup[ObstacleType.DeathPlatform].Prefab).GetComponent<MovingPlatform>();
-                platform.LoadSaveData(platformData);
                 platform.InitReferences();
+                platform.LoadSaveData(platformData);
                 platform.EnterPlayMode();
             }
             foreach (PatrolEnemyData patrolEnemy in data.PatrolEnemies) {
                 PatrolEnemy patrol = Instantiate(_obstacleLookup[ObstacleType.PatrolEnemy].Prefab).GetComponentInChildren<PatrolEnemy>();
-                patrol.LoadSaveData(patrolEnemy);
                 patrol.InitReferences();
+                patrol.LoadSaveData(patrolEnemy);
                 patrol.EnterPlayMode();
             }
             foreach (PatrolEnemyData slowEnemy in data.SlowedEnemies) {
                 PatrolEnemy slow = Instantiate(_obstacleLookup[ObstacleType.SlowEnemy].Prefab).GetComponentInChildren<PatrolEnemy>();
-                slow.LoadSaveData(slowEnemy);
                 slow.InitReferences();
+                slow.LoadSaveData(slowEnemy);
                 slow.EnterPlayMode();
             }
             foreach (StaticEnemyData flyingEnemy in data.FlyingEnemies) {
                 FlyingEnemy flying = Instantiate(_obstacleLookup[ObstacleType.FlyingEnemy].Prefab).GetComponent<FlyingEnemy>();
-                flying.LoadSaveData(flyingEnemy);
                 flying.InitReferences();
+                flying.LoadSaveData(flyingEnemy);
                 flying.EnterPlayMode();
             }
             foreach (StaticEnemyData turretEnemy in data.TurretEnemies) {
                 TurretEnemy turret = Instantiate(_obstacleLookup[ObstacleType.TurretEnemy].Prefab).GetComponent<TurretEnemy>();
-                turret.LoadSaveData(turretEnemy);
                 turret.InitReferences();
+                turret.LoadSaveData(turretEnemy);
                 turret.EnterPlayMode();
             }
             foreach (LaserData laserData in data.Lasers) {
                 Laser laser = Instantiate(_obstacleLookup[ObstacleType.Laser].Prefab).GetComponent<Laser>();
-                laser.LoadSaveData(laserData);
                 laser.InitReferences();
+                laser.LoadSaveData(laserData);
                 laser.EnterPlayMode();
             }
             if (data.SpawnPoint != null) {
                 SpawnPoint spawnPoint = Instantiate(_obstacleLookup[ObstacleType.SpawnPoint].Prefab).GetComponent<SpawnPoint>();
-                spawnPoint.LoadSaveData(data.SpawnPoint);
                 spawnPoint.InitReferences();
+                spawnPoint.LoadSaveData(data.SpawnPoint);
                 spawnPoint.EnterPlayMode();
             }
             if (data.EndPoint != null) {
-                EndPoint spawnPoint = Instantiate(_obstacleLookup[ObstacleType.EndPoint].Prefab).GetComponent<EndPoint>();
-                spawnPoint.LoadSaveData(data.EndPoint);
-                spawnPoint.InitReferences();
-                spawnPoint.EnterPlayMode();
+                EndPoint endPoint = Instantiate(_obstacleLookup[ObstacleType.EndPoint].Prefab).GetComponent<EndPoint>();
+                endPoint.InitReferences();
+                endPoint.LoadSaveData(data.EndPoint);
+                endPoint.EnterPlayMode();
             }
         }
 

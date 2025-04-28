@@ -57,12 +57,12 @@ public class GameOverUI : MonoBehaviour {
     }
 
     public void Death() {
-        Title.text = "You Died!";
+        Title.text = "You died!";
         StartCoroutine(WaitForDeathAnimation(_playerController.DeathTime));
     }
 
     public void Win() {
-        Title.text = "You Win!";
+        Title.text = "You win!";
         _canvas.FadeCanvas(Extensions.FadeSpeed, false, this);
     }
 

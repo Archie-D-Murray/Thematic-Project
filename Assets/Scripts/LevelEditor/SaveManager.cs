@@ -15,6 +15,9 @@ namespace Data {
         public bool InitialSave = false;
 
         private void Start() {
+#if UNITY_EDITOR
+            Cursor.SetCursor(UnityEditor.PlayerSettings.defaultCursor, Vector2.zero, CursorMode.ForceSoftware);
+#endif
             if (!Directory.Exists(Path.Combine(Application.dataPath, _saveDirectory))) {
                 Directory.CreateDirectory(Path.Combine(Application.dataPath, _saveDirectory));
             }

@@ -38,9 +38,7 @@ public abstract class Enemy : Placeable {
         rb2D = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         _collider = GetComponent<BoxCollider2D>();
-
         player = FindFirstObjectByType<PlayerController>().transform;
-
         InitAnimations();
         InitReferences();
         SwitchState(InitialState());

@@ -78,6 +78,7 @@ namespace Entity.Player {
         [SerializeField] private GameObject dashEffect;
         private GameObject effectObject;
         void Start() {
+            transform.position = FindFirstObjectByType<SpawnPoint>().OrNull()?.transform.position ?? _fallbackPosition;
             _fallbackPosition = transform.position;
             _rb2D = GetComponent<Rigidbody2D>();
             _renderer = GetComponent<SpriteRenderer>();

@@ -6,13 +6,14 @@ using Data;
 
 using LevelEditor;
 
+using Tags;
 using Tags.Obstacle;
 
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class MovingPlatform : Placeable {
-    private Rigidbody2D platform;
+    [SerializeField] private Rigidbody2D platform;
     [SerializeField] private Transform pos1, pos2;
     private SpriteRenderer[] _pointRenderers;
     private Vector3 currTarget;
@@ -30,10 +31,7 @@ public class MovingPlatform : Placeable {
     }
 
     // Start is called before the first frame update
-    void Start() {
-        GetPositions();
-        _moveables = GetMoveables();
-        currTarget = pos1.position;
+    void Awake() {
         OnPlaceStart += PlacementStart;
         OnPlaceFinish += PlacementFinish;
     }
@@ -52,7 +50,7 @@ public class MovingPlatform : Placeable {
     }
 
     void GetPositions() {
-        platform = GetComponentInChildren<Rigidbody2D>();
+        platform = GetComponentInChildren<PlatformTag>().GetComponent<Rigidbody2D>();
         foreach (Transform child in transform) {
             if (child.gameObject.HasComponent<FirstPosition>()) {
                 pos1 = child;
@@ -60,6 +58,7 @@ public class MovingPlatform : Placeable {
                 pos2 = child;
             }
         }
+        currTarget = pos1.position;
     }
 
     // Update is called once per frame
@@ -80,7 +79,13 @@ public class MovingPlatform : Placeable {
 
     public void LoadSaveData(PlatformData data) {
         GetPositions();
-        platform.position = data.CurrentPosition;
+        _initialPosition = data.CurrentPosition;
+        platform.position = _initialPosition;
+        Debug.Log("Set child pos");
+        if (platform.transform.childCount > 0) {
+            platform.transform.GetChild(0).position = _initialPosition;
+        }
+        currTarget = data.Pos1;
         pos1.position = data.Pos1;
         pos2.position = data.Pos2;
     }
