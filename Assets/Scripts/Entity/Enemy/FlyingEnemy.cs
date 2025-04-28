@@ -31,11 +31,11 @@ public class FlyingEnemy : Enemy {
         animations = new EnemyAnimations("Skull");
     }
 
-    public void LoadSaveData(FlyingEnemyData data) {
+    public void LoadSaveData(StaticEnemyData data) {
         transform.position = data.CurrentPosition;
     }
 
-    public FlyingEnemyData ToSaveData() {
-        return new FlyingEnemyData(_initialPosition);
+    public StaticEnemyData ToSaveData() {
+        return new StaticEnemyData(_initialPosition);
     }
 }

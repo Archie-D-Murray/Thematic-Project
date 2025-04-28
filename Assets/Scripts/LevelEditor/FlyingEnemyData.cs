@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace Data {
     [Serializable]
-    public class FlyingEnemyData {
+    public class StaticEnemyData {
         public Vector3 CurrentPosition;
 
-        public FlyingEnemyData(Vector3 currentPosition) {
+        public StaticEnemyData(Vector3 currentPosition) {
             CurrentPosition = currentPosition;
         }
     }

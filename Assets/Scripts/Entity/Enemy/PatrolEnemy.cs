@@ -10,6 +10,7 @@ public class PatrolEnemy : Enemy {
     [SerializeField] private float speed = 2;
     [SerializeField] private Transform[] patrolPoints = new Transform[2];
     [SerializeField] private int patrolIndex;
+    [SerializeField] private bool _isSlow = false;
     private SpriteRenderer[] _pointRenderers;
 
     protected override Transform[] GetMoveables() {
@@ -47,12 +48,12 @@ public class PatrolEnemy : Enemy {
         PlayAnimation(animations.Walk);
     }
     protected override void Idle() {
-       SwitchState(EnemyState.Patrol);
+        SwitchState(EnemyState.Patrol);
     }
     protected override void Patrol() {
         if (!_playing || _isDead) { return; }
 
-        if(IsInRange()) {
+        if (IsInRange()) {
             SwitchState(EnemyState.Attack);
         }
         Vector2 targetPosition = Vector2.MoveTowards(rb2D.position, patrolPoints[patrolIndex].position, speed * Time.fixedDeltaTime);
@@ -66,7 +67,7 @@ public class PatrolEnemy : Enemy {
 
     protected override void Attack() {
         if (!_playing || _isDead) { return; }
-        if(!IsInRange()) {
+        if (!IsInRange()) {
             SwitchState(EnemyState.Idle);
         }
         spriteRenderer.flipX = player.position.x > rb2D.position.x;
@@ -77,7 +78,7 @@ public class PatrolEnemy : Enemy {
     }
 
     protected override void InitAnimations() {
-        animations = new EnemyAnimations("Goblin");
+        animations = new EnemyAnimations(_isSlow ? "Slow" : "Goblin");
     }
     public void LoadSaveData(PatrolEnemyData data) {
         transform.position = data.CurrentPosition;

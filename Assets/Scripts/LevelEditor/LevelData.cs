@@ -13,7 +13,9 @@ namespace Data {
         public List<PlatformData> PlatformData;
         public List<PlatformData> DeathPlatformData;
         public List<PatrolEnemyData> PatrolEnemies;
-        public List<FlyingEnemyData> FlyingEnemies;
+        public List<PatrolEnemyData> SlowedEnemies;
+        public List<StaticEnemyData> FlyingEnemies;
+        public List<StaticEnemyData> TurretEnemies;
         public List<LaserData> Lasers;
         public SpawnPointData SpawnPoint;
         public EndPointData EndPoint;
@@ -26,7 +28,9 @@ namespace Data {
             PlatformData = new List<PlatformData>();
             DeathPlatformData = new List<PlatformData>();
             PatrolEnemies = new List<PatrolEnemyData>();
-            FlyingEnemies = new List<FlyingEnemyData>();
+            SlowedEnemies = new List<PatrolEnemyData>();
+            FlyingEnemies = new List<StaticEnemyData>();
+            TurretEnemies = new List<StaticEnemyData>();
             Lasers = new List<LaserData>();
             SpawnPoint = new SpawnPointData(Vector3.zero);
             EndPoint = new EndPointData(Vector3.zero);

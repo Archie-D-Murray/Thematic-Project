@@ -104,11 +104,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _placeables: []
   _obstacleData:
+  - {fileID: 11400000, guid: fda35c7a76ba21f46a2fc2749dc07fd1, type: 2}
   - {fileID: 11400000, guid: 679346b23e6885d47ab92e5b3c433bea, type: 2}
+  - {fileID: 11400000, guid: 34f5d51d28ce7ce46b6f54fdc750f1cc, type: 2}
   - {fileID: 11400000, guid: a4282347798b7f1428722afda52fc47f, type: 2}
   - {fileID: 11400000, guid: 484806d864a94a2459a619404601b14e, type: 2}
-  - {fileID: 11400000, guid: 52873c0b7b7a1e047a320de8b16c55e5, type: 2}
   - {fileID: 11400000, guid: 479fcc0fdb18b8240ae09d7b130f7db7, type: 2}
+  - {fileID: 11400000, guid: 52873c0b7b7a1e047a320de8b16c55e5, type: 2}
+  - {fileID: 11400000, guid: 75e7face9a31d4a438b5248856d5d7d0, type: 2}
+  - {fileID: 11400000, guid: 52c779ed14db0074188ec01b8bbdc504, type: 2}
+  - {fileID: 11400000, guid: 43a60cbaa317ae640985ec4717f2b0cc, type: 2}
   _obstacleMask:
     serializedVersion: 2
     m_Bits: 0
@@ -118,6 +123,7 @@ MonoBehaviour:
   _index: 0
   _canvas: {fileID: 0}
   _hasSpawnPoint: 0
+  _gracePeriod: 0.75
 --- !u!114 &3775174994863737956
 MonoBehaviour:
   m_ObjectHideFlags: 0

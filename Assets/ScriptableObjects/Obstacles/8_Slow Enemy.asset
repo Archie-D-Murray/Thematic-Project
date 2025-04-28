@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90c94c6106a5d6e448705a510fc4dc81, type: 3}
+  m_Name: 8_Slow Enemy
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 9081066727831311949, guid: 90c38b458b9969241b2463828b87c929, type: 3}
+  Key: 56
+  Sprite: {fileID: -721096201, guid: 4426cd379d4f7fc41bd634cc5b4c5133, type: 3}
+  KeySprite: {fileID: 601257743, guid: 4281ef7646461954a98c337c88e48531, type: 3}
+  Obstacle: 9

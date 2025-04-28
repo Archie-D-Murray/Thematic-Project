@@ -1233,34 +1233,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Obstacle Editor
       objectReference: {fileID: 0}
-    - target: {fileID: 8362166818115885956, guid: f32730dce0e30a046aee91a8d1add729, type: 3}
-      propertyPath: _obstacleData.Array.size
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8362166818115885956, guid: f32730dce0e30a046aee91a8d1add729, type: 3}
-      propertyPath: _obstacleData.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 34f5d51d28ce7ce46b6f54fdc750f1cc, type: 2}
-    - target: {fileID: 8362166818115885956, guid: f32730dce0e30a046aee91a8d1add729, type: 3}
-      propertyPath: _obstacleData.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: a4282347798b7f1428722afda52fc47f, type: 2}
-    - target: {fileID: 8362166818115885956, guid: f32730dce0e30a046aee91a8d1add729, type: 3}
-      propertyPath: _obstacleData.Array.data[3]
-      value: 
-      objectReference: {fileID: 11400000, guid: 484806d864a94a2459a619404601b14e, type: 2}
-    - target: {fileID: 8362166818115885956, guid: f32730dce0e30a046aee91a8d1add729, type: 3}
-      propertyPath: _obstacleData.Array.data[4]
-      value: 
-      objectReference: {fileID: 11400000, guid: 479fcc0fdb18b8240ae09d7b130f7db7, type: 2}
-    - target: {fileID: 8362166818115885956, guid: f32730dce0e30a046aee91a8d1add729, type: 3}
-      propertyPath: _obstacleData.Array.data[5]
-      value: 
-      objectReference: {fileID: 11400000, guid: 52873c0b7b7a1e047a320de8b16c55e5, type: 2}
-    - target: {fileID: 8362166818115885956, guid: f32730dce0e30a046aee91a8d1add729, type: 3}
-      propertyPath: _obstacleData.Array.data[6]
-      value: 
-      objectReference: {fileID: 11400000, guid: fda35c7a76ba21f46a2fc2749dc07fd1, type: 2}
     m_RemovedComponents:
     - {fileID: 3808995444374767404, guid: f32730dce0e30a046aee91a8d1add729, type: 3}
     m_RemovedGameObjects: []

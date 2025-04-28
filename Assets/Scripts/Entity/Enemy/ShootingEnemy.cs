@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+
 using Data;
 
 using UnityEngine;
@@ -9,8 +10,7 @@ using Utilities;
 using static Enemy;
 using static UnityEngine.ParticleSystem;
 
-public class ShootingEnemy : Enemy
-{
+public class TurretEnemy : Enemy {
     [SerializeField] private GameObject enemyProjectile;
     [SerializeField] private float projectileSpeed = 5;
     private CountDownTimer attackTimer = new CountDownTimer(0f);
@@ -47,19 +47,19 @@ public class ShootingEnemy : Enemy
     }
 
     protected override void Idle() {
-        if(IsInRange())
-        SwitchState(EnemyState.Attack);
+        if (IsInRange())
+            SwitchState(EnemyState.Attack);
     }
 
     protected override void InitAnimations() {
         animations = new EnemyAnimations("Turret");
     }
 
-    public void LoadSaveData(FlyingEnemyData data) {
+    public void LoadSaveData(StaticEnemyData data) {
         transform.position = data.CurrentPosition;
     }
 
-    public FlyingEnemyData ToSaveData() {
-        return new FlyingEnemyData(_initialPosition);
+    public StaticEnemyData ToSaveData() {
+        return new StaticEnemyData(_initialPosition);
     }
 }
