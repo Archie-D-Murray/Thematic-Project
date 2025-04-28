@@ -33,6 +33,7 @@ public class GameOverUI : MonoBehaviour {
         MenuButton.onClick.AddListener(() => Menu());
         _playerController = FindFirstObjectByType<PlayerController>();
         _playerController.OnDeath += Death;
+        _playerController.OnWin += Win;
         _currentScene = SceneManager.GetActiveScene().buildIndex;
         if (_currentScene != LevelIndex.Game) {
             EditorManager.Instance.OnPlay += CloseOnEditorMode;

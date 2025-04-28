@@ -1453,6 +1453,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5086686934568449513, guid: 4022e0c4246b2e37ca562e9e81e475a5, type: 3}
+      propertyPath: _obstacleData.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5086686934568449513, guid: 4022e0c4246b2e37ca562e9e81e475a5, type: 3}
+      propertyPath: _obstacleData.Array.data[7]
+      value: 
+      objectReference: {fileID: 11400000, guid: 0287de22b9954f7488f2409b9206f6e0, type: 2}
     - target: {fileID: 7146831805697211154, guid: 4022e0c4246b2e37ca562e9e81e475a5, type: 3}
       propertyPath: m_SpriteState.m_DisabledSprite
       value: 
