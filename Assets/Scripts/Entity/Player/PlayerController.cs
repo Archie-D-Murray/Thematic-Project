@@ -54,8 +54,9 @@ namespace Entity.Player {
 
         float input;
         private int currentAnimation;
-        float _deathAnimationLength;
+        [SerializeField] float _deathAnimationLength;
         public float DeathTime => _deathAnimationLength;
+        private bool _isDead;
 
         [SerializeField] private CountDownTimer _dashTimer = new CountDownTimer(0f);
 
@@ -91,7 +92,7 @@ namespace Entity.Player {
         }
 
         void Update() {
-            if (!_isPlaying) { return; }
+            if (!_isPlaying || _isDead) { return; }
             if (_canJump && !_isJumping) {
                 if (Input.GetButtonDown("Jump")) {
                     jumpPressed = true;
@@ -103,7 +104,7 @@ namespace Entity.Player {
         }
 
         void FixedUpdate() {
-            if (!_isPlaying) { return; }
+            if (!_isPlaying || _isDead) { return; }
             _isGrounded = GetGrounded();
 
 
@@ -245,6 +246,7 @@ namespace Entity.Player {
 
         public void Death() {
             PlayAnimation(PlayerAnimations.Death);
+            _isDead = true;
             OnDeath?.Invoke();
         }
 
@@ -254,6 +256,7 @@ namespace Entity.Player {
 
         public void PlayerReset() {
             _isPlaying = true;
+            _isDead = false;
             transform.position = FindFirstObjectByType<SpawnPoint>().OrNull()?.transform.position ?? _fallbackPosition;
             _rb2D.velocity = Vector2.zero;
             _rb2D.gravityScale = 1.0f;

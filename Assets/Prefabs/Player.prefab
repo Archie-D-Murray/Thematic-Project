@@ -146,6 +146,7 @@ MonoBehaviour:
   coyoteTimeDuration: 0.2
   _isDashing: 0
   _coyoteTimeTrigger: 0
+  _deathAnimationLength: 0
   _dashTimer:
     _initialTime: 0
     _time: 0
@@ -203,7 +204,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.00000014901161, y: -0.026452154}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -214,5 +215,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.65234464, y: 1.0529041}
   m_EdgeRadius: 0
