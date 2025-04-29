@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-
 using Data;
 
 using LevelEditor;
@@ -8,12 +5,12 @@ using LevelEditor;
 using UnityEngine;
 
 public class Door : Placeable {
-    [SerializeField] bool open;
-    SpriteRenderer doorSprite;
-    BoxCollider2D doorCollider;
+    [SerializeField] bool _open;
+    [SerializeField] private Sprite _openDoorSprite;
+    [SerializeField] private Sprite _closedDoorSprite;
+    private SpriteRenderer _doorSprite;
+    private BoxCollider2D _doorCollider;
     private DoorButton _button;
-    [SerializeField] private Sprite openDoorSprite;
-    [SerializeField] private Sprite closedDoorSprite;
 
     public DoorButton Button {
         get {
@@ -29,10 +26,10 @@ public class Door : Placeable {
     }
 
     private void Awake() {
-        open = false;
+        _open = false;
         _button = GetComponentInChildren<DoorButton>();
-        doorSprite = GetComponentInChildren<SpriteRenderer>();
-        doorCollider = GetComponentInChildren<BoxCollider2D>();
+        _doorSprite = GetComponentInChildren<SpriteRenderer>();
+        _doorCollider = GetComponentInChildren<BoxCollider2D>();
     }
 
     private void Start() {
@@ -40,27 +37,27 @@ public class Door : Placeable {
     }
 
     public void Toggle() {
-        open = !open;
+        _open = !_open;
     }
 
     private void Update() {
-        if (open) {
-            doorSprite.sprite = closedDoorSprite;
-            doorCollider.enabled = false;
+        if (_open) {
+            _doorSprite.sprite = _closedDoorSprite;
+            _doorCollider.enabled = false;
         } else {
-            doorSprite.sprite = openDoorSprite;
-            doorCollider.enabled = true;
+            _doorSprite.sprite = _openDoorSprite;
+            _doorCollider.enabled = true;
         }
     }
 
     public DoorData ToSaveData() {
-        return new DoorData(_initialPosition, _button.transform.position, open);
+        return new DoorData(_initialPosition, _button.transform.position, _open);
     }
 
     public void LoadSaveData(DoorData data) {
         transform.position = data.DoorPosition;
         _button.transform.position = data.ButtonPosition;
-        if (data.Open != open) {
+        if (data.Open != _open) {
             Toggle();
         }
     }

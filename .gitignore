@@ -86,4 +86,5 @@ Assets/Plugins/CodeAssist/
 # Unity crash files
 *.blob
 Demo.mov
+*.mp4
 Recordings/Tutorial.mp4

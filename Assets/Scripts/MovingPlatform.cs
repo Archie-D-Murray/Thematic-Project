@@ -31,7 +31,7 @@ public class MovingPlatform : Placeable {
     }
 
     // Start is called before the first frame update
-    void Awake() {
+    private void Awake() {
         OnPlaceStart += PlacementStart;
         OnPlaceFinish += PlacementFinish;
     }
