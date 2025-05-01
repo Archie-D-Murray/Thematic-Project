@@ -91,7 +91,7 @@ namespace LevelEditor {
         [SerializeField] private KeyCode _toggleTilemap = KeyCode.Space;
 
         [SerializeField] private CanvasGroup _tilemapSelection;
-        [SerializeField] private PolygonCollider2D _cameraBounds;
+        [SerializeField] private CameraBoundsManager _boundsManager;
 
         private SpriteRenderer _indicator;
         private Image _selection;
@@ -129,23 +129,11 @@ namespace LevelEditor {
             _indicator.gameObject.SetActive(false);
             _selection.gameObject.SetActive(false);
             _tilemapSelection.FadeCanvas(100.0f, true, this);
-        }
-
-        private void UpdateBounds() {
-            Vector3Int min = _tilemapData[0].Tilemap.cellBounds.min;
-            Vector3Int max = _tilemapData[0].Tilemap.cellBounds.max;
-            foreach (TilemapData data in _tilemapData) {
-                Debug.Log($"{data.Type}: Bounds: min: {data.Tilemap.cellBounds.min}, max: {data.Tilemap.cellBounds.max}");
-                min = Vector3Int.Min(data.Tilemap.cellBounds.min, min);
-                max = Vector3Int.Max(data.Tilemap.cellBounds.max, max);
-            }
-            Debug.Log($"Found bounds: min: {min}, max {max}");
-            _cameraBounds.SetPath(0, new Vector2[] {
-                new Vector2(min.x, min.y),
-                new Vector2(min.x, max.y),
-                new Vector2(max.x, max.y),
-                new Vector2(max.x, min.y),
-            });
+            EditorManager.Instance.OnPlay += (PlayState mode) => {
+                if (mode != PlayState.Exit) {
+                    _boundsManager.UpdateBounds();
+                }
+            };
         }
 
         private void ToggleTilemap() {
@@ -184,6 +172,7 @@ namespace LevelEditor {
             _indicator.gameObject.SetActive(false);
             _selection.gameObject.SetActive(false);
             _tilemapSelection.FadeCanvas(Extensions.FadeSpeed, true, this);
+            _boundsManager.UpdateBounds();
         }
 
         public void Open() {
@@ -270,7 +259,7 @@ namespace LevelEditor {
                     continue;
                 }
             }
-            UpdateBounds();
+            _boundsManager.UpdateBounds();
         }
 
         private void AddExistingTiles() {
