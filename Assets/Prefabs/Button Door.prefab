@@ -185,9 +185,9 @@ MonoBehaviour:
   _moveables: []
   _playing: 0
   _initialPosition: {x: 0, y: 0, z: 0}
-  open: 0
-  openDoorSprite: {fileID: -989995604, guid: 103121d74352ebb44972966dd8f1b4c7, type: 3}
-  closedDoorSprite: {fileID: -190486301, guid: 103121d74352ebb44972966dd8f1b4c7, type: 3}
+  _open: 0
+  _openDoorSprite: {fileID: -190486301, guid: 103121d74352ebb44972966dd8f1b4c7, type: 3}
+  _closedDoorSprite: {fileID: -989995604, guid: 103121d74352ebb44972966dd8f1b4c7, type: 3}
 --- !u!212 &8944912899059480856
 SpriteRenderer:
   m_ObjectHideFlags: 0
